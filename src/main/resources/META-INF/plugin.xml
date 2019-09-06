@@ -98,6 +98,13 @@
             <!--<action id="mybatis.generator_2" class="com.ccnode.codegenerator.view.GenCodeAction" text="genCode2" description="A test menu item2"/>-->
 
     <!--</group>-->
+
+    <group popup="true" id="com.caoyc.mybatis.generator" text="摩登大圣" description="MyBatisTools">
+      <action id="GenerateMapperAction" class="action.GenerateApplication" text="GenerateMapperAction" description="GenerateMapperAction"/>
+      <add-to-group group-id="ProjectViewPopupMenu" anchor="last"/>
+      <add-to-group group-id="EditorPopupMenu" anchor="last"/>
+      <add-to-group group-id="ChangesViewPopupMenu" anchor="last"/>
+    </group>
 </actions>
 
   <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/build_number_ranges.html for description -->
