@@ -310,4 +310,8 @@ public class ObjectFactory {
 
         return answer;
     }
+
+    public static void setExternalClassLoader(ClassLoader classLoader) {
+        externalClassLoaders.add(classLoader);
+    }
 }

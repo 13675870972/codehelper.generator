@@ -1,20 +1,36 @@
 package action;
 
 import action.dialog.Dialog;
+import com.ccnode.codegenerator.util.JSONUtil;
 import com.ccnode.codegenerator.util.LoggerWrapper;
 import com.intellij.openapi.actionSystem.AnAction;
 import com.intellij.openapi.actionSystem.AnActionEvent;
 import com.intellij.openapi.actionSystem.PlatformDataKeys;
 import com.intellij.openapi.editor.Editor;
 import com.intellij.openapi.project.Project;
+import com.intellij.openapi.ui.Messages;
 import com.intellij.openapi.vfs.VirtualFile;
 import com.intellij.psi.*;
 import com.intellij.psi.javadoc.PsiDocComment;
 import com.intellij.psi.javadoc.PsiDocTag;
 import com.intellij.psi.util.PsiUtilBase;
+import org.mybatis.generator.api.ShellRunner;
+import org.mybatis.generator.config.Configuration;
+import org.mybatis.generator.config.Context;
+import org.mybatis.generator.config.JDBCConnectionConfiguration;
+import org.mybatis.generator.config.xml.ConfigurationParser;
+import org.mybatis.generator.internal.ObjectFactory;
+import org.mybatis.generator.internal.db.ConnectionFactory;
+import org.mybatis.generator.internal.util.ClassloaderUtility;
 import org.slf4j.Logger;
 
+import java.sql.Connection;
+import java.sql.DatabaseMetaData;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
 
 /**
@@ -24,6 +40,7 @@ import java.util.List;
  */
 public class GenerateApplication extends AnAction {
     private static final Logger log = LoggerWrapper.getLogger(GenerateApplication.class);
+
     @Override
     public void actionPerformed(AnActionEvent event) {
         System.err.println("启动...");
@@ -34,97 +51,94 @@ public class GenerateApplication extends AnAction {
         VirtualFile configurationFile = event.getData(PlatformDataKeys.VIRTUAL_FILE);
 
 
-
         //获取类的信息
-        String basePath = project.getBasePath();
-        System.out.println(String.format("basePath == %s", basePath));
+//        String basePath = project.getBasePath();
+//        System.out.println(String.format("basePath == %s", basePath));
+//
+//        String classPath = new StringBuilder(basePath).append("/src/main/java/dao/RoleVODao.java").toString();
+//
+////        VirtualFile vf = VirtualFileManager.getInstance().findFileByUrl("file://" + classPath);
+//
+//        PsiJavaFile file = (PsiJavaFile) PsiUtilBase.getPsiFileInEditor(editor,project);
+//
+//        PsiClass[] classes = file.getClasses();
+//
+//        Arrays.asList(classes).forEach(e->{
+//            String name = e.getName();
+////            System.err.println(String.format("filename == %s",name));
+//
+//            PsiField[] allFields = e.getAllFields();
+//
+//            Arrays.asList(allFields).forEach(f -> {
+//                System.err.println(String.format("FieldName == %s", f.getName()));
+//            });
+//
+//            PsiMethod[] allMethods = e.getMethods();
+//
+//            Arrays.asList(allMethods).forEach(m -> {
+//                System.err.println(String.format("MethodName == %s", m.getName()));
+//                PsiDocComment docComment = m.getDocComment();
+//
+//                PsiDocTag[] tags = docComment.getTags();
+//                Arrays.asList(tags).forEach(t -> {
+//                    System.err.println(String.format("tags == %s", t.getName()));
+//                });
+//
+//                PsiParameterList parameterList = m.getParameterList();
+//                System.err.println(parameterList.toString());
+//
+//                String canonicalText = m.getReturnType().getCanonicalText();
+//
+//                System.err.println(String.format("canonicalText == %s",canonicalText));
+//
+//            });
+//
+//        });
 
-        String classPath = new StringBuilder(basePath).append("/src/main/java/dao/RoleVODao.java").toString();
-
-//        VirtualFile vf = VirtualFileManager.getInstance().findFileByUrl("file://" + classPath);
-
-        PsiJavaFile file = (PsiJavaFile) PsiUtilBase.getPsiFileInEditor(editor,project);
-
-        PsiClass[] classes = file.getClasses();
-
-        Arrays.asList(classes).forEach(e->{
-            String name = e.getName();
-//            System.err.println(String.format("filename == %s",name));
-
-            PsiField[] allFields = e.getAllFields();
-
-            Arrays.asList(allFields).forEach(f -> {
-                System.err.println(String.format("FieldName == %s", f.getName()));
-            });
-
-            PsiMethod[] allMethods = e.getMethods();
-
-            Arrays.asList(allMethods).forEach(m -> {
-                System.err.println(String.format("MethodName == %s", m.getName()));
-                PsiDocComment docComment = m.getDocComment();
-
-                PsiDocTag[] tags = docComment.getTags();
-                Arrays.asList(tags).forEach(t -> {
-                    System.err.println(String.format("tags == %s", t.getName()));
-                });
-
-                PsiParameterList parameterList = m.getParameterList();
-                System.err.println(parameterList.toString());
-
-                String canonicalText = m.getReturnType().getCanonicalText();
-
-                System.err.println(String.format("canonicalText == %s",canonicalText));
-
-            });
-
-        });
-
-
+        //解析配置
+        List<String> warnings = new ArrayList<String>();
+        ConfigurationParser cp = new ConfigurationParser(warnings);
+        Configuration config = null;
         try {
+            config = cp.parseConfiguration(configurationFile.getInputStream());
+        } catch (Exception e) {
+            log.error("{}", e);
+            e.printStackTrace();
+            Messages.showErrorDialog("配置有误.", "错误");
+        }
 
+        //设置连接
+        List<Context> contexts = config.getContexts();
+        Context context = contexts.get(0);
+        JDBCConnectionConfiguration jdbcConnectionConfiguration = context.getJdbcConnectionConfiguration();
+        ClassLoader classLoader = ClassloaderUtility.getCustomClassloader(config.getClassPathEntries());
+        ObjectFactory.setExternalClassLoader(classLoader);
+
+        //获取全部表的表名列表并展示对话框
+        List<String> tables = new ArrayList<>();
+        try {
+            Connection connection = ConnectionFactory.getInstance().getConnection(jdbcConnectionConfiguration);
+            DatabaseMetaData metaData = connection.getMetaData();
+            ResultSet rs = metaData.getTables(null, null, null, new String[]{"TABLE"});
+            while (rs.next()) {
+                tables.add(rs.getString(3));
+            }
             System.err.println("画面弹出...");
-
-            List<String> tables = Arrays.asList("aaa", "bbb");
 
             Dialog dialog = new Dialog(project, tables);
 
             if (dialog.showAndGet()) {
-                String[] strings = dialog.getTables().toArray(new String[0]);
-                System.err.println(String.format("checked tables == %s", strings));
+                System.err.println(String.format("checked tables == %s", dialog.getTables()));
+                //根据选择的表格生成文件
+                ShellRunner.run(project, config, new HashSet<>(dialog.getTables()));
+                Messages.showErrorDialog("恭喜你生成数据库表成功.", "成功");
             }
-
         } catch (Exception e) {
             e.printStackTrace();
+            Messages.showErrorDialog("连接数据库失败.", "错误");
         }
 
-
-//        List<String> warnings = new ArrayList<String>();
-//        ConfigurationParser cp = new ConfigurationParser(warnings);
-//        Configuration config = null;
-//        try {
-//            config = cp.parseConfiguration(configurationFile.getInputStream());
-//            System.err.println(config);
-//        } catch (Exception e) {
-//            log.error("{}",e);
-//            e.printStackTrace();
-//            Messages.showErrorDialog("该文件格式不支持.", "错误");
-//        }
-//
-//        List<Context> contexts = config.getContexts();
-//        System.err.println(contexts);
-//
-//
-//        //根据配置连接数据库
-//
-//
-//        //生成对话框界面
-//
-//        System.err.println("开始...");
-//        GenerateMapperDialog dialog = new GenerateMapperDialog(project, null);
-//        dialog.show();
-//        System.err.println("结束...");
     }
-
 
 
 }

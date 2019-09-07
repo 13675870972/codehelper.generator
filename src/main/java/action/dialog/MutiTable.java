@@ -35,6 +35,7 @@ public class MutiTable extends JTable implements MouseListener {
 
     @Override
     public void mouseClicked(MouseEvent e) {
+        System.err.println("点击了");
         if (e.getSource() == getTableHeader()) {
             boolean isSelected = !this.checkHeader.isSelected();
             this.checkHeader.setSelected(isSelected);

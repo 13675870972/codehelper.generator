@@ -15,6 +15,7 @@
  */
 package org.mybatis.generator.api;
 
+import com.intellij.openapi.project.Project;
 import org.mybatis.generator.config.Configuration;
 import org.mybatis.generator.config.xml.ConfigurationParser;
 import org.mybatis.generator.exception.InvalidConfigurationException;
@@ -44,99 +45,82 @@ public class ShellRunner {
     private static final String HELP_1 = "-?"; //$NON-NLS-1$
     private static final String HELP_2 = "-h"; //$NON-NLS-1$
 
-    public static void main(String[] str) {
-    	//此处写死参数
-    	String[] args = {CONFIG_FILE, "generatorConfig.xml", OVERWRITE};
+    public static void run(Project project, Configuration config, Set<String> fullyqualifiedTables) {
 
-        if (args.length == 0) {
-            usage();
-            System.exit(0);
-            return; // only to satisfy compiler, never returns
-        }
-
-        Map<String, String> arguments = parseCommandLine(args);
-
-        if (arguments.containsKey(HELP_1)) {
-            usage();
-            System.exit(0);
-            return; // only to satisfy compiler, never returns
-        }
-
-        if (!arguments.containsKey(CONFIG_FILE)) {
-            writeLine(getString("RuntimeError.0")); //$NON-NLS-1$
-            return;
-        }
-
+//        //此处写死参数
+//        String[] args = {CONFIG_FILE, "generatorConfig.xml", OVERWRITE};
+//
+//        if (args.length == 0) {
+//            usage();
+//            System.exit(0);
+//            return; // only to satisfy compiler, never returns
+//        }
+//
+//        Map<String, String> arguments = parseCommandLine(args);
+//
+//        if (arguments.containsKey(HELP_1)) {
+//            usage();
+//            System.exit(0);
+//            return; // only to satisfy compiler, never returns
+//        }
+//
+//        if (!arguments.containsKey(CONFIG_FILE)) {
+//            writeLine(getString("RuntimeError.0")); //$NON-NLS-1$
+//            return;
+//        }
+//
         List<String> warnings = new ArrayList<String>();
-
-//        String configfile = arguments.get(CONFIG_FILE);
-        String configfile = "/Users/cyc/java/workspace/codehelper.generator/generatorConfig.xml";
-        File configurationFile = new File(configfile);
-        if (!configurationFile.exists()) {
-            writeLine(getString("RuntimeError.1", configfile)); //$NON-NLS-1$
-            return;
-        }
-
-        Set<String> fullyqualifiedTables = new HashSet<String>();
-        if (arguments.containsKey(TABLES)) {
-            StringTokenizer st = new StringTokenizer(arguments.get(TABLES), ","); //$NON-NLS-1$
-            while (st.hasMoreTokens()) {
-                String s = st.nextToken().trim();
-                if (s.length() > 0) {
-                    fullyqualifiedTables.add(s);
-                }
-            }
-        }
-
+//
+////        String configfile = arguments.get(CONFIG_FILE);
+//        String configfile = "/Users/cyc/java/workspace/codehelper.generator/generatorConfig.xml";
+//        File configurationFile = new File(configfile);
+//        if (!configurationFile.exists()) {
+//            writeLine(getString("RuntimeError.1", configfile)); //$NON-NLS-1$
+//            return;
+//        }
+//
+//        Set<String> fullyqualifiedTables = new HashSet<String>();
+//        if (arguments.containsKey(TABLES)) {
+//            StringTokenizer st = new StringTokenizer(arguments.get(TABLES), ","); //$NON-NLS-1$
+//            while (st.hasMoreTokens()) {
+//                String s = st.nextToken().trim();
+//                if (s.length() > 0) {
+//                    fullyqualifiedTables.add(s);
+//                }
+//            }
+//        }
+//
         Set<String> contexts = new HashSet<String>();
-        if (arguments.containsKey(CONTEXT_IDS)) {
-            StringTokenizer st = new StringTokenizer(
-                    arguments.get(CONTEXT_IDS), ","); //$NON-NLS-1$
-            while (st.hasMoreTokens()) {
-                String s = st.nextToken().trim();
-                if (s.length() > 0) {
-                    contexts.add(s);
-                }
-            }
-        }
+//        if (arguments.containsKey(CONTEXT_IDS)) {
+//            StringTokenizer st = new StringTokenizer(
+//                    arguments.get(CONTEXT_IDS), ","); //$NON-NLS-1$
+//            while (st.hasMoreTokens()) {
+//                String s = st.nextToken().trim();
+//                if (s.length() > 0) {
+//                    contexts.add(s);
+//                }
+//            }
+//        }
 
         try {
-            ConfigurationParser cp = new ConfigurationParser(warnings);
-            Configuration config = cp.parseConfiguration(configurationFile);
+//            ConfigurationParser cp = new ConfigurationParser(warnings);
+//            Configuration config = cp.parseConfiguration(configurationFile);
 
-            DefaultShellCallback shellCallback = new DefaultShellCallback(
-                    arguments.containsKey(OVERWRITE));
+            DefaultShellCallback shellCallback = new DefaultShellCallback(false);
 
             MyBatisGenerator myBatisGenerator = new MyBatisGenerator(config, shellCallback, warnings);
 
-            ProgressCallback progressCallback = arguments.containsKey(VERBOSE) ? new VerboseProgressCallback()
-                    : null;
+            ProgressCallback progressCallback = new VerboseProgressCallback();
 
             myBatisGenerator.generate(progressCallback, contexts, fullyqualifiedTables);
 
-        } catch (XMLParserException e) {
+        } catch (Exception e) {
             writeLine(getString("Progress.3")); //$NON-NLS-1$
             writeLine();
-            for (String error : e.getErrors()) {
-                writeLine(error);
-            }
-
+//            for (String error : e.getErrors()) {
+//                writeLine(error);
+//            }
             return;
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return;
-        } catch (IOException e) {
-            e.printStackTrace();
-            return;
-        } catch (InvalidConfigurationException e) {
-            writeLine(getString("Progress.16")); //$NON-NLS-1$
-            for (String error : e.getErrors()) {
-                writeLine(error);
-            }
-            return;
-        } catch (InterruptedException e) {
-            // ignore (will never happen with the DefaultShellCallback)
-            ;
         }
 
         for (String warning : warnings) {
