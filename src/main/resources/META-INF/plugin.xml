@@ -1,7 +1,7 @@
 <idea-plugin version="2">
   <id>com.ccnode.codegenerator.mybatis.generator</id>
-  <name>codehelper.generator</name>
-  <version>2018.12.14</version>
+  <name>caoyc.mybatis.generatorHelper</name>
+  <version>2019.09.09</version>
   <vendor email="zhengjunbase@gmail.com" url="http://www.codehelper.me/generator">CodeHelper</vendor>
 
   <description><![CDATA[
@@ -99,8 +99,8 @@
 
     <!--</group>-->
 
-    <group popup="true" id="com.caoyc.mybatis.generator" text="摩登大圣" description="MyBatisTools">
-      <action id="GenerateMapperAction" class="action.GenerateApplication" text="GenerateMapperAction" description="GenerateMapperAction"/>
+    <group popup="true" id="com.caoyc.mybatis.generator" text="代码生成助手" description="MyBatisTools">
+      <action id="GenerateMapperAction" class="action.GenerateApplication" text="无中生有" description="GenerateMapperAction"/>
       <add-to-group group-id="ProjectViewPopupMenu" anchor="last"/>
       <add-to-group group-id="EditorPopupMenu" anchor="last"/>
       <add-to-group group-id="ChangesViewPopupMenu" anchor="last"/>

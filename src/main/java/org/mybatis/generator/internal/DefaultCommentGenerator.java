@@ -33,7 +33,6 @@ import static org.mybatis.generator.internal.util.StringUtility.isTrue;
 
 /**
  * @author Jeff Butler
- * 
  */
 public class DefaultCommentGenerator implements CommentGenerator {
 
@@ -52,12 +51,12 @@ public class DefaultCommentGenerator implements CommentGenerator {
      * add File Doc
      */
     public void addJavaFileComment(CompilationUnit compilationUnit) {
-    	compilationUnit.addFileCommentLine("/*");
-    	compilationUnit.addFileCommentLine(" * @ClassName " + compilationUnit.getType().getShortName());
-    	compilationUnit.addFileCommentLine(" * @Description ");
-    	compilationUnit.addFileCommentLine(" * @version 1.0");
-    	compilationUnit.addFileCommentLine(" * @Date " + new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
-    	compilationUnit.addFileCommentLine(" */");
+        compilationUnit.addFileCommentLine("/*");
+        compilationUnit.addFileCommentLine(" * @ClassName " + compilationUnit.getType().getShortName());
+        compilationUnit.addFileCommentLine(" * @Description ");
+        compilationUnit.addFileCommentLine(" * @version 1.0");
+        compilationUnit.addFileCommentLine(" * @Date " + new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
+        compilationUnit.addFileCommentLine(" */");
     }
 
     /**
@@ -100,7 +99,7 @@ public class DefaultCommentGenerator implements CommentGenerator {
 
         suppressDate = isTrue(properties
                 .getProperty(PropertyRegistry.COMMENT_GENERATOR_SUPPRESS_DATE));
-        
+
         suppressAllComments = isTrue(properties
                 .getProperty(PropertyRegistry.COMMENT_GENERATOR_SUPPRESS_ALL_COMMENTS));
     }
@@ -110,12 +109,11 @@ public class DefaultCommentGenerator implements CommentGenerator {
      * not wish to include the Javadoc tag - however, if you do not include the
      * Javadoc tag then the Java merge capability of the eclipse plugin will
      * break.
-     * 
-     * @param javaElement
-     *            the java element
+     *
+     * @param javaElement the java element
      */
     protected void addJavadocTag(JavaElement javaElement,
-            boolean markAsDoNotDelete) {
+                                 boolean markAsDoNotDelete) {
         javaElement.addJavaDocLine(" *"); //$NON-NLS-1$
         StringBuilder sb = new StringBuilder();
         sb.append(" * "); //$NON-NLS-1$
@@ -135,7 +133,7 @@ public class DefaultCommentGenerator implements CommentGenerator {
      * This method returns a formated date string to include in the Javadoc tag
      * and XML comments. You may return null if you do not want the date in
      * these documentation elements.
-     * 
+     *
      * @return a string representing the current timestamp, or null
      */
     protected String getDateString() {
@@ -165,12 +163,12 @@ public class DefaultCommentGenerator implements CommentGenerator {
 //        addJavadocTag(innerClass, false);
 //
 //        innerClass.addJavaDocLine(" */"); //$NON-NLS-1$
-    	
-    	innerClass.addJavaDocLine("/**");
-    	innerClass.addJavaDocLine(" * @Description ");
-    	innerClass.addJavaDocLine(" * @version 1.0");
-    	innerClass.addJavaDocLine(" * @Date " + new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
-    	innerClass.addJavaDocLine(" */");
+
+        innerClass.addJavaDocLine("/**");
+        innerClass.addJavaDocLine(" * @Description ");
+        innerClass.addJavaDocLine(" * @version 1.0");
+        innerClass.addJavaDocLine(" * @Date " + new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
+        innerClass.addJavaDocLine(" */");
     }
 
     /**
@@ -221,9 +219,9 @@ public class DefaultCommentGenerator implements CommentGenerator {
 //        addJavadocTag(field, false);
 //
 //        field.addJavaDocLine(" */"); //$NON-NLS-1$
-        
+
         field.addJavaDocLine("/**");
-        field.addJavaDocLine(" * @Fields "+field.getName()+" "+introspectedColumn.getRemarks());
+        field.addJavaDocLine(" * " + MergeConstants.NEW_ELEMENT_TAG + " " + introspectedColumn.getRemarks());
         field.addJavaDocLine(" */");
     }
 
@@ -269,7 +267,7 @@ public class DefaultCommentGenerator implements CommentGenerator {
         addJavadocTag(method, false);
 
         method.addJavaDocLine(" */"); //$NON-NLS-1$
-        
+
 //        method.addJavaDocLine("/**");
 //        method.addJavaDocLine(" * @Title " + method.getName());
 //        for (Parameter parameter : method.getParameters()) {
@@ -375,11 +373,11 @@ public class DefaultCommentGenerator implements CommentGenerator {
 //        addJavadocTag(innerClass, markAsDoNotDelete);
 //
 //        innerClass.addJavaDocLine(" */"); //$NON-NLS-1$
-    	
-    	innerClass.addJavaDocLine("/**");
-    	innerClass.addJavaDocLine(" * @Description ");
-    	innerClass.addJavaDocLine(" * @version 1.0");
-    	innerClass.addJavaDocLine(" * @Date " + new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
-    	innerClass.addJavaDocLine(" */");
+
+        innerClass.addJavaDocLine("/**");
+        innerClass.addJavaDocLine(" * @Description ");
+        innerClass.addJavaDocLine(" * @version 1.0");
+        innerClass.addJavaDocLine(" * @Date " + new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
+        innerClass.addJavaDocLine(" */");
     }
 }
