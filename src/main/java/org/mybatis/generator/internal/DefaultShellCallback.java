@@ -124,7 +124,6 @@ public class DefaultShellCallback implements ShellCallback {
      */
     @Override
     public String mergeJavaFile(AnActionEvent event, GeneratedJavaFile newFile, String existingFileFullPath, String[] javadocTags, String fileEncoding) throws ShellException {
-        System.err.println("开始合并...");
         Project project = event.getData(PlatformDataKeys.PROJECT);
 
         String source = null;
@@ -136,8 +135,6 @@ public class DefaultShellCallback implements ShellCallback {
             //老文件
             PsiJavaFile file = (PsiJavaFile) PsiUtilBase.getPsiFile(project, vf);
             PsiClass psiClass = file.getClasses()[0];
-
-            System.err.println(("file:" + psiClass.getContainingFile().getName() + ",path:" + psiClass.getContainingFile().getVirtualFile().getPath()));
 
             GeneratedJavaFile mergerFile = null;
 
@@ -164,7 +161,6 @@ public class DefaultShellCallback implements ShellCallback {
             newFile.getCompilationUnit().getFileCommentLines().forEach(s -> finalCompilationUnit.addFileCommentLine(s));
 
             if (finalCompilationUnit instanceof TopLevelClass) {
-                System.err.println(finalCompilationUnit.getType().getShortName() + "是实体类");
 
                 //如果是实体类
                 TopLevelClass topLevelClass = (TopLevelClass) finalCompilationUnit;
@@ -178,19 +174,12 @@ public class DefaultShellCallback implements ShellCallback {
                     PsiDocComment docComment = is.getDocComment();
                     String text = docComment.getText();
                     PsiDocTag[] tags = docComment.getTags();
-                    System.err.println(tags == null);
-                    System.err.println(tags.length);
                     Arrays.asList(tags).forEach(e -> {
-                        System.err.println("name == " + e.getName());
-                        System.err.println("text == " + e.getText());
                     });
 
-                    System.err.println("----------------------");
                     if (is.getDocComment() != null && is.getDocComment().getTags() != null && is.getDocComment().getTags().length > 0) {
-                        System.err.println(tags[0].getText() + " 被过滤...");
                         return false;
                     }
-                    System.err.println("docComment == " + text);
 
                     return true;
                 }).forEach(is -> {
@@ -206,7 +195,6 @@ public class DefaultShellCallback implements ShellCallback {
                 });
                 newFileClass.getMethods().stream().forEach(s -> topLevelClass.addMethod(s));
             } else if (finalCompilationUnit instanceof Interface) {
-                System.err.println(finalCompilationUnit.getType().getShortName() + "是接口");
 
                 //如果是接口，则整合新文件中的所有方法
                 Interface finalInterface = (Interface) finalCompilationUnit;
@@ -221,9 +209,6 @@ public class DefaultShellCallback implements ShellCallback {
                         if (pm.getDocComment() != null && pm.getDocComment().getTags() != null && pm.getDocComment().getTags().length > 0) {
                             return false;
                         }
-
-                        System.err.println("pm.getDocComment() == " + pm.getDocComment().getText() + "贝选出来了...");
-
                         return true;
                     }).forEach(pm -> {
                         Method method = new Method();
@@ -235,18 +220,11 @@ public class DefaultShellCallback implements ShellCallback {
                         }
 
                         Arrays.stream(pm.getParameterList().getParameters()).forEach(e -> {
-                            System.err.println("getParameters == " + e.getText());
                             String canonicalText = e.getType().getCanonicalText();
-                            System.err.println("e.getType().getCanonicalText() == " + canonicalText);
                             PsiElement[] children = e.getChildren();
-                            Arrays.asList(children).forEach(o -> {
-                                System.err.println("children == "+o.getText());
 
-                            });
                             Parameter parameter = new Parameter(new FullyQualifiedJavaType(e.getType().getCanonicalText()), e.getName());
                             Arrays.asList(e.getAnnotations()).forEach(annotation->{
-                                System.err.println("annotation.getQualifiedName() == " + annotation.getQualifiedName());
-                                System.err.println("annotation.getText() == " + annotation.getText());
                                 parameter.addAnnotation(annotation.getText());
 
                             });
@@ -256,7 +234,6 @@ public class DefaultShellCallback implements ShellCallback {
 
                         Arrays.stream(pm.getThrowsList().getReferencedTypes()).forEach(e->{
                             String className = e.getClassName();
-                            System.err.println("addException == " + className);
                             FullyQualifiedJavaType fullyQualifiedJavaType = new FullyQualifiedJavaType(e.getClassName());
                             method.addException(fullyQualifiedJavaType);
                         });

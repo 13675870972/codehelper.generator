@@ -46,7 +46,6 @@ public class GenerateApplication extends AnAction {
 
     @Override
     public void actionPerformed(AnActionEvent event) {
-        System.err.println("启动...");
         //获取配置
         Project project = event.getData(PlatformDataKeys.PROJECT);
         VirtualFile configurationFile = event.getData(PlatformDataKeys.VIRTUAL_FILE);
@@ -54,45 +53,6 @@ public class GenerateApplication extends AnAction {
 
         //获取类的信息
         String basePath = project.getBasePath();
-//        String classPath = new StringBuilder(basePath).append("/src/main/java/dao/RoleVODao.java").toString();
-
-//        VirtualFile vf = VirtualFileManager.getInstance().findFileByUrl("file://" + classPath);
-
-//        PsiJavaFile file = (PsiJavaFile) PsiUtilBase.getPsiFileInEditor(editor,project);
-//
-//        PsiClass[] classes = file.getClasses();
-
-//        Arrays.asList(classes).forEach(e->{
-//            String name = e.getName();
-////            System.err.println(String.format("filename == %s",name));
-//
-//            PsiField[] allFields = e.getAllFields();
-//
-//            Arrays.asList(allFields).forEach(f -> {
-//                System.err.println(String.format("FieldName == %s", f.getName()));
-//            });
-//
-//            PsiMethod[] allMethods = e.getMethods();
-//
-//            Arrays.asList(allMethods).forEach(m -> {
-//                System.err.println(String.format("MethodName == %s", m.getName()));
-//                PsiDocComment docComment = m.getDocComment();
-//
-//                PsiDocTag[] tags = docComment.getTags();
-//                Arrays.asList(tags).forEach(t -> {
-//                    System.err.println(String.format("tags == %s", t.getName()));
-//                });
-//
-//                PsiParameterList parameterList = m.getParameterList();
-//                System.err.println(parameterList.toString());
-//
-//                String canonicalText = m.getReturnType().getCanonicalText();
-//
-//                System.err.println(String.format("canonicalText == %s",canonicalText));
-//
-//            });
-//
-//        });
 
         //解析配置
         List<String> warnings = new ArrayList<String>();
@@ -123,7 +83,6 @@ public class GenerateApplication extends AnAction {
             while (rs.next()) {
                 tables.add(rs.getString(3));
             }
-            System.err.println("画面弹出...");
 
             //设置数据库所有待生成表格的配置
             tables.forEach(e->{
@@ -138,7 +97,6 @@ public class GenerateApplication extends AnAction {
             Dialog dialog = new Dialog(project, tables);
 
             if (dialog.showAndGet()) {
-                System.err.println(String.format("checked tables == %s", dialog.getTables()));
                 //根据选择的表格生成文件
                 ShellRunner.run(event, config, new HashSet<>(dialog.getTables()));
                 Messages.showErrorDialog("恭喜你生成数据库表成功.", "成功");

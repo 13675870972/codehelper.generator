@@ -33,23 +33,18 @@ public class NullProgressCallback implements ProgressCallback {
     }
 
     public void generationStarted(int totalTasks) {
-        System.err.println("开始生成..." + totalTasks);
     }
 
     public void introspectionStarted(int totalTasks) {
-        System.err.println("开始自检..."+totalTasks);
     }
 
     public void saveStarted(int totalTasks) {
-        System.err.println("开始保存..."+totalTasks);
     }
 
     public void startTask(String taskName) {
-        System.err.println("开启任务..."+taskName);
     }
 
     public void checkCancel() throws InterruptedException {
-        System.err.println("取消");
     }
 
     public void done() {

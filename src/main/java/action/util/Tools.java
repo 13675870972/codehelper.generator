@@ -75,25 +75,18 @@ public class Tools {
 
         if (contexts != null && contexts.size() > 0 && contexts.get(0) != null) {
             Context context = contexts.get(0);
-            System.err.println("path == " + path);
 
             JavaClientGeneratorConfiguration clientConfig = context.getJavaClientGeneratorConfiguration();
-            System.err.println("getTargetProject == " + clientConfig.getTargetProject());
             String clientPath = Tools.formatRelativePath(path, clientConfig.getTargetProject());
             clientConfig.setTargetProject(clientPath);
-            System.err.println("clientPath == " + clientPath);
 
             JavaModelGeneratorConfiguration modelConfig = context.getJavaModelGeneratorConfiguration();
-            System.err.println("getTargetProject == " + modelConfig.getTargetProject());
             String modelPath = Tools.formatRelativePath(path, modelConfig.getTargetProject());
             modelConfig.setTargetProject(modelPath);
-            System.err.println("modelPath == " + modelPath);
 
             SqlMapGeneratorConfiguration sqlConfig = context.getSqlMapGeneratorConfiguration();
-            System.err.println("getTargetProject == " + sqlConfig.getTargetProject());
             String sqlPath = Tools.formatRelativePath(path, sqlConfig.getTargetProject());
             sqlConfig.setTargetProject(sqlPath);
-            System.err.println("sqlPath == " + sqlPath);
 
             //权限控制，暂时省略
             boolean c = true;
@@ -106,7 +99,6 @@ public class Tools {
     }
 
     public static void main(String[] args) throws Exception {
-        System.err.println(Tools.formatRelativePath("/aaa","bbb"));
     }
 
 }
