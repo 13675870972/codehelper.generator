@@ -61,6 +61,13 @@ public class ClassloaderUtility {
             }
         }
 
+        URL url = null;
+        try {
+            url = new URL("https://repo.souche-inc.com/repository/public/mysql/mysql-connector-java/5.1.30/mysql-connector-java-5.1.30.jar");
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+        urls.add(url);
         ClassLoader parent = Thread.currentThread().getContextClassLoader();
 
         URLClassLoader ucl = new URLClassLoader(urls.toArray(new URL[urls
