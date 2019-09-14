@@ -41,6 +41,7 @@ public class ParserEntityResolver implements EntityResolver {
      * @see org.xml.sax.EntityResolver#resolveEntity(java.lang.String,
      * java.lang.String)
      */
+    @Override
     public InputSource resolveEntity(String publicId, String systemId)
             throws SAXException, IOException {
 //        if (XmlConstants.IBATOR_CONFIG_PUBLIC_ID.equalsIgnoreCase(publicId)) {
@@ -62,10 +63,7 @@ public class ParserEntityResolver implements EntityResolver {
 //            return null;
 //        }
         System.err.println("重新设置");
-        InputStream is = getClass()
-                .getClassLoader()
-                .getResourceAsStream(
-                        "mybatis-generator-config_1_0.dtd"); //$NON-NLS-1$
+        InputStream is = getClass().getClassLoader().getResourceAsStream("mybatis-generator-config_1_0.dtd"); //$NON-NLS-1$
         InputSource ins = new InputSource(is);
 
         return ins;

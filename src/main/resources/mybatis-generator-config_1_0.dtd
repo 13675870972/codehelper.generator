@@ -17,16 +17,16 @@
 <!--
   This DTD defines the structure of the MyBatis generator configuration file.
   Configuration files should declare the DOCTYPE as follows:
-  
+
   <!DOCTYPE generatorConfiguration PUBLIC
     "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
     "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
-  
+
   Please see the documentation included with MyBatis generator for details on each option
   in the DTD.  You may also view documentation on-line here:
-  
+
   http://mybatis.org/docs/generator
-  
+
 -->
 
 <!--
@@ -49,7 +49,7 @@
   tables.
 -->
 <!ELEMENT context (property*, plugin*, commentGenerator?, jdbcConnection, javaTypeResolver?,
-                         javaModelGenerator, sqlMapGenerator?, javaClientGenerator?, table+)>
+                         javaModelGenerator, sqlMapGenerator?, javaClientGenerator?)>
 <!ATTLIST context id ID #REQUIRED
   defaultModelType CDATA #IMPLIED
   targetRuntime CDATA #IMPLIED
@@ -139,70 +139,70 @@
   The table element is used to specify a database table that will be the source information
   for a set of generated objects.
 -->
-<!ELEMENT table (property*, generatedKey?, columnRenamingRule?, (columnOverride | ignoreColumn)*) >
-<!ATTLIST table
-  catalog CDATA #IMPLIED
-  schema CDATA #IMPLIED
-  tableName CDATA #REQUIRED
-  alias CDATA #IMPLIED
-  domainObjectName CDATA #IMPLIED
-  enableInsert CDATA #IMPLIED
-  enableSelectByPrimaryKey CDATA #IMPLIED
-  enableSelectByExample CDATA #IMPLIED
-  enableUpdateByPrimaryKey CDATA #IMPLIED
-  enableDeleteByPrimaryKey CDATA #IMPLIED
-  enableDeleteByExample CDATA #IMPLIED
-  enableCountByExample CDATA #IMPLIED
-  enableUpdateByExample CDATA #IMPLIED
-  selectByPrimaryKeyQueryId CDATA #IMPLIED
-  selectByExampleQueryId CDATA #IMPLIED
-  modelType CDATA #IMPLIED
-  escapeWildcards CDATA #IMPLIED
-  delimitIdentifiers CDATA #IMPLIED
-  delimitAllColumns CDATA #IMPLIED>
+<!--<!ELEMENT table (property*, generatedKey?, columnRenamingRule?, (columnOverride | ignoreColumn)*) >-->
+<!--<!ATTLIST table-->
+<!--  catalog CDATA #IMPLIED-->
+<!--  schema CDATA #IMPLIED-->
+<!--  tableName CDATA #REQUIRED-->
+<!--  alias CDATA #IMPLIED-->
+<!--  domainObjectName CDATA #IMPLIED-->
+<!--  enableInsert CDATA #IMPLIED-->
+<!--  enableSelectByPrimaryKey CDATA #IMPLIED-->
+<!--  enableSelectByExample CDATA #IMPLIED-->
+<!--  enableUpdateByPrimaryKey CDATA #IMPLIED-->
+<!--  enableDeleteByPrimaryKey CDATA #IMPLIED-->
+<!--  enableDeleteByExample CDATA #IMPLIED-->
+<!--  enableCountByExample CDATA #IMPLIED-->
+<!--  enableUpdateByExample CDATA #IMPLIED-->
+<!--  selectByPrimaryKeyQueryId CDATA #IMPLIED-->
+<!--  selectByExampleQueryId CDATA #IMPLIED-->
+<!--  modelType CDATA #IMPLIED-->
+<!--  escapeWildcards CDATA #IMPLIED-->
+<!--  delimitIdentifiers CDATA #IMPLIED-->
+<!--  delimitAllColumns CDATA #IMPLIED>-->
 
 <!--
   The columnOverride element is used to change certain attributes of the column
   from their default values.
 -->
-<!ELEMENT columnOverride (property*)>
-<!ATTLIST columnOverride
-  column CDATA #REQUIRED
-  property CDATA #IMPLIED
-  javaType CDATA #IMPLIED
-  jdbcType CDATA #IMPLIED
-  typeHandler CDATA #IMPLIED
-  delimitedColumnName CDATA #IMPLIED>
+<!--<!ELEMENT columnOverride (property*)>-->
+<!--<!ATTLIST columnOverride-->
+<!--  column CDATA #REQUIRED-->
+<!--  property CDATA #IMPLIED-->
+<!--  javaType CDATA #IMPLIED-->
+<!--  jdbcType CDATA #IMPLIED-->
+<!--  typeHandler CDATA #IMPLIED-->
+<!--  delimitedColumnName CDATA #IMPLIED>-->
 
 <!--
   The ignoreColumn element is used to identify a column that should be ignored.
   No generated SQL will refer to the column, and no property will be generated
   for the column in the model objects.
 -->
-<!ELEMENT ignoreColumn EMPTY>
-<!ATTLIST ignoreColumn
-  column CDATA #REQUIRED
-  delimitedColumnName CDATA #IMPLIED>
+<!--<!ELEMENT ignoreColumn EMPTY>-->
+<!--<!ATTLIST ignoreColumn-->
+<!--  column CDATA #REQUIRED-->
+<!--  delimitedColumnName CDATA #IMPLIED>-->
 
 <!--
   The generatedKey element is used to identify a column in the table whose value
   is calculated - either from a sequence (or some other query), or as an identity column.
 -->
-<!ELEMENT generatedKey EMPTY>
-<!ATTLIST generatedKey
-  column CDATA #REQUIRED
-  sqlStatement CDATA #REQUIRED
-  identity CDATA #IMPLIED
-  type CDATA #IMPLIED>
+<!--<!ELEMENT generatedKey EMPTY>-->
+<!--<!ATTLIST generatedKey-->
+<!--  column CDATA #REQUIRED-->
+<!--  sqlStatement CDATA #REQUIRED-->
+<!--  identity CDATA #IMPLIED-->
+<!--  type CDATA #IMPLIED>-->
 
 <!--
   The columnRenamingRule element is used to specify a rule for renaming
   columns before the corresponding property name is calculated
 -->
-<!ELEMENT columnRenamingRule EMPTY>
-<!ATTLIST columnRenamingRule
-  searchString CDATA #REQUIRED
-  replaceString CDATA #IMPLIED>
+<!--<!ELEMENT columnRenamingRule EMPTY>-->
+<!--<!ATTLIST columnRenamingRule-->
+<!--  searchString CDATA #REQUIRED-->
+<!--  replaceString CDATA #IMPLIED>-->
 
 <!--
   The commentGenerator element is used to define properties of the Comment Generator.

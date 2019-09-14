@@ -82,13 +82,14 @@ public class TableConfiguration extends PropertyHolder {
         ignoredColumns = new HashMap<IgnoredColumn, Boolean>();
 
         insertStatementEnabled = true;
-        selectByPrimaryKeyStatementEnabled = true;
-        selectByExampleStatementEnabled = true;
         updateByPrimaryKeyStatementEnabled = true;
-        deleteByPrimaryKeyStatementEnabled = true;
-        deleteByExampleStatementEnabled = true;
-        countByExampleStatementEnabled = true;
-        updateByExampleStatementEnabled = true;
+        selectByPrimaryKeyStatementEnabled = true;
+
+        selectByExampleStatementEnabled = false;
+        deleteByPrimaryKeyStatementEnabled = false;
+        deleteByExampleStatementEnabled = false;
+        countByExampleStatementEnabled = false;
+        updateByExampleStatementEnabled = false;
     }
 
     public boolean isDeleteByPrimaryKeyStatementEnabled() {

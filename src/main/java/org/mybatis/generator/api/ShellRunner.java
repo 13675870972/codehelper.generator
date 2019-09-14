@@ -15,6 +15,9 @@
  */
 package org.mybatis.generator.api;
 
+import com.intellij.openapi.actionSystem.AnActionEvent;
+import com.intellij.openapi.actionSystem.PlatformDataKeys;
+import com.intellij.openapi.editor.Editor;
 import com.intellij.openapi.project.Project;
 import org.mybatis.generator.config.Configuration;
 import org.mybatis.generator.config.xml.ConfigurationParser;
@@ -45,7 +48,7 @@ public class ShellRunner {
     private static final String HELP_1 = "-?"; //$NON-NLS-1$
     private static final String HELP_2 = "-h"; //$NON-NLS-1$
 
-    public static void run(Project project, Configuration config, Set<String> fullyqualifiedTables) {
+    public static void run(AnActionEvent event, Configuration config, Set<String> fullyqualifiedTables) {
 
 //        //此处写死参数
 //        String[] args = {CONFIG_FILE, "generatorConfig.xml", OVERWRITE};
@@ -106,15 +109,16 @@ public class ShellRunner {
 //            ConfigurationParser cp = new ConfigurationParser(warnings);
 //            Configuration config = cp.parseConfiguration(configurationFile);
 
-            DefaultShellCallback shellCallback = new DefaultShellCallback(false);
+            DefaultShellCallback shellCallback = new DefaultShellCallback(true);
 
             MyBatisGenerator myBatisGenerator = new MyBatisGenerator(config, shellCallback, warnings);
 
             ProgressCallback progressCallback = new VerboseProgressCallback();
 
-            myBatisGenerator.generate(progressCallback, contexts, fullyqualifiedTables);
+            myBatisGenerator.generate(event, progressCallback, contexts, fullyqualifiedTables);
 
         } catch (Exception e) {
+            e.printStackTrace();
             writeLine(getString("Progress.3")); //$NON-NLS-1$
             writeLine();
 //            for (String error : e.getErrors()) {

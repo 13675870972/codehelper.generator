@@ -1,6 +1,7 @@
 package action;
 
 import action.dialog.Dialog;
+import action.util.Tools;
 import com.ccnode.codegenerator.util.JSONUtil;
 import com.ccnode.codegenerator.util.LoggerWrapper;
 import com.intellij.openapi.actionSystem.AnAction;
@@ -10,6 +11,7 @@ import com.intellij.openapi.editor.Editor;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.ui.Messages;
 import com.intellij.openapi.vfs.VirtualFile;
+import com.intellij.openapi.vfs.VirtualFileManager;
 import com.intellij.psi.*;
 import com.intellij.psi.javadoc.PsiDocComment;
 import com.intellij.psi.javadoc.PsiDocTag;
@@ -18,6 +20,7 @@ import org.mybatis.generator.api.ShellRunner;
 import org.mybatis.generator.config.Configuration;
 import org.mybatis.generator.config.Context;
 import org.mybatis.generator.config.JDBCConnectionConfiguration;
+import org.mybatis.generator.config.TableConfiguration;
 import org.mybatis.generator.config.xml.ConfigurationParser;
 import org.mybatis.generator.internal.ObjectFactory;
 import org.mybatis.generator.internal.db.ConnectionFactory;
@@ -46,23 +49,19 @@ public class GenerateApplication extends AnAction {
         System.err.println("启动...");
         //获取配置
         Project project = event.getData(PlatformDataKeys.PROJECT);
-        Editor editor = event.getData(PlatformDataKeys.EDITOR);
-
         VirtualFile configurationFile = event.getData(PlatformDataKeys.VIRTUAL_FILE);
-
+        String path = configurationFile.getPath().substring(0, configurationFile.getPath().lastIndexOf("/src"));
 
         //获取类的信息
-//        String basePath = project.getBasePath();
-//        System.out.println(String.format("basePath == %s", basePath));
-//
+        String basePath = project.getBasePath();
 //        String classPath = new StringBuilder(basePath).append("/src/main/java/dao/RoleVODao.java").toString();
-//
-////        VirtualFile vf = VirtualFileManager.getInstance().findFileByUrl("file://" + classPath);
-//
+
+//        VirtualFile vf = VirtualFileManager.getInstance().findFileByUrl("file://" + classPath);
+
 //        PsiJavaFile file = (PsiJavaFile) PsiUtilBase.getPsiFileInEditor(editor,project);
 //
 //        PsiClass[] classes = file.getClasses();
-//
+
 //        Arrays.asList(classes).forEach(e->{
 //            String name = e.getName();
 ////            System.err.println(String.format("filename == %s",name));
@@ -114,6 +113,7 @@ public class GenerateApplication extends AnAction {
         ClassLoader classLoader = ClassloaderUtility.getCustomClassloader(config.getClassPathEntries());
         ObjectFactory.setExternalClassLoader(classLoader);
 
+
         //获取全部表的表名列表并展示对话框
         List<String> tables = new ArrayList<>();
         try {
@@ -125,17 +125,27 @@ public class GenerateApplication extends AnAction {
             }
             System.err.println("画面弹出...");
 
+            //设置数据库所有待生成表格的配置
+            tables.forEach(e->{
+                TableConfiguration tc = new TableConfiguration(context);
+                context.addTableConfiguration(tc);
+                tc.setTableName(e);
+            });
+
+            //纠正targetProject
+            Tools.formatTargetPath(config, path);
+
             Dialog dialog = new Dialog(project, tables);
 
             if (dialog.showAndGet()) {
                 System.err.println(String.format("checked tables == %s", dialog.getTables()));
                 //根据选择的表格生成文件
-                ShellRunner.run(project, config, new HashSet<>(dialog.getTables()));
+                ShellRunner.run(event, config, new HashSet<>(dialog.getTables()));
                 Messages.showErrorDialog("恭喜你生成数据库表成功.", "成功");
             }
         } catch (Exception e) {
             e.printStackTrace();
-            Messages.showErrorDialog("连接数据库失败.", "错误");
+            Messages.showErrorDialog("配置有误.", "错误");
         }
 
     }

@@ -141,7 +141,7 @@ public class GeneratorAntTask extends Task {
 
             MyBatisGenerator myBatisGenerator = new MyBatisGenerator(config, callback, warnings);
 
-            myBatisGenerator.generate(new AntProgressCallback(this, verbose), contexts,
+            myBatisGenerator.generate(null,new AntProgressCallback(this, verbose), contexts,
                     fullyqualifiedTables);
 
         } catch (XMLParserException e) {

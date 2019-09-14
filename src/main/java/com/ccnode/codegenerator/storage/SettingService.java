@@ -22,7 +22,7 @@ import java.util.UUID;
  * Created by zhengjun.du on 2016/07/05 14:26
  */
 
-@State(name="SettingService", storages={@Storage(id="other", file="$APP_CONFIG$/codeHelper.xml")})
+@State(name="SettingService", storages={@Storage(file="$APP_CONFIG$/codeHelper.xml")})
 public class SettingService implements PersistentStateComponent<SettingDto> {
 
      SettingDto settingDto;

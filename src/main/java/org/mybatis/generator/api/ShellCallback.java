@@ -15,6 +15,8 @@
  */
 package org.mybatis.generator.api;
 
+import com.intellij.openapi.actionSystem.AnActionEvent;
+import com.intellij.openapi.project.Project;
 import org.mybatis.generator.exception.ShellException;
 
 import java.io.File;
@@ -102,7 +104,7 @@ public interface ShellCallback {
      *             existing file will remain undisturbed. The generator will add the
      *             exception message to the list of warnings automatically.
      */
-    String mergeJavaFile(String newFileSource, String existingFileFullPath,
+    String mergeJavaFile(AnActionEvent event, GeneratedJavaFile gjf, String existingFileFullPath,
                          String[] javadocTags, String fileEncoding) throws ShellException;
 
     /**

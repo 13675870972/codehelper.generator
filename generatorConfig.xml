@@ -45,11 +45,11 @@
 		<table tableName="recruit_member" domainObjectName="RecruitMember" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
 		<table tableName="recruit" domainObjectName="Recruit" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
 		 -->
-		<table schema="demo_shiro" tableName="t_role" domainObjectName="RoleVO" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
-			 <generatedKey column="id" sqlStatement="MySql" identity="true"/>
-		</table>
+<!--		<table schema="demo_shiro" tableName="t_role" domainObjectName="RoleVO" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">-->
+<!--			 <generatedKey column="id" sqlStatement="MySql" identity="true"/>-->
+<!--		</table>-->
 
-        <table schema="demo_shiro" tableName="t_permission" domainObjectName="PermissionVO" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
+        <table schema="demo_shiro" tableName="%" domainObjectName="PermissionVO" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
             <generatedKey column="id" sqlStatement="MySql" identity="true"/>
         </table>
 

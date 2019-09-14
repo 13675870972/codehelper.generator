@@ -84,7 +84,7 @@ public class Context extends PropertyHolder {
         super();
 
         if (defaultModelType == null) {
-            this.defaultModelType = ModelType.CONDITIONAL;
+            this.defaultModelType = ModelType.FLAT;
         } else {
             this.defaultModelType = defaultModelType;
         }

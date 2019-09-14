@@ -16,6 +16,9 @@
 package org.mybatis.generator.api;
 
 import org.mybatis.generator.api.dom.java.CompilationUnit;
+import org.mybatis.generator.api.dom.java.FullyQualifiedJavaType;
+
+import java.util.Set;
 
 /**
  * @author Jeff Butler
@@ -43,10 +46,14 @@ public class GeneratedJavaFile extends GeneratedFile {
                              JavaFormatter javaFormatter) {
         this(compilationUnit, targetProject, null, javaFormatter);
     }
-    
+
+    public GeneratedJavaFile(CompilationUnit compilationUnit,
+                             String targetProject) {
+        this(compilationUnit, targetProject, null, null);
+    }
     @Override
     public String getFormattedContent() {
-        return javaFormatter.getFormattedContent(compilationUnit);
+        return compilationUnit.getFormattedContent();
     }
 
     @Override
@@ -54,9 +61,11 @@ public class GeneratedJavaFile extends GeneratedFile {
         return compilationUnit.getType().getShortName() + ".java"; //$NON-NLS-1$
     }
 
+    @Override
     public String getTargetPackage() {
         return compilationUnit.getType().getPackageName();
     }
+    public Set<FullyQualifiedJavaType> getImportedTypes() { return this.compilationUnit.getImportedTypes(); }
 
     /**
      * This method is required by the Eclipse Java merger. If you are not
