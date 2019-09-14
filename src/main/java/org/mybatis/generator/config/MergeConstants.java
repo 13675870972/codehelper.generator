@@ -33,8 +33,8 @@ public class MergeConstants {
     public static final String[] OLD_XML_ELEMENT_PREFIXES = {"ibatorgenerated_", "abatorgenerated_" }; //$NON-NLS-1$ //$NON-NLS-2$
 
 //    public static final String NEW_ELEMENT_TAG = "@mbggenerated"; //$NON-NLS-1$
-    public static final String NEW_ELEMENT_TAG = "@caoyc_generated"; //$NON-NLS-1$
+    public static final String NEW_ELEMENT_TAG = "@generated"; //$NON-NLS-1$
 
-    public static final String[] OLD_ELEMENT_TAGS = {"@ibatorgenerated", "@abatorgenerated", "@caoyc_generated" }; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+    public static final String[] OLD_ELEMENT_TAGS = {"@ibatorgenerated", "@abatorgenerated", "@generated" }; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 
 }
