@@ -1,5 +1,6 @@
 package action.dialog;
 
+import action.util.Tools;
 import com.google.common.collect.Lists;
 
 import java.util.List;

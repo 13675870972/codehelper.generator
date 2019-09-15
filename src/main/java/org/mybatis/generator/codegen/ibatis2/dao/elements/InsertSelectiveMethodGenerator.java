@@ -41,34 +41,34 @@ public class InsertSelectiveMethodGenerator extends AbstractDAOElementGenerator 
         StringBuilder sb = new StringBuilder();
 
         if (returnType != null) {
-            sb.append("Object newKey = "); //$NON-NLS-1$
+            sb.append("Object newKey = ");
         }
 
         sb.append(daoTemplate.getInsertMethod(introspectedTable
                 .getIbatis2SqlMapNamespace(), introspectedTable
-                .getInsertSelectiveStatementId(), "record")); //$NON-NLS-1$
+                .getInsertSelectiveStatementId(), "record"));
         method.addBodyLine(sb.toString());
 
         if (returnType != null) {
-            if ("Object".equals(returnType.getShortName())) { //$NON-NLS-1$
+            if ("Object".equals(returnType.getShortName())) {
                 // no need to cast if the return type is Object
-                method.addBodyLine("return newKey;"); //$NON-NLS-1$
+                method.addBodyLine("return newKey;");
             } else {
                 sb.setLength(0);
 
                 if (returnType.isPrimitive()) {
                     PrimitiveTypeWrapper ptw = returnType
                             .getPrimitiveTypeWrapper();
-                    sb.append("return (("); //$NON-NLS-1$
+                    sb.append("return ((");
                     sb.append(ptw.getShortName());
-                    sb.append(") newKey"); //$NON-NLS-1$
-                    sb.append(")."); //$NON-NLS-1$
+                    sb.append(") newKey");
+                    sb.append(").");
                     sb.append(ptw.getToPrimitiveMethod());
                     sb.append(';');
                 } else {
-                    sb.append("return ("); //$NON-NLS-1$
+                    sb.append("return (");
                     sb.append(returnType.getShortName());
-                    sb.append(") newKey;"); //$NON-NLS-1$
+                    sb.append(") newKey;");
                 }
 
                 method.addBodyLine(sb.toString());
@@ -122,7 +122,7 @@ public class InsertSelectiveMethodGenerator extends AbstractDAOElementGenerator 
                 .calculateAllFieldsClass();
 
         importedTypes.add(parameterType);
-        method.addParameter(new Parameter(parameterType, "record")); //$NON-NLS-1$
+        method.addParameter(new Parameter(parameterType, "record"));
 
         for (FullyQualifiedJavaType fqjt : daoTemplate.getCheckedExceptions()) {
             method.addException(fqjt);

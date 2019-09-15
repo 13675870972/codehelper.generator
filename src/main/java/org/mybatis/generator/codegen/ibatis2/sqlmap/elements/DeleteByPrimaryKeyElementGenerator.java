@@ -35,23 +35,23 @@ public class DeleteByPrimaryKeyElementGenerator extends
 
     @Override
     public void addElements(XmlElement parentElement) {
-        XmlElement answer = new XmlElement("delete"); //$NON-NLS-1$
+        XmlElement answer = new XmlElement("delete");
 
         answer.addAttribute(new Attribute(
-                "id", introspectedTable.getDeleteByPrimaryKeyStatementId())); //$NON-NLS-1$
+                "id", introspectedTable.getDeleteByPrimaryKeyStatementId()));
         String parameterClass;
         if (introspectedTable.getRules().generatePrimaryKeyClass()) {
             parameterClass = introspectedTable.getPrimaryKeyType();
         } else {
             parameterClass = introspectedTable.getBaseRecordType();
         }
-        answer.addAttribute(new Attribute("parameterClass", //$NON-NLS-1$
+        answer.addAttribute(new Attribute("parameterClass",
                 parameterClass));
 
         context.getCommentGenerator().addComment(answer);
 
         StringBuilder sb = new StringBuilder();
-        sb.append("delete from "); //$NON-NLS-1$
+        sb.append("delete from ");
         sb.append(introspectedTable.getFullyQualifiedTableNameAtRuntime());
         answer.addElement(new TextElement(sb.toString()));
 
@@ -60,15 +60,15 @@ public class DeleteByPrimaryKeyElementGenerator extends
                 .getPrimaryKeyColumns()) {
             sb.setLength(0);
             if (and) {
-                sb.append("  and "); //$NON-NLS-1$
+                sb.append("  and ");
             } else {
-                sb.append("where "); //$NON-NLS-1$
+                sb.append("where ");
                 and = true;
             }
 
             sb.append(Ibatis2FormattingUtilities
                     .getEscapedColumnName(introspectedColumn));
-            sb.append(" = "); //$NON-NLS-1$
+            sb.append(" = ");
             sb.append(Ibatis2FormattingUtilities
                     .getParameterClause(introspectedColumn));
             answer.addElement(new TextElement(sb.toString()));

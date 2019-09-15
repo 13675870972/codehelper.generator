@@ -41,21 +41,21 @@ public class AnnotatedUpdateByPrimaryKeyWithBLOBsMethodGenerator extends
 
     @Override
     public void addMapperAnnotations(Interface interfaze, Method method) {
-        interfaze.addImportedType(new FullyQualifiedJavaType("org.apache.ibatis.annotations.Update")); //$NON-NLS-1$
+        interfaze.addImportedType(new FullyQualifiedJavaType("org.apache.ibatis.annotations.Update"));
         
-        method.addAnnotation("@Update({"); //$NON-NLS-1$
+        method.addAnnotation("@Update({");
 
         StringBuilder sb = new StringBuilder();
         javaIndent(sb, 1);
-        sb.append("\"update "); //$NON-NLS-1$
+        sb.append("\"update ");
         sb.append(escapeStringForJava(introspectedTable.getFullyQualifiedTableNameAtRuntime()));
-        sb.append("\","); //$NON-NLS-1$
+        sb.append("\",");
         method.addAnnotation(sb.toString());
 
         // set up for first column
         sb.setLength(0);
         javaIndent(sb, 1);
-        sb.append("\"set "); //$NON-NLS-1$
+        sb.append("\"set ");
 
         Iterator<IntrospectedColumn> iter = introspectedTable
                 .getNonPrimaryKeyColumns().iterator();
@@ -63,21 +63,21 @@ public class AnnotatedUpdateByPrimaryKeyWithBLOBsMethodGenerator extends
             IntrospectedColumn introspectedColumn = iter.next();
 
             sb.append(escapeStringForJava(getEscapedColumnName(introspectedColumn)));
-            sb.append(" = "); //$NON-NLS-1$
+            sb.append(" = ");
             sb.append(getParameterClause(introspectedColumn));
 
             if (iter.hasNext()) {
                 sb.append(',');
             }
 
-            sb.append("\","); //$NON-NLS-1$
+            sb.append("\",");
             method.addAnnotation(sb.toString());
 
             // set up for the next column
             if (iter.hasNext()) {
                 sb.setLength(0);
                 javaIndent(sb, 1);
-                sb.append("  \""); //$NON-NLS-1$
+                sb.append("  \"");
             }
         }
 
@@ -88,14 +88,14 @@ public class AnnotatedUpdateByPrimaryKeyWithBLOBsMethodGenerator extends
             sb.setLength(0);
             javaIndent(sb, 1);
             if (and) {
-                sb.append("  \"and "); //$NON-NLS-1$
+                sb.append("  \"and ");
             } else {
-                sb.append("\"where "); //$NON-NLS-1$
+                sb.append("\"where ");
                 and = true;
             }
 
             sb.append(escapeStringForJava(getEscapedColumnName(introspectedColumn)));
-            sb.append(" = "); //$NON-NLS-1$
+            sb.append(" = ");
             sb.append(getParameterClause(introspectedColumn));
             sb.append('\"');
             if (iter.hasNext()) {
@@ -104,6 +104,6 @@ public class AnnotatedUpdateByPrimaryKeyWithBLOBsMethodGenerator extends
             method.addAnnotation(sb.toString());
         }
         
-        method.addAnnotation("})"); //$NON-NLS-1$
+        method.addAnnotation("})");
     }
 }

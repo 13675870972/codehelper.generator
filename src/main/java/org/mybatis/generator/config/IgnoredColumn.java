@@ -56,7 +56,7 @@ public class IgnoredColumn {
 
     public void setColumnNameDelimited(boolean isColumnNameDelimited) {
         this.isColumnNameDelimited = isColumnNameDelimited;
-        configuredDelimitedColumnName = isColumnNameDelimited ? "true" : "false"; //$NON-NLS-1$ //$NON-NLS-2$
+        configuredDelimitedColumnName = isColumnNameDelimited ? "true" : "false";
     }
 
     public boolean equals(Object obj) {
@@ -72,12 +72,12 @@ public class IgnoredColumn {
     }
 
     public XmlElement toXmlElement() {
-        XmlElement xmlElement = new XmlElement("ignoreColumn"); //$NON-NLS-1$
-        xmlElement.addAttribute(new Attribute("column", columnName)); //$NON-NLS-1$
+        XmlElement xmlElement = new XmlElement("ignoreColumn");
+        xmlElement.addAttribute(new Attribute("column", columnName));
 
         if (stringHasValue(configuredDelimitedColumnName)) {
             xmlElement.addAttribute(new Attribute(
-                    "delimitedColumnName", configuredDelimitedColumnName)); //$NON-NLS-1$
+                    "delimitedColumnName", configuredDelimitedColumnName));
         }
 
         return xmlElement;
@@ -85,7 +85,7 @@ public class IgnoredColumn {
 
     public void validate(List<String> errors, String tableName) {
         if (!stringHasValue(columnName)) {
-            errors.add(getString("ValidationError.21", //$NON-NLS-1$
+            errors.add(getString("ValidationError.21",
                     tableName));
         }
     }

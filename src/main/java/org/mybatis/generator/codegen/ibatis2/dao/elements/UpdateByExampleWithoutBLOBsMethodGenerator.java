@@ -38,16 +38,16 @@ public class UpdateByExampleWithoutBLOBsMethodGenerator extends
         Method method = getMethodShell(importedTypes);
 
         method
-                .addBodyLine("UpdateByExampleParms parms = new UpdateByExampleParms(record, example);"); //$NON-NLS-1$
+                .addBodyLine("UpdateByExampleParms parms = new UpdateByExampleParms(record, example);");
 
         StringBuilder sb = new StringBuilder();
-        sb.append("int rows = "); //$NON-NLS-1$
+        sb.append("int rows = ");
         sb.append(daoTemplate.getUpdateMethod(introspectedTable
                 .getIbatis2SqlMapNamespace(), introspectedTable
-                .getUpdateByExampleStatementId(), "parms")); //$NON-NLS-1$
+                .getUpdateByExampleStatementId(), "parms"));
         method.addBodyLine(sb.toString());
 
-        method.addBodyLine("return rows;"); //$NON-NLS-1$
+        method.addBodyLine("return rows;");
 
         if (context.getPlugins()
                 .clientUpdateByExampleWithoutBLOBsMethodGenerated(method,
@@ -89,9 +89,9 @@ public class UpdateByExampleWithoutBLOBsMethodGenerator extends
         method.setReturnType(FullyQualifiedJavaType.getIntInstance());
         method.setName(getDAOMethodNameCalculator()
                 .getUpdateByExampleWithoutBLOBsMethodName(introspectedTable));
-        method.addParameter(new Parameter(parameterType, "record")); //$NON-NLS-1$
+        method.addParameter(new Parameter(parameterType, "record"));
         method.addParameter(new Parameter(new FullyQualifiedJavaType(
-                introspectedTable.getExampleType()), "example")); //$NON-NLS-1$
+                introspectedTable.getExampleType()), "example"));
 
         for (FullyQualifiedJavaType fqjt : daoTemplate.getCheckedExceptions()) {
             method.addException(fqjt);

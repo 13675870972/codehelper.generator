@@ -39,10 +39,10 @@ public class ProviderCountByExampleMethodGenerator extends
         Set<String> staticImports = new TreeSet<String>();
         Set<FullyQualifiedJavaType> importedTypes = new TreeSet<FullyQualifiedJavaType>();
         
-        staticImports.add("org.apache.ibatis.jdbc.SqlBuilder.BEGIN"); //$NON-NLS-1$
-        staticImports.add("org.apache.ibatis.jdbc.SqlBuilder.FROM"); //$NON-NLS-1$
-        staticImports.add("org.apache.ibatis.jdbc.SqlBuilder.SELECT"); //$NON-NLS-1$
-        staticImports.add("org.apache.ibatis.jdbc.SqlBuilder.SQL"); //$NON-NLS-1$
+        staticImports.add("org.apache.ibatis.jdbc.SqlBuilder.BEGIN");
+        staticImports.add("org.apache.ibatis.jdbc.SqlBuilder.FROM");
+        staticImports.add("org.apache.ibatis.jdbc.SqlBuilder.SELECT");
+        staticImports.add("org.apache.ibatis.jdbc.SqlBuilder.SQL");
         
         FullyQualifiedJavaType fqjt = new FullyQualifiedJavaType(introspectedTable.getExampleType());
         importedTypes.add(fqjt);
@@ -51,17 +51,17 @@ public class ProviderCountByExampleMethodGenerator extends
                 introspectedTable.getCountByExampleStatementId());
         method.setVisibility(JavaVisibility.PUBLIC);
         method.setReturnType(FullyQualifiedJavaType.getStringInstance());
-        method.addParameter(new Parameter(fqjt, "example")); //$NON-NLS-1$
+        method.addParameter(new Parameter(fqjt, "example"));
         
         context.getCommentGenerator().addGeneralMethodComment(method,
                 introspectedTable);
 
-        method.addBodyLine("BEGIN();"); //$NON-NLS-1$
-        method.addBodyLine("SELECT(\"count(*)\");"); //$NON-NLS-1$
-        method.addBodyLine(String.format("FROM(\"%s\");", //$NON-NLS-1$
+        method.addBodyLine("BEGIN();");
+        method.addBodyLine("SELECT(\"count(*)\");");
+        method.addBodyLine(String.format("FROM(\"%s\");",
                 escapeStringForJava(introspectedTable.getAliasedFullyQualifiedTableNameAtRuntime())));
-        method.addBodyLine("applyWhere(example, false);"); //$NON-NLS-1$
-        method.addBodyLine("return SQL();"); //$NON-NLS-1$
+        method.addBodyLine("applyWhere(example, false);");
+        method.addBodyLine("return SQL();");
         
         if (context.getPlugins().providerCountByExampleMethodGenerated(method, topLevelClass,
                 introspectedTable)) {

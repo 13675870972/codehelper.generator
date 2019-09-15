@@ -42,16 +42,16 @@ public class CountByExampleMethodGenerator extends AbstractDAOElementGenerator {
         // generate the implementation method
         StringBuilder sb = new StringBuilder();
 
-        sb.append("Integer count = (Integer)  "); //$NON-NLS-1$
+        sb.append("Integer count = (Integer)  ");
         sb.append(daoTemplate.getQueryForObjectMethod(introspectedTable
                 .getIbatis2SqlMapNamespace(), introspectedTable
-                .getCountByExampleStatementId(), "example")); //$NON-NLS-1$
+                .getCountByExampleStatementId(), "example"));
         method.addBodyLine(sb.toString());
 
         if (generateForJava5) {
-            method.addBodyLine("return count;"); //$NON-NLS-1$
+            method.addBodyLine("return count;");
         } else {
-            method.addBodyLine("return count.intValue();"); //$NON-NLS-1$
+            method.addBodyLine("return count.intValue();");
         }
 
         if (context.getPlugins().clientCountByExampleMethodGenerated(method,
@@ -85,7 +85,7 @@ public class CountByExampleMethodGenerator extends AbstractDAOElementGenerator {
         method.setReturnType(FullyQualifiedJavaType.getIntInstance());
         method.setName(getDAOMethodNameCalculator()
                 .getCountByExampleMethodName(introspectedTable));
-        method.addParameter(new Parameter(type, "example")); //$NON-NLS-1$
+        method.addParameter(new Parameter(type, "example"));
 
         for (FullyQualifiedJavaType fqjt : daoTemplate.getCheckedExceptions()) {
             method.addException(fqjt);

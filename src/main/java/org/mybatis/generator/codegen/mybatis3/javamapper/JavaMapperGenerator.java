@@ -52,7 +52,7 @@ public class JavaMapperGenerator extends AbstractJavaClientGenerator {
     
     @Override
     public List<CompilationUnit> getCompilationUnits() {
-        progressCallback.startTask(getString("Progress.17", //$NON-NLS-1$
+        progressCallback.startTask(getString("Progress.17",
                 introspectedTable.getFullyQualifiedTable().toString()));
         CommentGenerator commentGenerator = context.getCommentGenerator();
 

@@ -90,28 +90,28 @@ public class ColumnOverride extends PropertyHolder {
     }
 
     public XmlElement toXmlElement() {
-        XmlElement xmlElement = new XmlElement("columnOverride"); //$NON-NLS-1$
-        xmlElement.addAttribute(new Attribute("column", columnName)); //$NON-NLS-1$
+        XmlElement xmlElement = new XmlElement("columnOverride");
+        xmlElement.addAttribute(new Attribute("column", columnName));
 
         if (stringHasValue(javaProperty)) {
-            xmlElement.addAttribute(new Attribute("property", javaProperty)); //$NON-NLS-1$
+            xmlElement.addAttribute(new Attribute("property", javaProperty));
         }
 
         if (stringHasValue(javaType)) {
-            xmlElement.addAttribute(new Attribute("javaType", javaType)); //$NON-NLS-1$
+            xmlElement.addAttribute(new Attribute("javaType", javaType));
         }
 
         if (stringHasValue(jdbcType)) {
-            xmlElement.addAttribute(new Attribute("jdbcType", jdbcType)); //$NON-NLS-1$
+            xmlElement.addAttribute(new Attribute("jdbcType", jdbcType));
         }
 
         if (stringHasValue(typeHandler)) {
-            xmlElement.addAttribute(new Attribute("typeHandler", typeHandler)); //$NON-NLS-1$
+            xmlElement.addAttribute(new Attribute("typeHandler", typeHandler));
         }
 
         if (stringHasValue(configuredDelimitedColumnName)) {
             xmlElement.addAttribute(new Attribute(
-                    "delimitedColumnName", configuredDelimitedColumnName)); //$NON-NLS-1$
+                    "delimitedColumnName", configuredDelimitedColumnName));
         }
 
         addPropertyXmlElements(xmlElement);
@@ -126,12 +126,12 @@ public class ColumnOverride extends PropertyHolder {
     public void setColumnNameDelimited(boolean isColumnNameDelimited) {
         this.isColumnNameDelimited = isColumnNameDelimited;
 
-        configuredDelimitedColumnName = isColumnNameDelimited ? "true" : "false"; //$NON-NLS-1$ //$NON-NLS-2$
+        configuredDelimitedColumnName = isColumnNameDelimited ? "true" : "false";
     }
 
     public void validate(List<String> errors, String tableName) {
         if (!stringHasValue(columnName)) {
-            errors.add(getString("ValidationError.22", //$NON-NLS-1$
+            errors.add(getString("ValidationError.22",
                     tableName));
         }
     }

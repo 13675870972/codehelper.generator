@@ -63,11 +63,11 @@ public class IbatorConfigurationParser {
                 continue;
             }
 
-            if ("properties".equals(childNode.getNodeName())) { //$NON-NLS-1$
+            if ("properties".equals(childNode.getNodeName())) {
                 parseProperties(configuration, childNode);
-            } else if ("classPathEntry".equals(childNode.getNodeName())) { //$NON-NLS-1$
+            } else if ("classPathEntry".equals(childNode.getNodeName())) {
                 parseClassPathEntry(configuration, childNode);
-            } else if ("ibatorContext".equals(childNode.getNodeName())) { //$NON-NLS-1$
+            } else if ("ibatorContext".equals(childNode.getNodeName())) {
                 parseIbatorContext(configuration, childNode);
             }
         }
@@ -78,17 +78,17 @@ public class IbatorConfigurationParser {
     private void parseProperties(Configuration configuration, Node node)
             throws XMLParserException {
         Properties attributes = parseAttributes(node);
-        String resource = attributes.getProperty("resource"); //$NON-NLS-1$
-        String url = attributes.getProperty("url"); //$NON-NLS-1$
+        String resource = attributes.getProperty("resource");
+        String url = attributes.getProperty("url");
 
         if (!stringHasValue(resource)
                 && !stringHasValue(url)) {
-            throw new XMLParserException(getString("RuntimeError.14")); //$NON-NLS-1$
+            throw new XMLParserException(getString("RuntimeError.14"));
         }
 
         if (stringHasValue(resource)
                 && stringHasValue(url)) {
-            throw new XMLParserException(getString("RuntimeError.14")); //$NON-NLS-1$
+            throw new XMLParserException(getString("RuntimeError.14"));
         }
 
         URL resourceUrl;
@@ -98,7 +98,7 @@ public class IbatorConfigurationParser {
                 resourceUrl = ObjectFactory.getResource(resource);
                 if (resourceUrl == null) {
                     throw new XMLParserException(getString(
-                            "RuntimeError.15", resource)); //$NON-NLS-1$
+                            "RuntimeError.15", resource));
                 }
             } else {
                 resourceUrl = new URL(url);
@@ -112,10 +112,10 @@ public class IbatorConfigurationParser {
         } catch (IOException e) {
             if (stringHasValue(resource)) {
                 throw new XMLParserException(getString(
-                        "RuntimeError.16", resource)); //$NON-NLS-1$
+                        "RuntimeError.16", resource));
             } else {
                 throw new XMLParserException(getString(
-                        "RuntimeError.17", url)); //$NON-NLS-1$
+                        "RuntimeError.17", url));
             }
         }
     }
@@ -123,11 +123,11 @@ public class IbatorConfigurationParser {
     private void parseIbatorContext(Configuration configuration, Node node) {
 
         Properties attributes = parseAttributes(node);
-        String defaultModelType = attributes.getProperty("defaultModelType"); //$NON-NLS-1$
-        String targetRuntime = attributes.getProperty("targetRuntime"); //$NON-NLS-1$
+        String defaultModelType = attributes.getProperty("defaultModelType");
+        String targetRuntime = attributes.getProperty("targetRuntime");
         String introspectedColumnImpl = attributes
-                .getProperty("introspectedColumnImpl"); //$NON-NLS-1$
-        String id = attributes.getProperty("id"); //$NON-NLS-1$
+                .getProperty("introspectedColumnImpl");
+        String id = attributes.getProperty("id");
 
         ModelType mt = defaultModelType == null ? null : ModelType
                 .getModelType(defaultModelType);
@@ -151,23 +151,23 @@ public class IbatorConfigurationParser {
                 continue;
             }
 
-            if ("property".equals(childNode.getNodeName())) { //$NON-NLS-1$
+            if ("property".equals(childNode.getNodeName())) {
                 parseProperty(context, childNode);
-            } else if ("ibatorPlugin".equals(childNode.getNodeName())) { //$NON-NLS-1$
+            } else if ("ibatorPlugin".equals(childNode.getNodeName())) {
                 parseIbatorPlugin(context, childNode);
-            } else if ("commentGenerator".equals(childNode.getNodeName())) { //$NON-NLS-1$
+            } else if ("commentGenerator".equals(childNode.getNodeName())) {
                 parseCommentGenerator(context, childNode);
-            } else if ("jdbcConnection".equals(childNode.getNodeName())) { //$NON-NLS-1$
+            } else if ("jdbcConnection".equals(childNode.getNodeName())) {
                 parseJdbcConnection(context, childNode);
-            } else if ("javaModelGenerator".equals(childNode.getNodeName())) { //$NON-NLS-1$
+            } else if ("javaModelGenerator".equals(childNode.getNodeName())) {
                 parseJavaModelGenerator(context, childNode);
-            } else if ("javaTypeResolver".equals(childNode.getNodeName())) { //$NON-NLS-1$
+            } else if ("javaTypeResolver".equals(childNode.getNodeName())) {
                 parseJavaTypeResolver(context, childNode);
-            } else if ("sqlMapGenerator".equals(childNode.getNodeName())) { //$NON-NLS-1$
+            } else if ("sqlMapGenerator".equals(childNode.getNodeName())) {
                 parseSqlMapGenerator(context, childNode);
-            } else if ("daoGenerator".equals(childNode.getNodeName())) { //$NON-NLS-1$
+            } else if ("daoGenerator".equals(childNode.getNodeName())) {
                 parseDaoGenerator(context, childNode);
-            } else if ("table".equals(childNode.getNodeName())) { //$NON-NLS-1$
+            } else if ("table".equals(childNode.getNodeName())) {
                 parseTable(context, childNode);
             }
         }
@@ -179,8 +179,8 @@ public class IbatorConfigurationParser {
         context.setSqlMapGeneratorConfiguration(sqlMapGeneratorConfiguration);
 
         Properties attributes = parseAttributes(node);
-        String targetPackage = attributes.getProperty("targetPackage"); //$NON-NLS-1$
-        String targetProject = attributes.getProperty("targetProject"); //$NON-NLS-1$
+        String targetPackage = attributes.getProperty("targetPackage");
+        String targetProject = attributes.getProperty("targetProject");
 
         sqlMapGeneratorConfiguration.setTargetPackage(targetPackage);
         sqlMapGeneratorConfiguration.setTargetProject(targetProject);
@@ -193,7 +193,7 @@ public class IbatorConfigurationParser {
                 continue;
             }
 
-            if ("property".equals(childNode.getNodeName())) { //$NON-NLS-1$
+            if ("property".equals(childNode.getNodeName())) {
                 parseProperty(sqlMapGeneratorConfiguration, childNode);
             }
         }
@@ -204,35 +204,35 @@ public class IbatorConfigurationParser {
         context.addTableConfiguration(tc);
 
         Properties attributes = parseAttributes(node);
-        String catalog = attributes.getProperty("catalog"); //$NON-NLS-1$
-        String schema = attributes.getProperty("schema"); //$NON-NLS-1$
-        String tableName = attributes.getProperty("tableName"); //$NON-NLS-1$
-        String domainObjectName = attributes.getProperty("domainObjectName"); //$NON-NLS-1$
-        String alias = attributes.getProperty("alias"); //$NON-NLS-1$
-        String enableInsert = attributes.getProperty("enableInsert"); //$NON-NLS-1$
+        String catalog = attributes.getProperty("catalog");
+        String schema = attributes.getProperty("schema");
+        String tableName = attributes.getProperty("tableName");
+        String domainObjectName = attributes.getProperty("domainObjectName");
+        String alias = attributes.getProperty("alias");
+        String enableInsert = attributes.getProperty("enableInsert");
         String enableSelectByPrimaryKey = attributes
-                .getProperty("enableSelectByPrimaryKey"); //$NON-NLS-1$
+                .getProperty("enableSelectByPrimaryKey");
         String enableSelectByExample = attributes
-                .getProperty("enableSelectByExample"); //$NON-NLS-1$
+                .getProperty("enableSelectByExample");
         String enableUpdateByPrimaryKey = attributes
-                .getProperty("enableUpdateByPrimaryKey"); //$NON-NLS-1$
+                .getProperty("enableUpdateByPrimaryKey");
         String enableDeleteByPrimaryKey = attributes
-                .getProperty("enableDeleteByPrimaryKey"); //$NON-NLS-1$
+                .getProperty("enableDeleteByPrimaryKey");
         String enableDeleteByExample = attributes
-                .getProperty("enableDeleteByExample"); //$NON-NLS-1$
+                .getProperty("enableDeleteByExample");
         String enableCountByExample = attributes
-                .getProperty("enableCountByExample"); //$NON-NLS-1$
+                .getProperty("enableCountByExample");
         String enableUpdateByExample = attributes
-                .getProperty("enableUpdateByExample"); //$NON-NLS-1$
+                .getProperty("enableUpdateByExample");
         String selectByPrimaryKeyQueryId = attributes
-                .getProperty("selectByPrimaryKeyQueryId"); //$NON-NLS-1$
+                .getProperty("selectByPrimaryKeyQueryId");
         String selectByExampleQueryId = attributes
-                .getProperty("selectByExampleQueryId"); //$NON-NLS-1$
-        String modelType = attributes.getProperty("modelType"); //$NON-NLS-1$
-        String escapeWildcards = attributes.getProperty("escapeWildcards"); //$NON-NLS-1$
+                .getProperty("selectByExampleQueryId");
+        String modelType = attributes.getProperty("modelType");
+        String escapeWildcards = attributes.getProperty("escapeWildcards");
         String delimitIdentifiers = attributes
-                .getProperty("delimitIdentifiers"); //$NON-NLS-1$
-        String delimitAllColumns = attributes.getProperty("delimitAllColumns"); //$NON-NLS-1$
+                .getProperty("delimitIdentifiers");
+        String delimitAllColumns = attributes.getProperty("delimitAllColumns");
 
         if (stringHasValue(catalog)) {
             tc.setCatalog(catalog);
@@ -318,15 +318,15 @@ public class IbatorConfigurationParser {
                 continue;
             }
 
-            if ("property".equals(childNode.getNodeName())) { //$NON-NLS-1$
+            if ("property".equals(childNode.getNodeName())) {
                 parseProperty(tc, childNode);
-            } else if ("columnOverride".equals(childNode.getNodeName())) { //$NON-NLS-1$
+            } else if ("columnOverride".equals(childNode.getNodeName())) {
                 parseColumnOverride(tc, childNode);
-            } else if ("ignoreColumn".equals(childNode.getNodeName())) { //$NON-NLS-1$
+            } else if ("ignoreColumn".equals(childNode.getNodeName())) {
                 parseIgnoreColumn(tc, childNode);
-            } else if ("generatedKey".equals(childNode.getNodeName())) { //$NON-NLS-1$
+            } else if ("generatedKey".equals(childNode.getNodeName())) {
                 parseGeneratedKey(tc, childNode);
-            } else if ("columnRenamingRule".equals(childNode.getNodeName())) { //$NON-NLS-1$
+            } else if ("columnRenamingRule".equals(childNode.getNodeName())) {
                 parseColumnRenamingRule(tc, childNode);
             }
         }
@@ -334,13 +334,13 @@ public class IbatorConfigurationParser {
 
     private void parseColumnOverride(TableConfiguration tc, Node node) {
         Properties attributes = parseAttributes(node);
-        String column = attributes.getProperty("column"); //$NON-NLS-1$
-        String property = attributes.getProperty("property"); //$NON-NLS-1$
-        String javaType = attributes.getProperty("javaType"); //$NON-NLS-1$
-        String jdbcType = attributes.getProperty("jdbcType"); //$NON-NLS-1$
-        String typeHandler = attributes.getProperty("typeHandler"); //$NON-NLS-1$
+        String column = attributes.getProperty("column");
+        String property = attributes.getProperty("property");
+        String javaType = attributes.getProperty("javaType");
+        String jdbcType = attributes.getProperty("jdbcType");
+        String typeHandler = attributes.getProperty("typeHandler");
         String delimitedColumnName = attributes
-                .getProperty("delimitedColumnName"); //$NON-NLS-1$
+                .getProperty("delimitedColumnName");
 
         ColumnOverride co = new ColumnOverride(column);
 
@@ -372,7 +372,7 @@ public class IbatorConfigurationParser {
                 continue;
             }
 
-            if ("property".equals(childNode.getNodeName())) { //$NON-NLS-1$
+            if ("property".equals(childNode.getNodeName())) {
                 parseProperty(co, childNode);
             }
         }
@@ -383,11 +383,11 @@ public class IbatorConfigurationParser {
     private void parseGeneratedKey(TableConfiguration tc, Node node) {
         Properties attributes = parseAttributes(node);
 
-        String column = attributes.getProperty("column"); //$NON-NLS-1$
+        String column = attributes.getProperty("column");
         boolean identity = isTrue(attributes
-                .getProperty("identity")); //$NON-NLS-1$
-        String sqlStatement = attributes.getProperty("sqlStatement"); //$NON-NLS-1$
-        String type = attributes.getProperty("type"); //$NON-NLS-1$
+                .getProperty("identity"));
+        String sqlStatement = attributes.getProperty("sqlStatement");
+        String type = attributes.getProperty("type");
 
         GeneratedKey gk = new GeneratedKey(column, sqlStatement, identity, type);
 
@@ -396,9 +396,9 @@ public class IbatorConfigurationParser {
 
     private void parseIgnoreColumn(TableConfiguration tc, Node node) {
         Properties attributes = parseAttributes(node);
-        String column = attributes.getProperty("column"); //$NON-NLS-1$
+        String column = attributes.getProperty("column");
         String delimitedColumnName = attributes
-                .getProperty("delimitedColumnName"); //$NON-NLS-1$
+                .getProperty("delimitedColumnName");
 
         IgnoredColumn ic = new IgnoredColumn(column);
 
@@ -411,8 +411,8 @@ public class IbatorConfigurationParser {
 
     private void parseColumnRenamingRule(TableConfiguration tc, Node node) {
         Properties attributes = parseAttributes(node);
-        String searchString = attributes.getProperty("searchString"); //$NON-NLS-1$
-        String replaceString = attributes.getProperty("replaceString"); //$NON-NLS-1$
+        String searchString = attributes.getProperty("searchString");
+        String replaceString = attributes.getProperty("replaceString");
 
         ColumnRenamingRule crr = new ColumnRenamingRule();
 
@@ -431,7 +431,7 @@ public class IbatorConfigurationParser {
         context.setJavaTypeResolverConfiguration(javaTypeResolverConfiguration);
 
         Properties attributes = parseAttributes(node);
-        String type = attributes.getProperty("type"); //$NON-NLS-1$
+        String type = attributes.getProperty("type");
 
         if (stringHasValue(type)) {
             javaTypeResolverConfiguration.setConfigurationType(type);
@@ -445,7 +445,7 @@ public class IbatorConfigurationParser {
                 continue;
             }
 
-            if ("property".equals(childNode.getNodeName())) { //$NON-NLS-1$
+            if ("property".equals(childNode.getNodeName())) {
                 parseProperty(javaTypeResolverConfiguration, childNode);
             }
         }
@@ -457,7 +457,7 @@ public class IbatorConfigurationParser {
         context.addPluginConfiguration(pluginConfiguration);
 
         Properties attributes = parseAttributes(node);
-        String type = attributes.getProperty("type"); //$NON-NLS-1$
+        String type = attributes.getProperty("type");
 
         pluginConfiguration.setConfigurationType(type);
 
@@ -469,7 +469,7 @@ public class IbatorConfigurationParser {
                 continue;
             }
 
-            if ("property".equals(childNode.getNodeName())) { //$NON-NLS-1$
+            if ("property".equals(childNode.getNodeName())) {
                 parseProperty(pluginConfiguration, childNode);
             }
         }
@@ -482,8 +482,8 @@ public class IbatorConfigurationParser {
                 .setJavaModelGeneratorConfiguration(javaModelGeneratorConfiguration);
 
         Properties attributes = parseAttributes(node);
-        String targetPackage = attributes.getProperty("targetPackage"); //$NON-NLS-1$
-        String targetProject = attributes.getProperty("targetProject"); //$NON-NLS-1$
+        String targetPackage = attributes.getProperty("targetPackage");
+        String targetProject = attributes.getProperty("targetProject");
 
         javaModelGeneratorConfiguration.setTargetPackage(targetPackage);
         javaModelGeneratorConfiguration.setTargetProject(targetProject);
@@ -496,7 +496,7 @@ public class IbatorConfigurationParser {
                 continue;
             }
 
-            if ("property".equals(childNode.getNodeName())) { //$NON-NLS-1$
+            if ("property".equals(childNode.getNodeName())) {
                 parseProperty(javaModelGeneratorConfiguration, childNode);
             }
         }
@@ -508,11 +508,11 @@ public class IbatorConfigurationParser {
         context.setJavaClientGeneratorConfiguration(javaClientGeneratorConfiguration);
 
         Properties attributes = parseAttributes(node);
-        String type = attributes.getProperty("type"); //$NON-NLS-1$
-        String targetPackage = attributes.getProperty("targetPackage"); //$NON-NLS-1$
-        String targetProject = attributes.getProperty("targetProject"); //$NON-NLS-1$
+        String type = attributes.getProperty("type");
+        String targetPackage = attributes.getProperty("targetPackage");
+        String targetProject = attributes.getProperty("targetProject");
         String implementationPackage = attributes
-                .getProperty("implementationPackage"); //$NON-NLS-1$
+                .getProperty("implementationPackage");
 
         javaClientGeneratorConfiguration.setConfigurationType(type);
         javaClientGeneratorConfiguration.setTargetPackage(targetPackage);
@@ -528,7 +528,7 @@ public class IbatorConfigurationParser {
                 continue;
             }
 
-            if ("property".equals(childNode.getNodeName())) { //$NON-NLS-1$
+            if ("property".equals(childNode.getNodeName())) {
                 parseProperty(javaClientGeneratorConfiguration, childNode);
             }
         }
@@ -540,10 +540,10 @@ public class IbatorConfigurationParser {
         context.setJdbcConnectionConfiguration(jdbcConnectionConfiguration);
 
         Properties attributes = parseAttributes(node);
-        String driverClass = attributes.getProperty("driverClass"); //$NON-NLS-1$
-        String connectionURL = attributes.getProperty("connectionURL"); //$NON-NLS-1$
-        String userId = attributes.getProperty("userId"); //$NON-NLS-1$
-        String password = attributes.getProperty("password"); //$NON-NLS-1$
+        String driverClass = attributes.getProperty("driverClass");
+        String connectionURL = attributes.getProperty("connectionURL");
+        String userId = attributes.getProperty("userId");
+        String password = attributes.getProperty("password");
 
         jdbcConnectionConfiguration.setDriverClass(driverClass);
         jdbcConnectionConfiguration.setConnectionURL(connectionURL);
@@ -564,7 +564,7 @@ public class IbatorConfigurationParser {
                 continue;
             }
 
-            if ("property".equals(childNode.getNodeName())) { //$NON-NLS-1$
+            if ("property".equals(childNode.getNodeName())) {
                 parseProperty(jdbcConnectionConfiguration, childNode);
             }
         }
@@ -573,14 +573,14 @@ public class IbatorConfigurationParser {
     private void parseClassPathEntry(Configuration configuration, Node node) {
         Properties attributes = parseAttributes(node);
 
-        configuration.addClasspathEntry(attributes.getProperty("location")); //$NON-NLS-1$
+        configuration.addClasspathEntry(attributes.getProperty("location"));
     }
 
     private void parseProperty(PropertyHolder propertyHolder, Node node) {
         Properties attributes = parseAttributes(node);
 
-        String name = attributes.getProperty("name"); //$NON-NLS-1$
-        String value = attributes.getProperty("value"); //$NON-NLS-1$
+        String name = attributes.getProperty("name");
+        String value = attributes.getProperty("value");
 
         propertyHolder.addProperty(name, value);
     }
@@ -598,8 +598,8 @@ public class IbatorConfigurationParser {
     }
 
     private String parsePropertyTokens(String string) {
-        final String OPEN = "${"; //$NON-NLS-1$
-        final String CLOSE = "}"; //$NON-NLS-1$
+        final String OPEN = "${";
+        final String CLOSE = "}";
 
         String newString = string;
         if (newString != null) {
@@ -630,7 +630,7 @@ public class IbatorConfigurationParser {
         context.setCommentGeneratorConfiguration(commentGeneratorConfiguration);
 
         Properties attributes = parseAttributes(node);
-        String type = attributes.getProperty("type"); //$NON-NLS-1$
+        String type = attributes.getProperty("type");
 
         if (stringHasValue(type)) {
             commentGeneratorConfiguration.setConfigurationType(type);
@@ -644,7 +644,7 @@ public class IbatorConfigurationParser {
                 continue;
             }
 
-            if ("property".equals(childNode.getNodeName())) { //$NON-NLS-1$
+            if ("property".equals(childNode.getNodeName())) {
                 parseProperty(commentGeneratorConfiguration, childNode);
             }
         }

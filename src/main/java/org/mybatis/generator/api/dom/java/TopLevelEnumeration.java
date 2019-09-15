@@ -53,7 +53,7 @@ public class TopLevelEnumeration extends InnerEnum implements CompilationUnit {
 
         if (getType().getPackageName() != null
                 && getType().getPackageName().length() > 0) {
-            sb.append("package "); //$NON-NLS-1$
+            sb.append("package ");
             sb.append(getType().getPackageName());
             sb.append(';');
             newLine(sb);
@@ -61,7 +61,7 @@ public class TopLevelEnumeration extends InnerEnum implements CompilationUnit {
         }
 
         for (String staticImport : staticImports) {
-            sb.append("import static "); //$NON-NLS-1$
+            sb.append("import static ");
             sb.append(staticImport);
             sb.append(';');
             newLine(sb);
@@ -91,7 +91,7 @@ public class TopLevelEnumeration extends InnerEnum implements CompilationUnit {
     }
 
     public FullyQualifiedJavaType getSuperClass() {
-        throw new UnsupportedOperationException(getString("RuntimeError.11")); //$NON-NLS-1$
+        throw new UnsupportedOperationException(getString("RuntimeError.11"));
     }
 
     public boolean isJavaInterface() {

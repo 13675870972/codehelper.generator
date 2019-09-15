@@ -35,11 +35,11 @@ public class UpdateByPrimaryKeySelectiveElementGenerator extends
 
     @Override
     public void addElements(XmlElement parentElement) {
-        XmlElement answer = new XmlElement("update"); //$NON-NLS-1$
+        XmlElement answer = new XmlElement("update");
 
         answer
                 .addAttribute(new Attribute(
-                        "id", introspectedTable.getUpdateByPrimaryKeySelectiveStatementId())); //$NON-NLS-1$
+                        "id", introspectedTable.getUpdateByPrimaryKeySelectiveStatementId()));
 
         String parameterType;
 
@@ -49,33 +49,33 @@ public class UpdateByPrimaryKeySelectiveElementGenerator extends
             parameterType = introspectedTable.getBaseRecordType();
         }
 
-        answer.addAttribute(new Attribute("parameterClass", //$NON-NLS-1$
+        answer.addAttribute(new Attribute("parameterClass",
                 parameterType));
 
         context.getCommentGenerator().addComment(answer);
 
         StringBuilder sb = new StringBuilder();
 
-        sb.append("update "); //$NON-NLS-1$
+        sb.append("update ");
         sb.append(introspectedTable.getFullyQualifiedTableNameAtRuntime());
         answer.addElement(new TextElement(sb.toString()));
 
-        XmlElement dynamicElement = new XmlElement("dynamic"); //$NON-NLS-1$
-        dynamicElement.addAttribute(new Attribute("prepend", "set")); //$NON-NLS-1$ //$NON-NLS-2$
+        XmlElement dynamicElement = new XmlElement("dynamic");
+        dynamicElement.addAttribute(new Attribute("prepend", "set"));
         answer.addElement(dynamicElement);
 
         for (IntrospectedColumn introspectedColumn : introspectedTable
                 .getNonPrimaryKeyColumns()) {
-            XmlElement isNotNullElement = new XmlElement("isNotNull"); //$NON-NLS-1$
-            isNotNullElement.addAttribute(new Attribute("prepend", ",")); //$NON-NLS-1$ //$NON-NLS-2$
+            XmlElement isNotNullElement = new XmlElement("isNotNull");
+            isNotNullElement.addAttribute(new Attribute("prepend", ","));
             isNotNullElement.addAttribute(new Attribute(
-                    "property", introspectedColumn.getJavaProperty())); //$NON-NLS-1$
+                    "property", introspectedColumn.getJavaProperty()));
             dynamicElement.addElement(isNotNullElement);
 
             sb.setLength(0);
             sb.append(Ibatis2FormattingUtilities
                     .getEscapedColumnName(introspectedColumn));
-            sb.append(" = "); //$NON-NLS-1$
+            sb.append(" = ");
             sb.append(Ibatis2FormattingUtilities
                     .getParameterClause(introspectedColumn));
 
@@ -87,15 +87,15 @@ public class UpdateByPrimaryKeySelectiveElementGenerator extends
                 .getPrimaryKeyColumns()) {
             sb.setLength(0);
             if (and) {
-                sb.append("  and "); //$NON-NLS-1$
+                sb.append("  and ");
             } else {
-                sb.append("where "); //$NON-NLS-1$
+                sb.append("where ");
                 and = true;
             }
 
             sb.append(Ibatis2FormattingUtilities
                     .getEscapedColumnName(introspectedColumn));
-            sb.append(" = "); //$NON-NLS-1$
+            sb.append(" = ");
             sb.append(Ibatis2FormattingUtilities
                     .getParameterClause(introspectedColumn));
             answer.addElement(new TextElement(sb.toString()));

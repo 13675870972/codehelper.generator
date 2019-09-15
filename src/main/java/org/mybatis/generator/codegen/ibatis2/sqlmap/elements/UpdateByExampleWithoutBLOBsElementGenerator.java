@@ -38,22 +38,22 @@ public class UpdateByExampleWithoutBLOBsElementGenerator extends
 
     @Override
     public void addElements(XmlElement parentElement) {
-        XmlElement answer = new XmlElement("update"); //$NON-NLS-1$
+        XmlElement answer = new XmlElement("update");
 
         answer.addAttribute(new Attribute(
-                "id", introspectedTable.getUpdateByExampleStatementId())); //$NON-NLS-1$
+                "id", introspectedTable.getUpdateByExampleStatementId()));
 
         context.getCommentGenerator().addComment(answer);
 
         StringBuilder sb = new StringBuilder();
-        sb.append("update "); //$NON-NLS-1$
+        sb.append("update ");
         sb.append(introspectedTable
                 .getAliasedFullyQualifiedTableNameAtRuntime());
         answer.addElement(new TextElement(sb.toString()));
 
         // set up for first column
         sb.setLength(0);
-        sb.append("set "); //$NON-NLS-1$
+        sb.append("set ");
 
         Iterator<IntrospectedColumn> iter = introspectedTable
                 .getNonBLOBColumns().iterator();
@@ -62,9 +62,9 @@ public class UpdateByExampleWithoutBLOBsElementGenerator extends
 
             sb.append(Ibatis2FormattingUtilities
                     .getAliasedEscapedColumnName(introspectedColumn));
-            sb.append(" = "); //$NON-NLS-1$
+            sb.append(" = ");
             sb.append(Ibatis2FormattingUtilities.getParameterClause(
-                    introspectedColumn, "record.")); //$NON-NLS-1$
+                    introspectedColumn, "record."));
 
             if (iter.hasNext()) {
                 sb.append(',');
@@ -80,13 +80,13 @@ public class UpdateByExampleWithoutBLOBsElementGenerator extends
         }
 
         XmlElement isParameterPresentElement = new XmlElement(
-                "isParameterPresent"); //$NON-NLS-1$
+                "isParameterPresent");
         answer.addElement(isParameterPresentElement);
 
-        XmlElement includeElement = new XmlElement("include"); //$NON-NLS-1$
-        includeElement.addAttribute(new Attribute("refid", //$NON-NLS-1$
+        XmlElement includeElement = new XmlElement("include");
+        includeElement.addAttribute(new Attribute("refid",
                 introspectedTable.getIbatis2SqlMapNamespace()
-                        + "." + introspectedTable.getExampleWhereClauseId())); //$NON-NLS-1$
+                        + "." + introspectedTable.getExampleWhereClauseId()));
         isParameterPresentElement.addElement(includeElement);
 
         if (context.getPlugins()

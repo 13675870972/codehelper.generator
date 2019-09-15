@@ -38,13 +38,13 @@ public class UpdateByPrimaryKeySelectiveMethodGenerator extends
         Method method = getMethodShell(importedTypes);
 
         StringBuilder sb = new StringBuilder();
-        sb.append("int rows = "); //$NON-NLS-1$
+        sb.append("int rows = ");
         sb.append(daoTemplate.getUpdateMethod(introspectedTable
                 .getIbatis2SqlMapNamespace(), introspectedTable
-                .getUpdateByPrimaryKeySelectiveStatementId(), "record")); //$NON-NLS-1$
+                .getUpdateByPrimaryKeySelectiveStatementId(), "record"));
         method.addBodyLine(sb.toString());
 
-        method.addBodyLine("return rows;"); //$NON-NLS-1$
+        method.addBodyLine("return rows;");
 
         if (context.getPlugins()
                 .clientUpdateByPrimaryKeySelectiveMethodGenerated(method,
@@ -85,7 +85,7 @@ public class UpdateByPrimaryKeySelectiveMethodGenerator extends
         method.setReturnType(FullyQualifiedJavaType.getIntInstance());
         method.setName(getDAOMethodNameCalculator()
                 .getUpdateByPrimaryKeySelectiveMethodName(introspectedTable));
-        method.addParameter(new Parameter(parameterType, "record")); //$NON-NLS-1$
+        method.addParameter(new Parameter(parameterType, "record"));
 
         for (FullyQualifiedJavaType fqjt : daoTemplate.getCheckedExceptions()) {
             method.addException(fqjt);

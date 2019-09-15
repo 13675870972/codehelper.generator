@@ -35,7 +35,7 @@ public class UpdateByExampleParmsInnerclassGenerator extends
                 introspectedTable.getExampleType()));
 
         InnerClass innerClass = new InnerClass(new FullyQualifiedJavaType(
-                "UpdateByExampleParms")); //$NON-NLS-1$
+                "UpdateByExampleParms"));
         innerClass.setVisibility(JavaVisibility.PROTECTED);
         innerClass.setStatic(true);
         innerClass.setSuperClass(introspectedTable.getExampleType());
@@ -47,24 +47,24 @@ public class UpdateByExampleParmsInnerclassGenerator extends
         method.setVisibility(JavaVisibility.PUBLIC);
         method.setName(innerClass.getType().getShortName());
         method.addParameter(new Parameter(FullyQualifiedJavaType
-                .getObjectInstance(), "record")); //$NON-NLS-1$
+                .getObjectInstance(), "record"));
         method.addParameter(new Parameter(new FullyQualifiedJavaType(
-                introspectedTable.getExampleType()), "example")); //$NON-NLS-1$
-        method.addBodyLine("super(example);"); //$NON-NLS-1$
-        method.addBodyLine("this.record = record;"); //$NON-NLS-1$
+                introspectedTable.getExampleType()), "example"));
+        method.addBodyLine("super(example);");
+        method.addBodyLine("this.record = record;");
         innerClass.addMethod(method);
 
         Field field = new Field();
         field.setVisibility(JavaVisibility.PRIVATE);
         field.setType(FullyQualifiedJavaType.getObjectInstance());
-        field.setName("record"); //$NON-NLS-1$
+        field.setName("record");
         innerClass.addField(field);
 
         method = new Method();
         method.setVisibility(JavaVisibility.PUBLIC);
         method.setReturnType(FullyQualifiedJavaType.getObjectInstance());
-        method.setName("getRecord"); //$NON-NLS-1$
-        method.addBodyLine("return record;"); //$NON-NLS-1$
+        method.setName("getRecord");
+        method.addBodyLine("return record;");
         innerClass.addMethod(method);
 
         topLevelClass.addInnerClass(innerClass);

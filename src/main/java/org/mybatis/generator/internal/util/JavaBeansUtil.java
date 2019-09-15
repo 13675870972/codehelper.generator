@@ -55,9 +55,9 @@ public class JavaBeansUtil {
 
         if (fullyQualifiedJavaType.equals(FullyQualifiedJavaType
                 .getBooleanPrimitiveInstance())) {
-            sb.insert(0, "is"); //$NON-NLS-1$
+            sb.insert(0, "is");
         } else {
-            sb.insert(0, "get"); //$NON-NLS-1$
+            sb.insert(0, "get");
         }
 
         return sb.toString();
@@ -84,7 +84,7 @@ public class JavaBeansUtil {
             }
         }
 
-        sb.insert(0, "set"); //$NON-NLS-1$
+        sb.insert(0, "set");
 
         return sb.toString();
     }

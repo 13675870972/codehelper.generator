@@ -35,23 +35,23 @@ public class SelectByExampleWithoutBLOBsElementGenerator extends
 
     @Override
     public void addElements(XmlElement parentElement) {
-        XmlElement answer = new XmlElement("select"); //$NON-NLS-1$
+        XmlElement answer = new XmlElement("select");
 
-        answer.addAttribute(new Attribute("id", //$NON-NLS-1$
+        answer.addAttribute(new Attribute("id",
                 introspectedTable.getSelectByExampleStatementId()));
         answer.addAttribute(new Attribute(
-                "resultMap", introspectedTable.getBaseResultMapId())); //$NON-NLS-1$
+                "resultMap", introspectedTable.getBaseResultMapId()));
         answer.addAttribute(new Attribute(
-                "parameterClass", introspectedTable.getExampleType())); //$NON-NLS-1$
+                "parameterClass", introspectedTable.getExampleType()));
 
         context.getCommentGenerator().addComment(answer);
 
-        answer.addElement(new TextElement("select")); //$NON-NLS-1$
-        XmlElement isParameterPresent = new XmlElement("isParameterPresent"); //$NON-NLS-1$
-        XmlElement isEqualElement = new XmlElement("isEqual"); //$NON-NLS-1$
-        isEqualElement.addAttribute(new Attribute("property", "distinct")); //$NON-NLS-1$ //$NON-NLS-2$
-        isEqualElement.addAttribute(new Attribute("compareValue", "true")); //$NON-NLS-1$ //$NON-NLS-2$
-        isEqualElement.addElement(new TextElement("distinct")); //$NON-NLS-1$
+        answer.addElement(new TextElement("select"));
+        XmlElement isParameterPresent = new XmlElement("isParameterPresent");
+        XmlElement isEqualElement = new XmlElement("isEqual");
+        isEqualElement.addAttribute(new Attribute("property", "distinct"));
+        isEqualElement.addAttribute(new Attribute("compareValue", "true"));
+        isEqualElement.addElement(new TextElement("distinct"));
         isParameterPresent.addElement(isEqualElement);
         answer.addElement(isParameterPresent);
 
@@ -60,33 +60,33 @@ public class SelectByExampleWithoutBLOBsElementGenerator extends
                 .getSelectByExampleQueryId())) {
             sb.append('\'');
             sb.append(introspectedTable.getSelectByExampleQueryId());
-            sb.append("' as QUERYID,"); //$NON-NLS-1$
+            sb.append("' as QUERYID,");
             answer.addElement(new TextElement(sb.toString()));
         }
 
         answer.addElement(getBaseColumnListElement());
 
         sb.setLength(0);
-        sb.append("from "); //$NON-NLS-1$
+        sb.append("from ");
         sb.append(introspectedTable
                 .getAliasedFullyQualifiedTableNameAtRuntime());
         answer.addElement((new TextElement(sb.toString())));
 
         XmlElement isParameterPresenteElement = new XmlElement(
-                "isParameterPresent"); //$NON-NLS-1$
+                "isParameterPresent");
         answer.addElement(isParameterPresenteElement);
 
-        XmlElement includeElement = new XmlElement("include"); //$NON-NLS-1$
-        includeElement.addAttribute(new Attribute("refid", //$NON-NLS-1$
+        XmlElement includeElement = new XmlElement("include");
+        includeElement.addAttribute(new Attribute("refid",
                 introspectedTable.getIbatis2SqlMapNamespace()
-                        + "." + introspectedTable.getExampleWhereClauseId())); //$NON-NLS-1$
+                        + "." + introspectedTable.getExampleWhereClauseId()));
         isParameterPresenteElement.addElement(includeElement);
 
-        XmlElement isNotNullElement = new XmlElement("isNotNull"); //$NON-NLS-1$
+        XmlElement isNotNullElement = new XmlElement("isNotNull");
         isNotNullElement
-                .addAttribute(new Attribute("property", "orderByClause")); //$NON-NLS-1$ //$NON-NLS-2$
+                .addAttribute(new Attribute("property", "orderByClause"));
         isNotNullElement
-                .addElement(new TextElement("order by $orderByClause$")); //$NON-NLS-1$
+                .addElement(new TextElement("order by $orderByClause$"));
         isParameterPresenteElement.addElement(isNotNullElement);
 
         if (context.getPlugins()

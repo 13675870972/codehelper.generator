@@ -74,7 +74,7 @@ public class TopLevelClass extends InnerClass implements CompilationUnit {
         }
 
         if (stringHasValue(getType().getPackageName())) {
-            sb.append("package "); //$NON-NLS-1$
+            sb.append("package ");
             sb.append(getType().getPackageName());
             sb.append(';');
             newLine(sb);
@@ -82,7 +82,7 @@ public class TopLevelClass extends InnerClass implements CompilationUnit {
         }
 
         for (String staticImport : staticImports) {
-            sb.append("import static "); //$NON-NLS-1$
+            sb.append("import static ");
             sb.append(staticImport);
             sb.append(';');
             newLine(sb);

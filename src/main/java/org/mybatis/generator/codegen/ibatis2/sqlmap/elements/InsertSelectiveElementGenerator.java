@@ -37,15 +37,15 @@ public class InsertSelectiveElementGenerator extends
 
     @Override
     public void addElements(XmlElement parentElement) {
-        XmlElement answer = new XmlElement("insert"); //$NON-NLS-1$
+        XmlElement answer = new XmlElement("insert");
 
         answer.addAttribute(new Attribute(
-                "id", introspectedTable.getInsertSelectiveStatementId())); //$NON-NLS-1$
+                "id", introspectedTable.getInsertSelectiveStatementId()));
 
         FullyQualifiedJavaType parameterType = introspectedTable.getRules()
                 .calculateAllFieldsClass();
 
-        answer.addAttribute(new Attribute("parameterClass", //$NON-NLS-1$
+        answer.addAttribute(new Attribute("parameterClass",
                 parameterType.getFullyQualifiedName()));
 
         context.getCommentGenerator().addComment(answer);
@@ -65,18 +65,18 @@ public class InsertSelectiveElementGenerator extends
 
         StringBuilder sb = new StringBuilder();
 
-        sb.append("insert into "); //$NON-NLS-1$
+        sb.append("insert into ");
         sb.append(introspectedTable.getFullyQualifiedTableNameAtRuntime());
         answer.addElement(new TextElement(sb.toString()));
 
-        XmlElement insertElement = new XmlElement("dynamic"); //$NON-NLS-1$
-        insertElement.addAttribute(new Attribute("prepend", "(")); //$NON-NLS-1$ //$NON-NLS-2$
+        XmlElement insertElement = new XmlElement("dynamic");
+        insertElement.addAttribute(new Attribute("prepend", "("));
         answer.addElement(insertElement);
 
-        answer.addElement(new TextElement("values")); //$NON-NLS-1$
+        answer.addElement(new TextElement("values"));
 
-        XmlElement valuesElement = new XmlElement("dynamic"); //$NON-NLS-1$
-        valuesElement.addAttribute(new Attribute("prepend", "(")); //$NON-NLS-1$ //$NON-NLS-2$
+        XmlElement valuesElement = new XmlElement("dynamic");
+        valuesElement.addAttribute(new Attribute("prepend", "("));
         answer.addElement(valuesElement);
 
         for (IntrospectedColumn introspectedColumn : introspectedTable
@@ -86,27 +86,27 @@ public class InsertSelectiveElementGenerator extends
                 continue;
             }
 
-            XmlElement insertNotNullElement = new XmlElement("isNotNull"); //$NON-NLS-1$
-            insertNotNullElement.addAttribute(new Attribute("prepend", ",")); //$NON-NLS-1$ //$NON-NLS-2$
+            XmlElement insertNotNullElement = new XmlElement("isNotNull");
+            insertNotNullElement.addAttribute(new Attribute("prepend", ","));
             insertNotNullElement.addAttribute(new Attribute(
-                    "property", introspectedColumn.getJavaProperty())); //$NON-NLS-1$
+                    "property", introspectedColumn.getJavaProperty()));
             insertNotNullElement.addElement(new TextElement(
                     Ibatis2FormattingUtilities
                             .getEscapedColumnName(introspectedColumn)));
             insertElement.addElement(insertNotNullElement);
 
-            XmlElement valuesNotNullElement = new XmlElement("isNotNull"); //$NON-NLS-1$
-            valuesNotNullElement.addAttribute(new Attribute("prepend", ",")); //$NON-NLS-1$ //$NON-NLS-2$
+            XmlElement valuesNotNullElement = new XmlElement("isNotNull");
+            valuesNotNullElement.addAttribute(new Attribute("prepend", ","));
             valuesNotNullElement.addAttribute(new Attribute(
-                    "property", introspectedColumn.getJavaProperty())); //$NON-NLS-1$
+                    "property", introspectedColumn.getJavaProperty()));
             valuesNotNullElement.addElement(new TextElement(
                     Ibatis2FormattingUtilities
                             .getParameterClause(introspectedColumn)));
             valuesElement.addElement(valuesNotNullElement);
         }
 
-        insertElement.addElement(new TextElement(")")); //$NON-NLS-1$
-        valuesElement.addElement(new TextElement(")")); //$NON-NLS-1$
+        insertElement.addElement(new TextElement(")"));
+        valuesElement.addElement(new TextElement(")"));
 
         if (gk != null && !gk.isPlacedBeforeInsertInIbatis2()) {
             IntrospectedColumn introspectedColumn = introspectedTable

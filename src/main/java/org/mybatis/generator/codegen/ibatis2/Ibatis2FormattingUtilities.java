@@ -82,9 +82,9 @@ public class Ibatis2FormattingUtilities {
         sb.append(introspectedColumn.getJavaProperty(prefix));
 
         if (stringHasValue(introspectedColumn.getTypeHandler())) {
-            sb.append(",jdbcType="); //$NON-NLS-1$
+            sb.append(",jdbcType=");
             sb.append(introspectedColumn.getJdbcTypeName());
-            sb.append(",handler="); //$NON-NLS-1$
+            sb.append(",handler=");
             sb.append(introspectedColumn.getTypeHandler());
         } else {
             sb.append(':');
@@ -108,7 +108,7 @@ public class Ibatis2FormattingUtilities {
             StringBuilder sb = new StringBuilder();
 
             sb.append(getAliasedEscapedColumnName(introspectedColumn));
-            sb.append(" as "); //$NON-NLS-1$
+            sb.append(" as ");
             if (introspectedColumn.isColumnNameDelimited()) {
                 sb.append(introspectedColumn.getContext()
                         .getBeginningDelimiter());
@@ -127,14 +127,14 @@ public class Ibatis2FormattingUtilities {
     }
 
     public static String escapeStringForIbatis2(String s) {
-        StringTokenizer st = new StringTokenizer(s, "$#", true); //$NON-NLS-1$
+        StringTokenizer st = new StringTokenizer(s, "$#", true);
         StringBuilder sb = new StringBuilder();
         while (st.hasMoreTokens()) {
             String token = st.nextToken();
-            if ("$".equals(token)) { //$NON-NLS-1$
-                sb.append("$$"); //$NON-NLS-1$
-            } else if ("#".equals(token)) { //$NON-NLS-1$
-                sb.append("##"); //$NON-NLS-1$
+            if ("$".equals(token)) {
+                sb.append("$$");
+            } else if ("#".equals(token)) {
+                sb.append("##");
             } else {
                 sb.append(token);
             }

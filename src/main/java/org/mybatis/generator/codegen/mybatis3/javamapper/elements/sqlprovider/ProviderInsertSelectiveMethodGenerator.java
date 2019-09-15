@@ -43,10 +43,10 @@ public class ProviderInsertSelectiveMethodGenerator extends
         Set<String> staticImports = new TreeSet<String>();
         Set<FullyQualifiedJavaType> importedTypes = new TreeSet<FullyQualifiedJavaType>();
         
-        staticImports.add("org.apache.ibatis.jdbc.SqlBuilder.BEGIN"); //$NON-NLS-1$
-        staticImports.add("org.apache.ibatis.jdbc.SqlBuilder.INSERT_INTO"); //$NON-NLS-1$
-        staticImports.add("org.apache.ibatis.jdbc.SqlBuilder.SQL"); //$NON-NLS-1$
-        staticImports.add("org.apache.ibatis.jdbc.SqlBuilder.VALUES"); //$NON-NLS-1$
+        staticImports.add("org.apache.ibatis.jdbc.SqlBuilder.BEGIN");
+        staticImports.add("org.apache.ibatis.jdbc.SqlBuilder.INSERT_INTO");
+        staticImports.add("org.apache.ibatis.jdbc.SqlBuilder.SQL");
+        staticImports.add("org.apache.ibatis.jdbc.SqlBuilder.VALUES");
 
         FullyQualifiedJavaType fqjt = introspectedTable.getRules()
             .calculateAllFieldsClass();
@@ -56,13 +56,13 @@ public class ProviderInsertSelectiveMethodGenerator extends
                 introspectedTable.getInsertSelectiveStatementId());
         method.setVisibility(JavaVisibility.PUBLIC);
         method.setReturnType(FullyQualifiedJavaType.getStringInstance());
-        method.addParameter(new Parameter(fqjt, "record")); //$NON-NLS-1$
+        method.addParameter(new Parameter(fqjt, "record"));
         
         context.getCommentGenerator().addGeneralMethodComment(method,
                 introspectedTable);
 
-        method.addBodyLine("BEGIN();"); //$NON-NLS-1$
-        method.addBodyLine(String.format("INSERT_INTO(\"%s\");", //$NON-NLS-1$
+        method.addBodyLine("BEGIN();");
+        method.addBodyLine(String.format("INSERT_INTO(\"%s\");",
                 escapeStringForJava(introspectedTable.getFullyQualifiedTableNameAtRuntime())));
 
         for (IntrospectedColumn introspectedColumn : introspectedTable.getAllColumns()) {
@@ -71,24 +71,24 @@ public class ProviderInsertSelectiveMethodGenerator extends
                 continue;
             }
             
-            method.addBodyLine(""); //$NON-NLS-1$
+            method.addBodyLine("");
             if (!introspectedColumn.getFullyQualifiedJavaType().isPrimitive()
                     && !introspectedColumn.isSequenceColumn()) {
-                method.addBodyLine(String.format("if (record.%s() != null) {", //$NON-NLS-1$
+                method.addBodyLine(String.format("if (record.%s() != null) {",
                     getGetterMethodName(introspectedColumn.getJavaProperty(),
                             introspectedColumn.getFullyQualifiedJavaType())));
             }
-            method.addBodyLine(String.format("VALUES(\"%s\", \"%s\");", //$NON-NLS-1$
+            method.addBodyLine(String.format("VALUES(\"%s\", \"%s\");",
                     escapeStringForJava(getEscapedColumnName(introspectedColumn)),
                     getParameterClause(introspectedColumn)));
             if (!introspectedColumn.getFullyQualifiedJavaType().isPrimitive()
                     && !introspectedColumn.isSequenceColumn()) {
-                method.addBodyLine("}"); //$NON-NLS-1$
+                method.addBodyLine("}");
             }
         }
         
-        method.addBodyLine(""); //$NON-NLS-1$
-        method.addBodyLine("return SQL();"); //$NON-NLS-1$
+        method.addBodyLine("");
+        method.addBodyLine("return SQL();");
         
         if (context.getPlugins().providerInsertSelectiveMethodGenerated(method, topLevelClass,
                 introspectedTable)) {

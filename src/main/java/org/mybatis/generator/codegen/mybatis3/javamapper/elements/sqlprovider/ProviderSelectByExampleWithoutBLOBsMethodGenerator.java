@@ -42,12 +42,12 @@ public class ProviderSelectByExampleWithoutBLOBsMethodGenerator extends
         Set<String> staticImports = new TreeSet<String>();
         Set<FullyQualifiedJavaType> importedTypes = new TreeSet<FullyQualifiedJavaType>();
         
-        staticImports.add("org.apache.ibatis.jdbc.SqlBuilder.BEGIN"); //$NON-NLS-1$
-        staticImports.add("org.apache.ibatis.jdbc.SqlBuilder.SELECT"); //$NON-NLS-1$
-        staticImports.add("org.apache.ibatis.jdbc.SqlBuilder.SELECT_DISTINCT"); //$NON-NLS-1$
-        staticImports.add("org.apache.ibatis.jdbc.SqlBuilder.FROM"); //$NON-NLS-1$
-        staticImports.add("org.apache.ibatis.jdbc.SqlBuilder.ORDER_BY"); //$NON-NLS-1$
-        staticImports.add("org.apache.ibatis.jdbc.SqlBuilder.SQL"); //$NON-NLS-1$
+        staticImports.add("org.apache.ibatis.jdbc.SqlBuilder.BEGIN");
+        staticImports.add("org.apache.ibatis.jdbc.SqlBuilder.SELECT");
+        staticImports.add("org.apache.ibatis.jdbc.SqlBuilder.SELECT_DISTINCT");
+        staticImports.add("org.apache.ibatis.jdbc.SqlBuilder.FROM");
+        staticImports.add("org.apache.ibatis.jdbc.SqlBuilder.ORDER_BY");
+        staticImports.add("org.apache.ibatis.jdbc.SqlBuilder.SQL");
         
         FullyQualifiedJavaType fqjt = new FullyQualifiedJavaType(introspectedTable.getExampleType());
         importedTypes.add(fqjt);
@@ -55,42 +55,42 @@ public class ProviderSelectByExampleWithoutBLOBsMethodGenerator extends
         Method method = new Method(getMethodName());
         method.setVisibility(JavaVisibility.PUBLIC);
         method.setReturnType(FullyQualifiedJavaType.getStringInstance());
-        method.addParameter(new Parameter(fqjt, "example")); //$NON-NLS-1$
+        method.addParameter(new Parameter(fqjt, "example"));
         
         context.getCommentGenerator().addGeneralMethodComment(method,
                 introspectedTable);
         
-        method.addBodyLine("BEGIN();"); //$NON-NLS-1$
+        method.addBodyLine("BEGIN();");
 
         boolean distinctCheck = true;
         for (IntrospectedColumn introspectedColumn : getColumns()) {
             if (distinctCheck) {
-                method.addBodyLine("if (example != null && example.isDistinct()) {"); //$NON-NLS-1$
-                method.addBodyLine(String.format("SELECT_DISTINCT(\"%s\");", //$NON-NLS-1$
+                method.addBodyLine("if (example != null && example.isDistinct()) {");
+                method.addBodyLine(String.format("SELECT_DISTINCT(\"%s\");",
                     escapeStringForJava(getSelectListPhrase(introspectedColumn))));
-                method.addBodyLine("} else {"); //$NON-NLS-1$
-                method.addBodyLine(String.format("SELECT(\"%s\");", //$NON-NLS-1$
+                method.addBodyLine("} else {");
+                method.addBodyLine(String.format("SELECT(\"%s\");",
                     escapeStringForJava(getSelectListPhrase(introspectedColumn))));
-                method.addBodyLine("}"); //$NON-NLS-1$
+                method.addBodyLine("}");
             } else {
-                method.addBodyLine(String.format("SELECT(\"%s\");", //$NON-NLS-1$
+                method.addBodyLine(String.format("SELECT(\"%s\");",
                     escapeStringForJava(getSelectListPhrase(introspectedColumn))));
             }
             
             distinctCheck = false;
         }
 
-        method.addBodyLine(String.format("FROM(\"%s\");", //$NON-NLS-1$
+        method.addBodyLine(String.format("FROM(\"%s\");",
                 escapeStringForJava(introspectedTable.getAliasedFullyQualifiedTableNameAtRuntime())));
-        method.addBodyLine("applyWhere(example, false);"); //$NON-NLS-1$
+        method.addBodyLine("applyWhere(example, false);");
         
-        method.addBodyLine(""); //$NON-NLS-1$
-        method.addBodyLine("if (example != null && example.getOrderByClause() != null) {"); //$NON-NLS-1$
-        method.addBodyLine("ORDER_BY(example.getOrderByClause());"); //$NON-NLS-1$
-        method.addBodyLine("}"); //$NON-NLS-1$
+        method.addBodyLine("");
+        method.addBodyLine("if (example != null && example.getOrderByClause() != null) {");
+        method.addBodyLine("ORDER_BY(example.getOrderByClause());");
+        method.addBodyLine("}");
         
-        method.addBodyLine(""); //$NON-NLS-1$
-        method.addBodyLine("return SQL();"); //$NON-NLS-1$
+        method.addBodyLine("");
+        method.addBodyLine("return SQL();");
         
         if (callPlugins(method, topLevelClass)) {
             topLevelClass.addStaticImports(staticImports);

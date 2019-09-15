@@ -48,12 +48,12 @@ public class SelectByExampleWithoutBLOBsMethodGenerator extends
 
         StringBuilder sb = new StringBuilder();
         sb.append(method.getReturnType().getShortName());
-        sb.append(" list = "); //$NON-NLS-1$
+        sb.append(" list = ");
         sb.append(daoTemplate.getQueryForListMethod(introspectedTable
                 .getIbatis2SqlMapNamespace(), introspectedTable
-                .getSelectByExampleStatementId(), "example")); //$NON-NLS-1$
+                .getSelectByExampleStatementId(), "example"));
         method.addBodyLine(sb.toString());
-        method.addBodyLine("return list;"); //$NON-NLS-1$
+        method.addBodyLine("return list;");
 
         if (context.getPlugins()
                 .clientSelectByExampleWithoutBLOBsMethodGenerated(method,
@@ -99,7 +99,7 @@ public class SelectByExampleWithoutBLOBsMethodGenerator extends
                 fqjt = new FullyQualifiedJavaType(introspectedTable
                         .getPrimaryKeyType());
             } else {
-                throw new RuntimeException(getString("RuntimeError.12")); //$NON-NLS-1$
+                throw new RuntimeException(getString("RuntimeError.12"));
             }
 
             importedTypes.add(fqjt);
@@ -110,7 +110,7 @@ public class SelectByExampleWithoutBLOBsMethodGenerator extends
 
         method.setName(getDAOMethodNameCalculator()
                 .getSelectByExampleWithoutBLOBsMethodName(introspectedTable));
-        method.addParameter(new Parameter(type, "example")); //$NON-NLS-1$
+        method.addParameter(new Parameter(type, "example"));
 
         for (FullyQualifiedJavaType fqjt : daoTemplate.getCheckedExceptions()) {
             method.addException(fqjt);

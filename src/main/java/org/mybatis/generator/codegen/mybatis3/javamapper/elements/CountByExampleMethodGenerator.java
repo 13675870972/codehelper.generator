@@ -44,7 +44,7 @@ public class CountByExampleMethodGenerator extends
         method.setVisibility(JavaVisibility.PUBLIC);
         method.setReturnType(FullyQualifiedJavaType.getIntInstance());
         method.setName(introspectedTable.getCountByExampleStatementId());
-        method.addParameter(new Parameter(fqjt, "example")); //$NON-NLS-1$
+        method.addParameter(new Parameter(fqjt, "example"));
         context.getCommentGenerator().addGeneralMethodComment(method,
                 introspectedTable);
 

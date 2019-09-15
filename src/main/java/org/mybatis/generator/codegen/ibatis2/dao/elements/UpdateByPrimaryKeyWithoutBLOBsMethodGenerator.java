@@ -38,13 +38,13 @@ public class UpdateByPrimaryKeyWithoutBLOBsMethodGenerator extends
         Method method = getMethodShell(importedTypes);
 
         StringBuilder sb = new StringBuilder();
-        sb.append("int rows = "); //$NON-NLS-1$
+        sb.append("int rows = ");
         sb.append(daoTemplate.getUpdateMethod(introspectedTable
                 .getIbatis2SqlMapNamespace(), introspectedTable
-                .getUpdateByPrimaryKeyStatementId(), "record")); //$NON-NLS-1$
+                .getUpdateByPrimaryKeyStatementId(), "record"));
         method.addBodyLine(sb.toString());
 
-        method.addBodyLine("return rows;"); //$NON-NLS-1$
+        method.addBodyLine("return rows;");
 
         if (context.getPlugins()
                 .clientUpdateByPrimaryKeyWithoutBLOBsMethodGenerated(method,
@@ -79,7 +79,7 @@ public class UpdateByPrimaryKeyWithoutBLOBsMethodGenerator extends
                 .setName(getDAOMethodNameCalculator()
                         .getUpdateByPrimaryKeyWithoutBLOBsMethodName(
                                 introspectedTable));
-        method.addParameter(new Parameter(parameterType, "record")); //$NON-NLS-1$
+        method.addParameter(new Parameter(parameterType, "record"));
 
         for (FullyQualifiedJavaType fqjt : daoTemplate.getCheckedExceptions()) {
             method.addException(fqjt);

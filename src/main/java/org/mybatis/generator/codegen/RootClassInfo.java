@@ -72,7 +72,7 @@ public class RootClassInfo {
             propertyDescriptors = bi.getPropertyDescriptors();
         } catch (Exception e) {
             propertyDescriptors = null;
-            warnings.add(getString("Warning.20", className)); //$NON-NLS-1$
+            warnings.add(getString("Warning.20", className));
         }
     }
 
@@ -97,21 +97,21 @@ public class RootClassInfo {
                 // Is it the proper type?
                 if (!propertyDescriptor.getPropertyType().getName().equals(
                         propertyType)) {
-                    warnings.add(getString("Warning.21", //$NON-NLS-1$
+                    warnings.add(getString("Warning.21",
                             propertyName, className, propertyType));
                     break;
                 }
 
                 // Does it have a getter?
                 if (propertyDescriptor.getReadMethod() == null) {
-                    warnings.add(getString("Warning.22", //$NON-NLS-1$
+                    warnings.add(getString("Warning.22",
                             propertyName, className));
                     break;
                 }
 
                 // Does it have a setter?
                 if (propertyDescriptor.getWriteMethod() == null) {
-                    warnings.add(getString("Warning.23", //$NON-NLS-1$
+                    warnings.add(getString("Warning.23",
                             propertyName, className));
                     break;
                 }

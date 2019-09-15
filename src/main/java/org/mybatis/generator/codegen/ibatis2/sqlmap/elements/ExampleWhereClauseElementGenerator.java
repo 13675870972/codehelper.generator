@@ -36,79 +36,79 @@ public class ExampleWhereClauseElementGenerator extends
 
     @Override
     public void addElements(XmlElement parentElement) {
-        XmlElement answer = new XmlElement("sql"); //$NON-NLS-1$
+        XmlElement answer = new XmlElement("sql");
 
         answer.addAttribute(new Attribute(
-                "id", introspectedTable.getExampleWhereClauseId())); //$NON-NLS-1$
+                "id", introspectedTable.getExampleWhereClauseId()));
 
         context.getCommentGenerator().addComment(answer);
 
-        XmlElement outerIterateElement = new XmlElement("iterate"); //$NON-NLS-1$
+        XmlElement outerIterateElement = new XmlElement("iterate");
         outerIterateElement.addAttribute(new Attribute(
-                "property", "oredCriteria")); //$NON-NLS-1$ //$NON-NLS-2$
-        outerIterateElement.addAttribute(new Attribute("conjunction", "or")); //$NON-NLS-1$ //$NON-NLS-2$
-        outerIterateElement.addAttribute(new Attribute("prepend", "where")); //$NON-NLS-1$ //$NON-NLS-2$
+                "property", "oredCriteria"));
+        outerIterateElement.addAttribute(new Attribute("conjunction", "or"));
+        outerIterateElement.addAttribute(new Attribute("prepend", "where"));
         outerIterateElement.addAttribute(new Attribute(
-                "removeFirstPrepend", "iterate")); //$NON-NLS-1$ //$NON-NLS-2$
+                "removeFirstPrepend", "iterate"));
         answer.addElement(outerIterateElement);
 
-        XmlElement isEqualElement = new XmlElement("isEqual"); //$NON-NLS-1$
+        XmlElement isEqualElement = new XmlElement("isEqual");
         isEqualElement.addAttribute(new Attribute(
-                "property", "oredCriteria[].valid")); //$NON-NLS-1$ //$NON-NLS-2$
-        isEqualElement.addAttribute(new Attribute("compareValue", "true")); //$NON-NLS-1$ //$NON-NLS-2$
+                "property", "oredCriteria[].valid"));
+        isEqualElement.addAttribute(new Attribute("compareValue", "true"));
         outerIterateElement.addElement(isEqualElement);
 
-        isEqualElement.addElement(new TextElement("(")); //$NON-NLS-1$
+        isEqualElement.addElement(new TextElement("("));
 
-        XmlElement innerIterateElement = new XmlElement("iterate"); //$NON-NLS-1$
-        innerIterateElement.addAttribute(new Attribute("prepend", "and")); //$NON-NLS-1$ //$NON-NLS-2$
+        XmlElement innerIterateElement = new XmlElement("iterate");
+        innerIterateElement.addAttribute(new Attribute("prepend", "and"));
         innerIterateElement.addAttribute(new Attribute(
-                "property", "oredCriteria[].criteriaWithoutValue")); //$NON-NLS-1$ //$NON-NLS-2$
-        innerIterateElement.addAttribute(new Attribute("conjunction", "and")); //$NON-NLS-1$ //$NON-NLS-2$
+                "property", "oredCriteria[].criteriaWithoutValue"));
+        innerIterateElement.addAttribute(new Attribute("conjunction", "and"));
         innerIterateElement.addElement(new TextElement(
-                "$oredCriteria[].criteriaWithoutValue[]$")); //$NON-NLS-1$
+                "$oredCriteria[].criteriaWithoutValue[]$"));
         isEqualElement.addElement(innerIterateElement);
 
-        innerIterateElement = new XmlElement("iterate"); //$NON-NLS-1$
-        innerIterateElement.addAttribute(new Attribute("prepend", "and")); //$NON-NLS-1$ //$NON-NLS-2$
+        innerIterateElement = new XmlElement("iterate");
+        innerIterateElement.addAttribute(new Attribute("prepend", "and"));
         innerIterateElement.addAttribute(new Attribute(
-                "property", "oredCriteria[].criteriaWithSingleValue")); //$NON-NLS-1$ //$NON-NLS-2$
-        innerIterateElement.addAttribute(new Attribute("conjunction", "and")); //$NON-NLS-1$ //$NON-NLS-2$
+                "property", "oredCriteria[].criteriaWithSingleValue"));
+        innerIterateElement.addAttribute(new Attribute("conjunction", "and"));
         innerIterateElement
                 .addElement(new TextElement(
-                        "$oredCriteria[].criteriaWithSingleValue[].condition$ #oredCriteria[].criteriaWithSingleValue[].value#")); //$NON-NLS-1$
+                        "$oredCriteria[].criteriaWithSingleValue[].condition$ #oredCriteria[].criteriaWithSingleValue[].value#"));
         isEqualElement.addElement(innerIterateElement);
 
-        innerIterateElement = new XmlElement("iterate"); //$NON-NLS-1$
-        innerIterateElement.addAttribute(new Attribute("prepend", "and")); //$NON-NLS-1$ //$NON-NLS-2$
+        innerIterateElement = new XmlElement("iterate");
+        innerIterateElement.addAttribute(new Attribute("prepend", "and"));
         innerIterateElement.addAttribute(new Attribute(
-                "property", "oredCriteria[].criteriaWithListValue")); //$NON-NLS-1$ //$NON-NLS-2$
-        innerIterateElement.addAttribute(new Attribute("conjunction", "and")); //$NON-NLS-1$ //$NON-NLS-2$
+                "property", "oredCriteria[].criteriaWithListValue"));
+        innerIterateElement.addAttribute(new Attribute("conjunction", "and"));
         innerIterateElement.addElement(new TextElement(
-                "$oredCriteria[].criteriaWithListValue[].condition$")); //$NON-NLS-1$
-        XmlElement innerInnerIterateElement = new XmlElement("iterate"); //$NON-NLS-1$
-        innerInnerIterateElement.addAttribute(new Attribute("property", //$NON-NLS-1$
-                "oredCriteria[].criteriaWithListValue[].values")); //$NON-NLS-1$
-        innerInnerIterateElement.addAttribute(new Attribute("open", "(")); //$NON-NLS-1$ //$NON-NLS-2$
-        innerInnerIterateElement.addAttribute(new Attribute("close", ")")); //$NON-NLS-1$ //$NON-NLS-2$
+                "$oredCriteria[].criteriaWithListValue[].condition$"));
+        XmlElement innerInnerIterateElement = new XmlElement("iterate");
+        innerInnerIterateElement.addAttribute(new Attribute("property",
+                "oredCriteria[].criteriaWithListValue[].values"));
+        innerInnerIterateElement.addAttribute(new Attribute("open", "("));
+        innerInnerIterateElement.addAttribute(new Attribute("close", ")"));
         innerInnerIterateElement
-                .addAttribute(new Attribute("conjunction", ",")); //$NON-NLS-1$ //$NON-NLS-2$
+                .addAttribute(new Attribute("conjunction", ","));
         innerInnerIterateElement.addElement(new TextElement(
-                "#oredCriteria[].criteriaWithListValue[].values[]#")); //$NON-NLS-1$
+                "#oredCriteria[].criteriaWithListValue[].values[]#"));
         innerIterateElement.addElement(innerInnerIterateElement);
         isEqualElement.addElement(innerIterateElement);
 
-        innerIterateElement = new XmlElement("iterate"); //$NON-NLS-1$
-        innerIterateElement.addAttribute(new Attribute("prepend", "and")); //$NON-NLS-1$ //$NON-NLS-2$
+        innerIterateElement = new XmlElement("iterate");
+        innerIterateElement.addAttribute(new Attribute("prepend", "and"));
         innerIterateElement.addAttribute(new Attribute(
-                "property", "oredCriteria[].criteriaWithBetweenValue")); //$NON-NLS-1$ //$NON-NLS-2$
-        innerIterateElement.addAttribute(new Attribute("conjunction", "and")); //$NON-NLS-1$ //$NON-NLS-2$
+                "property", "oredCriteria[].criteriaWithBetweenValue"));
+        innerIterateElement.addAttribute(new Attribute("conjunction", "and"));
         innerIterateElement.addElement(new TextElement(
-                "$oredCriteria[].criteriaWithBetweenValue[].condition$")); //$NON-NLS-1$
+                "$oredCriteria[].criteriaWithBetweenValue[].condition$"));
         innerIterateElement.addElement(new TextElement(
-                "#oredCriteria[].criteriaWithBetweenValue[].values[0]# and")); //$NON-NLS-1$
+                "#oredCriteria[].criteriaWithBetweenValue[].values[0]# and"));
         innerIterateElement.addElement(new TextElement(
-                "#oredCriteria[].criteriaWithBetweenValue[].values[1]#")); //$NON-NLS-1$
+                "#oredCriteria[].criteriaWithBetweenValue[].values[1]#"));
         isEqualElement.addElement(innerIterateElement);
 
         // if any of the columns have a user defined type handler, then we need
@@ -122,26 +122,26 @@ public class ExampleWhereClauseElementGenerator extends
                 // add the type handler to the parameter declaration
                 StringBuilder sb1 = new StringBuilder();
                 StringBuilder sb2 = new StringBuilder();
-                innerIterateElement = new XmlElement("iterate"); //$NON-NLS-1$
+                innerIterateElement = new XmlElement("iterate");
                 innerIterateElement
-                        .addAttribute(new Attribute("prepend", "and")); //$NON-NLS-1$ //$NON-NLS-2$
+                        .addAttribute(new Attribute("prepend", "and"));
 
-                sb1.append("oredCriteria[]."); //$NON-NLS-1$
+                sb1.append("oredCriteria[].");
                 sb1.append(introspectedColumn.getJavaProperty());
-                sb1.append("CriteriaWithSingleValue"); //$NON-NLS-1$
+                sb1.append("CriteriaWithSingleValue");
 
                 innerIterateElement.addAttribute(new Attribute(
-                        "property", sb1.toString())); //$NON-NLS-1$
+                        "property", sb1.toString()));
                 innerIterateElement.addAttribute(new Attribute(
-                        "conjunction", "and")); //$NON-NLS-1$ //$NON-NLS-2$
+                        "conjunction", "and"));
 
                 sb2.append(sb1);
 
                 sb1.insert(0, '$');
-                sb1.append("[].condition$ ");//$NON-NLS-1$
+                sb1.append("[].condition$ ");
 
                 sb2.insert(0, '#');
-                sb2.append("[].value,handler=");//$NON-NLS-1$
+                sb2.append("[].value,handler=");
                 sb2.append(introspectedColumn.getTypeHandler());
                 sb2.append('#');
 
@@ -152,42 +152,42 @@ public class ExampleWhereClauseElementGenerator extends
 
                 sb1.setLength(0);
                 sb2.setLength(0);
-                sb1.append("oredCriteria[]."); //$NON-NLS-1$
+                sb1.append("oredCriteria[].");
                 sb1.append(introspectedColumn.getJavaProperty());
-                sb1.append("CriteriaWithListValue"); //$NON-NLS-1$
+                sb1.append("CriteriaWithListValue");
 
-                innerIterateElement = new XmlElement("iterate"); //$NON-NLS-1$
+                innerIterateElement = new XmlElement("iterate");
                 innerIterateElement
-                        .addAttribute(new Attribute("prepend", "and")); //$NON-NLS-1$ //$NON-NLS-2$
+                        .addAttribute(new Attribute("prepend", "and"));
                 innerIterateElement.addAttribute(new Attribute(
-                        "property", sb1.toString())); //$NON-NLS-1$
+                        "property", sb1.toString()));
                 innerIterateElement.addAttribute(new Attribute(
-                        "conjunction", "and")); //$NON-NLS-1$ //$NON-NLS-2$
+                        "conjunction", "and"));
 
                 sb2.append('$');
                 sb2.append(sb1);
-                sb2.append("[].condition$"); //$NON-NLS-1$
+                sb2.append("[].condition$");
 
                 innerIterateElement.addElement(new TextElement(sb2.toString()));
 
                 sb2.setLength(0);
                 sb2.append(sb1);
-                sb2.append("[].values"); //$NON-NLS-1$
+                sb2.append("[].values");
 
-                innerInnerIterateElement = new XmlElement("iterate"); //$NON-NLS-1$
-                innerInnerIterateElement.addAttribute(new Attribute("property", //$NON-NLS-1$
+                innerInnerIterateElement = new XmlElement("iterate");
+                innerInnerIterateElement.addAttribute(new Attribute("property",
                         sb2.toString()));
                 innerInnerIterateElement
-                        .addAttribute(new Attribute("open", "(")); //$NON-NLS-1$ //$NON-NLS-2$
+                        .addAttribute(new Attribute("open", "("));
                 innerInnerIterateElement.addAttribute(new Attribute(
-                        "close", ")")); //$NON-NLS-1$ //$NON-NLS-2$
+                        "close", ")"));
                 innerInnerIterateElement.addAttribute(new Attribute(
-                        "conjunction", ",")); //$NON-NLS-1$ //$NON-NLS-2$
+                        "conjunction", ","));
 
                 sb2.setLength(0);
                 sb2.append('#');
                 sb2.append(sb1);
-                sb2.append("[].values[],handler="); //$NON-NLS-1$
+                sb2.append("[].values[],handler=");
                 sb2.append(introspectedColumn.getTypeHandler());
                 sb2.append('#');
 
@@ -198,21 +198,21 @@ public class ExampleWhereClauseElementGenerator extends
 
                 sb1.setLength(0);
                 sb2.setLength(0);
-                sb1.append("oredCriteria[]."); //$NON-NLS-1$
+                sb1.append("oredCriteria[].");
                 sb1.append(introspectedColumn.getJavaProperty());
-                sb1.append("CriteriaWithBetweenValue"); //$NON-NLS-1$
+                sb1.append("CriteriaWithBetweenValue");
 
-                innerIterateElement = new XmlElement("iterate"); //$NON-NLS-1$
+                innerIterateElement = new XmlElement("iterate");
                 innerIterateElement
-                        .addAttribute(new Attribute("prepend", "and")); //$NON-NLS-1$ //$NON-NLS-2$
+                        .addAttribute(new Attribute("prepend", "and"));
                 innerIterateElement.addAttribute(new Attribute(
-                        "property", sb1.toString())); //$NON-NLS-1$
+                        "property", sb1.toString()));
                 innerIterateElement.addAttribute(new Attribute(
-                        "conjunction", "and")); //$NON-NLS-1$ //$NON-NLS-2$
+                        "conjunction", "and"));
 
                 sb2.append('$');
                 sb2.append(sb1);
-                sb2.append("[].condition$"); //$NON-NLS-1$
+                sb2.append("[].condition$");
 
                 innerIterateElement.addElement(new TextElement(sb2.toString()));
 
@@ -220,12 +220,12 @@ public class ExampleWhereClauseElementGenerator extends
                 sb2.append(sb1);
 
                 sb1.insert(0, '#');
-                sb1.append("[].values[0],handler="); //$NON-NLS-1$
+                sb1.append("[].values[0],handler=");
                 sb1.append(introspectedColumn.getTypeHandler());
-                sb1.append("# and"); //$NON-NLS-1$
+                sb1.append("# and");
 
                 sb2.insert(0, '#');
-                sb2.append("[].values[1],handler="); //$NON-NLS-1$
+                sb2.append("[].values[1],handler=");
                 sb2.append(introspectedColumn.getTypeHandler());
                 sb2.append('#');
 
@@ -235,7 +235,7 @@ public class ExampleWhereClauseElementGenerator extends
             }
         }
 
-        isEqualElement.addElement(new TextElement(")")); //$NON-NLS-1$
+        isEqualElement.addElement(new TextElement(")"));
 
         if (context.getPlugins()
                 .sqlMapExampleWhereClauseElementGenerated(answer,

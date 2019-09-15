@@ -36,38 +36,38 @@ public class SpringDAOTemplate extends AbstractDAOTemplate {
         Method method = new Method();
         method.setConstructor(true);
         method.setVisibility(JavaVisibility.PUBLIC);
-        method.addBodyLine("super();"); //$NON-NLS-1$
+        method.addBodyLine("super();");
         setConstructorTemplate(method);
     }
 
     @Override
     protected void configureDeleteMethodTemplate() {
-        setDeleteMethodTemplate("getSqlMapClientTemplate().delete(\"{0}.{1}\", {2});"); //$NON-NLS-1$
+        setDeleteMethodTemplate("getSqlMapClientTemplate().delete(\"{0}.{1}\", {2});");
     }
 
     @Override
     protected void configureInsertMethodTemplate() {
-        setInsertMethodTemplate("getSqlMapClientTemplate().insert(\"{0}.{1}\", {2});"); //$NON-NLS-1$
+        setInsertMethodTemplate("getSqlMapClientTemplate().insert(\"{0}.{1}\", {2});");
     }
 
     @Override
     protected void configureQueryForListMethodTemplate() {
-        setQueryForListMethodTemplate("getSqlMapClientTemplate().queryForList(\"{0}.{1}\", {2});"); //$NON-NLS-1$
+        setQueryForListMethodTemplate("getSqlMapClientTemplate().queryForList(\"{0}.{1}\", {2});");
     }
 
     @Override
     protected void configureQueryForObjectMethodTemplate() {
-        setQueryForObjectMethodTemplate("getSqlMapClientTemplate().queryForObject(\"{0}.{1}\", {2});"); //$NON-NLS-1$
+        setQueryForObjectMethodTemplate("getSqlMapClientTemplate().queryForObject(\"{0}.{1}\", {2});");
     }
 
     @Override
     protected void configureSuperClass() {
         setSuperClass(new FullyQualifiedJavaType(
-                "org.springframework.orm.ibatis.support.SqlMapClientDaoSupport")); //$NON-NLS-1$
+                "org.springframework.orm.ibatis.support.SqlMapClientDaoSupport"));
     }
 
     @Override
     protected void configureUpdateMethodTemplate() {
-        setUpdateMethodTemplate("getSqlMapClientTemplate().update(\"{0}.{1}\", {2});"); //$NON-NLS-1$
+        setUpdateMethodTemplate("getSqlMapClientTemplate().update(\"{0}.{1}\", {2});");
     }
 }

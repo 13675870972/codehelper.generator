@@ -41,7 +41,7 @@ public abstract class AbstractJavaGenerator extends AbstractGenerator {
         method.setReturnType(field.getType());
         method.setVisibility(JavaVisibility.PUBLIC);
         StringBuilder sb = new StringBuilder();
-        sb.append("return "); //$NON-NLS-1$
+        sb.append("return ");
         sb.append(field.getName());
         sb.append(';');
         method.addBodyLine(sb.toString());
@@ -61,7 +61,7 @@ public abstract class AbstractJavaGenerator extends AbstractGenerator {
                 introspectedTable, introspectedColumn);
 
         StringBuilder sb = new StringBuilder();
-        sb.append("return "); //$NON-NLS-1$
+        sb.append("return ");
         sb.append(property);
         sb.append(';');
         method.addBodyLine(sb.toString());
@@ -98,18 +98,18 @@ public abstract class AbstractJavaGenerator extends AbstractGenerator {
 
         StringBuilder sb = new StringBuilder();
         if (isTrimStringsEnabled() && introspectedColumn.isStringColumn()) {
-            sb.append("this."); //$NON-NLS-1$
+            sb.append("this.");
             sb.append(property);
-            sb.append(" = "); //$NON-NLS-1$
+            sb.append(" = ");
             sb.append(property);
-            sb.append(" == null ? null : "); //$NON-NLS-1$
+            sb.append(" == null ? null : ");
             sb.append(property);
-            sb.append(".trim();"); //$NON-NLS-1$
+            sb.append(".trim();");
             method.addBodyLine(sb.toString());
         } else {
-            sb.append("this."); //$NON-NLS-1$
+            sb.append("this.");
             sb.append(property);
-            sb.append(" = "); //$NON-NLS-1$
+            sb.append(" = ");
             sb.append(property);
             sb.append(';');
             method.addBodyLine(sb.toString());
@@ -143,7 +143,7 @@ public abstract class AbstractJavaGenerator extends AbstractGenerator {
         method.setVisibility(JavaVisibility.PUBLIC);
         method.setConstructor(true);
         method.setName(topLevelClass.getType().getShortName());
-        method.addBodyLine("super();"); //$NON-NLS-1$
+        method.addBodyLine("super();");
         context.getCommentGenerator().addGeneralMethodComment(method, introspectedTable);
         topLevelClass.addMethod(method);
     }

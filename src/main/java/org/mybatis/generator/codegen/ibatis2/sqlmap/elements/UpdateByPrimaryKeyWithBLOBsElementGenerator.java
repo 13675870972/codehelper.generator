@@ -38,11 +38,11 @@ public class UpdateByPrimaryKeyWithBLOBsElementGenerator extends
 
     @Override
     public void addElements(XmlElement parentElement) {
-        XmlElement answer = new XmlElement("update"); //$NON-NLS-1$
+        XmlElement answer = new XmlElement("update");
 
         answer
                 .addAttribute(new Attribute(
-                        "id", introspectedTable.getUpdateByPrimaryKeyWithBLOBsStatementId())); //$NON-NLS-1$
+                        "id", introspectedTable.getUpdateByPrimaryKeyWithBLOBsStatementId()));
 
         String parameterType;
 
@@ -52,20 +52,20 @@ public class UpdateByPrimaryKeyWithBLOBsElementGenerator extends
             parameterType = introspectedTable.getBaseRecordType();
         }
 
-        answer.addAttribute(new Attribute("parameterClass", //$NON-NLS-1$
+        answer.addAttribute(new Attribute("parameterClass",
                 parameterType));
 
         context.getCommentGenerator().addComment(answer);
 
         StringBuilder sb = new StringBuilder();
 
-        sb.append("update "); //$NON-NLS-1$
+        sb.append("update ");
         sb.append(introspectedTable.getFullyQualifiedTableNameAtRuntime());
         answer.addElement(new TextElement(sb.toString()));
 
         // set up for first column
         sb.setLength(0);
-        sb.append("set "); //$NON-NLS-1$
+        sb.append("set ");
 
         Iterator<IntrospectedColumn> iter = introspectedTable
                 .getNonPrimaryKeyColumns().iterator();
@@ -74,7 +74,7 @@ public class UpdateByPrimaryKeyWithBLOBsElementGenerator extends
 
             sb.append(Ibatis2FormattingUtilities
                     .getEscapedColumnName(introspectedColumn));
-            sb.append(" = "); //$NON-NLS-1$
+            sb.append(" = ");
             sb.append(Ibatis2FormattingUtilities
                     .getParameterClause(introspectedColumn));
 
@@ -96,15 +96,15 @@ public class UpdateByPrimaryKeyWithBLOBsElementGenerator extends
                 .getPrimaryKeyColumns()) {
             sb.setLength(0);
             if (and) {
-                sb.append("  and "); //$NON-NLS-1$
+                sb.append("  and ");
             } else {
-                sb.append("where "); //$NON-NLS-1$
+                sb.append("where ");
                 and = true;
             }
 
             sb.append(Ibatis2FormattingUtilities
                     .getEscapedColumnName(introspectedColumn));
-            sb.append(" = "); //$NON-NLS-1$
+            sb.append(" = ");
             sb.append(Ibatis2FormattingUtilities
                     .getParameterClause(introspectedColumn));
             answer.addElement(new TextElement(sb.toString()));

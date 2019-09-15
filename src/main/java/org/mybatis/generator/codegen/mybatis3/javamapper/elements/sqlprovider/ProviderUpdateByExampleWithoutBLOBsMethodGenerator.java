@@ -43,48 +43,48 @@ public class ProviderUpdateByExampleWithoutBLOBsMethodGenerator extends
         Set<String> staticImports = new TreeSet<String>();
         Set<FullyQualifiedJavaType> importedTypes = new TreeSet<FullyQualifiedJavaType>();
 
-        staticImports.add("org.apache.ibatis.jdbc.SqlBuilder.BEGIN"); //$NON-NLS-1$
-        staticImports.add("org.apache.ibatis.jdbc.SqlBuilder.UPDATE"); //$NON-NLS-1$
-        staticImports.add("org.apache.ibatis.jdbc.SqlBuilder.SET"); //$NON-NLS-1$
-        staticImports.add("org.apache.ibatis.jdbc.SqlBuilder.SQL"); //$NON-NLS-1$
+        staticImports.add("org.apache.ibatis.jdbc.SqlBuilder.BEGIN");
+        staticImports.add("org.apache.ibatis.jdbc.SqlBuilder.UPDATE");
+        staticImports.add("org.apache.ibatis.jdbc.SqlBuilder.SET");
+        staticImports.add("org.apache.ibatis.jdbc.SqlBuilder.SQL");
 
-        importedTypes.add(new FullyQualifiedJavaType("java.util.Map")); //$NON-NLS-1$
+        importedTypes.add(new FullyQualifiedJavaType("java.util.Map"));
         
         Method method = new Method(getMethodName());
         method.setReturnType(FullyQualifiedJavaType.getStringInstance());
         method.setVisibility(JavaVisibility.PUBLIC);
-        method.addParameter(new Parameter(new FullyQualifiedJavaType("java.util.Map<java.lang.String, java.lang.Object>"), //$NON-NLS-1$
-                "parameter")); //$NON-NLS-1$
+        method.addParameter(new Parameter(new FullyQualifiedJavaType("java.util.Map<java.lang.String, java.lang.Object>"),
+                "parameter"));
         
         context.getCommentGenerator().addGeneralMethodComment(method,
                 introspectedTable);
 
-        method.addBodyLine("BEGIN();"); //$NON-NLS-1$
+        method.addBodyLine("BEGIN();");
         
-        method.addBodyLine(String.format("UPDATE(\"%s\");", //$NON-NLS-1$
+        method.addBodyLine(String.format("UPDATE(\"%s\");",
                 escapeStringForJava(introspectedTable.getAliasedFullyQualifiedTableNameAtRuntime())));
-        method.addBodyLine(""); //$NON-NLS-1$
+        method.addBodyLine("");
         
         for (IntrospectedColumn introspectedColumn : getColumns()) {
             StringBuilder sb = new StringBuilder();
             sb.append(getParameterClause(introspectedColumn));
-            sb.insert(2, "record."); //$NON-NLS-1$
+            sb.insert(2, "record.");
             
-            method.addBodyLine(String.format("SET(\"%s = %s\");", //$NON-NLS-1$
+            method.addBodyLine(String.format("SET(\"%s = %s\");",
                     escapeStringForJava(getAliasedEscapedColumnName(introspectedColumn)),
                     sb.toString()));
         }
         
-        method.addBodyLine(""); //$NON-NLS-1$
+        method.addBodyLine("");
         
         FullyQualifiedJavaType example =
             new FullyQualifiedJavaType(introspectedTable.getExampleType());
         importedTypes.add(example);
-        method.addBodyLine(String.format("%s example = (%s) parameter.get(\"example\");", //$NON-NLS-1$
+        method.addBodyLine(String.format("%s example = (%s) parameter.get(\"example\");",
                 example.getShortName(), example.getShortName()));
         
-        method.addBodyLine("applyWhere(example, true);"); //$NON-NLS-1$
-        method.addBodyLine("return SQL();"); //$NON-NLS-1$
+        method.addBodyLine("applyWhere(example, true);");
+        method.addBodyLine("return SQL();");
         
         if (callPlugins(method, topLevelClass)) {
             topLevelClass.addStaticImports(staticImports);

@@ -33,27 +33,27 @@ public class DeleteByExampleElementGenerator extends
 
     @Override
     public void addElements(XmlElement parentElement) {
-        XmlElement answer = new XmlElement("delete"); //$NON-NLS-1$
+        XmlElement answer = new XmlElement("delete");
 
         answer.addAttribute(new Attribute(
-                "id", introspectedTable.getDeleteByExampleStatementId())); //$NON-NLS-1$
+                "id", introspectedTable.getDeleteByExampleStatementId()));
         answer.addAttribute(new Attribute(
-                "parameterClass", introspectedTable.getExampleType())); //$NON-NLS-1$
+                "parameterClass", introspectedTable.getExampleType()));
 
         context.getCommentGenerator().addComment(answer);
 
         StringBuilder sb = new StringBuilder();
-        sb.append("delete from "); //$NON-NLS-1$
+        sb.append("delete from ");
         sb.append(introspectedTable
                 .getAliasedFullyQualifiedTableNameAtRuntime());
         answer.addElement(new TextElement(sb.toString()));
 
-        XmlElement includeElement = new XmlElement("include"); //$NON-NLS-1$
+        XmlElement includeElement = new XmlElement("include");
         sb.setLength(0);
         sb.append(introspectedTable.getIbatis2SqlMapNamespace());
         sb.append('.');
         sb.append(introspectedTable.getExampleWhereClauseId());
-        includeElement.addAttribute(new Attribute("refid", //$NON-NLS-1$
+        includeElement.addAttribute(new Attribute("refid",
                 sb.toString()));
 
         answer.addElement(includeElement);

@@ -117,7 +117,7 @@ public class ObjectFactory {
             answer = clazz.newInstance();
         } catch (Exception e) {
             throw new RuntimeException(getString(
-                    "RuntimeError.6", type), e); //$NON-NLS-1$
+                    "RuntimeError.6", type), e);
         }
 
         return answer;
@@ -169,7 +169,7 @@ public class ObjectFactory {
             answer = clazz.newInstance();
         } catch (Exception e) {
             throw new RuntimeException(getString(
-                    "RuntimeError.6", type), e); //$NON-NLS-1$
+                    "RuntimeError.6", type), e);
 
         }
 
@@ -184,7 +184,7 @@ public class ObjectFactory {
 
         if (config != null && config.getConfigurationType() != null) {
             type = config.getConfigurationType();
-            if ("DEFAULT".equalsIgnoreCase(type)) { //$NON-NLS-1$
+            if ("DEFAULT".equalsIgnoreCase(type)) {
                 type = JavaTypeResolverDefaultImpl.class.getName();
             }
         } else {
@@ -281,15 +281,15 @@ public class ObjectFactory {
         String type = context.getTargetRuntime();
         if (!stringHasValue(type)) {
             type = IntrospectedTableMyBatis3Impl.class.getName();
-        } else if ("Ibatis2Java2".equalsIgnoreCase(type)) { //$NON-NLS-1$
+        } else if ("Ibatis2Java2".equalsIgnoreCase(type)) {
             type = IntrospectedTableIbatis2Java2Impl.class.getName();
-        } else if ("Ibatis2Java5".equalsIgnoreCase(type)) { //$NON-NLS-1$
+        } else if ("Ibatis2Java5".equalsIgnoreCase(type)) {
             type = IntrospectedTableIbatis2Java5Impl.class.getName();
-        } else if ("Ibatis3".equalsIgnoreCase(type)) { //$NON-NLS-1$
+        } else if ("Ibatis3".equalsIgnoreCase(type)) {
             type = IntrospectedTableMyBatis3Impl.class.getName();
-        } else if ("MyBatis3".equalsIgnoreCase(type)) { //$NON-NLS-1$
+        } else if ("MyBatis3".equalsIgnoreCase(type)) {
             type = IntrospectedTableMyBatis3Impl.class.getName();
-        } else if ("MyBatis3Simple".equalsIgnoreCase(type)) { //$NON-NLS-1$
+        } else if ("MyBatis3Simple".equalsIgnoreCase(type)) {
             type = IntrospectedTableMyBatis3SimpleImpl.class.getName();
         }
 

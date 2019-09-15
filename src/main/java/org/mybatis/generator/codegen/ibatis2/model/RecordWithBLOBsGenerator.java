@@ -43,7 +43,7 @@ public class RecordWithBLOBsGenerator extends AbstractJavaGenerator {
     public List<CompilationUnit> getCompilationUnits() {
         FullyQualifiedTable table = introspectedTable.getFullyQualifiedTable();
         progressCallback.startTask(getString(
-                "Progress.9", table.toString())); //$NON-NLS-1$
+                "Progress.9", table.toString()));
         Plugin plugins = context.getPlugins();
         CommentGenerator commentGenerator = context.getCommentGenerator();
 

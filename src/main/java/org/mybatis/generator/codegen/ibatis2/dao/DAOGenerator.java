@@ -52,7 +52,7 @@ public class DAOGenerator extends AbstractJavaClientGenerator {
     public List<CompilationUnit> getCompilationUnits() {
         FullyQualifiedTable table = introspectedTable.getFullyQualifiedTable();
         progressCallback.startTask(getString(
-                "Progress.14", table.toString())); //$NON-NLS-1$
+                "Progress.14", table.toString()));
         TopLevelClass topLevelClass = getTopLevelClassShell();
         Interface interfaze = getInterfaceShell();
 

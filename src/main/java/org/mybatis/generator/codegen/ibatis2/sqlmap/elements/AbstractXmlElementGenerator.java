@@ -51,12 +51,12 @@ public abstract class AbstractXmlElementGenerator extends AbstractGenerator {
         String identityColumnType = introspectedColumn
                 .getFullyQualifiedJavaType().getFullyQualifiedName();
 
-        XmlElement answer = new XmlElement("selectKey"); //$NON-NLS-1$
-        answer.addAttribute(new Attribute("resultClass", identityColumnType)); //$NON-NLS-1$
+        XmlElement answer = new XmlElement("selectKey");
+        answer.addAttribute(new Attribute("resultClass", identityColumnType));
         answer.addAttribute(new Attribute(
-                "keyProperty", introspectedColumn.getJavaProperty())); //$NON-NLS-1$
+                "keyProperty", introspectedColumn.getJavaProperty()));
         if (stringHasValue(generatedKey.getType())) {
-            answer.addAttribute(new Attribute("type", generatedKey.getType())); //$NON-NLS-1$  
+            answer.addAttribute(new Attribute("type", generatedKey.getType()));
         }
         answer
                 .addElement(new TextElement(generatedKey
@@ -66,18 +66,18 @@ public abstract class AbstractXmlElementGenerator extends AbstractGenerator {
     }
 
     protected XmlElement getBaseColumnListElement() {
-        XmlElement answer = new XmlElement("include"); //$NON-NLS-1$
-        answer.addAttribute(new Attribute("refid", //$NON-NLS-1$
+        XmlElement answer = new XmlElement("include");
+        answer.addAttribute(new Attribute("refid",
                 introspectedTable.getIbatis2SqlMapNamespace()
-                        + "." + introspectedTable.getBaseColumnListId())); //$NON-NLS-1$
+                        + "." + introspectedTable.getBaseColumnListId()));
         return answer;
     }
 
     protected XmlElement getBlobColumnListElement() {
-        XmlElement answer = new XmlElement("include"); //$NON-NLS-1$
-        answer.addAttribute(new Attribute("refid", //$NON-NLS-1$
+        XmlElement answer = new XmlElement("include");
+        answer.addAttribute(new Attribute("refid",
                 introspectedTable.getIbatis2SqlMapNamespace()
-                        + "." + introspectedTable.getBlobColumnListId())); //$NON-NLS-1$
+                        + "." + introspectedTable.getBlobColumnListId()));
         return answer;
     }
 }

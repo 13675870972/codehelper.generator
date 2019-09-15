@@ -43,11 +43,11 @@ public class ProviderUpdateByPrimaryKeySelectiveMethodGenerator extends
         Set<String> staticImports = new TreeSet<String>();
         Set<FullyQualifiedJavaType> importedTypes = new TreeSet<FullyQualifiedJavaType>();
 
-        staticImports.add("org.apache.ibatis.jdbc.SqlBuilder.BEGIN"); //$NON-NLS-1$
-        staticImports.add("org.apache.ibatis.jdbc.SqlBuilder.UPDATE"); //$NON-NLS-1$
-        staticImports.add("org.apache.ibatis.jdbc.SqlBuilder.SET"); //$NON-NLS-1$
-        staticImports.add("org.apache.ibatis.jdbc.SqlBuilder.SQL"); //$NON-NLS-1$
-        staticImports.add("org.apache.ibatis.jdbc.SqlBuilder.WHERE"); //$NON-NLS-1$
+        staticImports.add("org.apache.ibatis.jdbc.SqlBuilder.BEGIN");
+        staticImports.add("org.apache.ibatis.jdbc.SqlBuilder.UPDATE");
+        staticImports.add("org.apache.ibatis.jdbc.SqlBuilder.SET");
+        staticImports.add("org.apache.ibatis.jdbc.SqlBuilder.SQL");
+        staticImports.add("org.apache.ibatis.jdbc.SqlBuilder.WHERE");
 
         FullyQualifiedJavaType fqjt = introspectedTable.getRules().calculateAllFieldsClass();
         importedTypes.add(fqjt);
@@ -55,43 +55,43 @@ public class ProviderUpdateByPrimaryKeySelectiveMethodGenerator extends
         Method method = new Method(introspectedTable.getUpdateByPrimaryKeySelectiveStatementId());
         method.setReturnType(FullyQualifiedJavaType.getStringInstance());
         method.setVisibility(JavaVisibility.PUBLIC);
-        method.addParameter(new Parameter(fqjt, "record")); //$NON-NLS-1$
+        method.addParameter(new Parameter(fqjt, "record"));
         
         context.getCommentGenerator().addGeneralMethodComment(method,
                 introspectedTable);
 
-        method.addBodyLine("BEGIN();"); //$NON-NLS-1$
+        method.addBodyLine("BEGIN();");
         
-        method.addBodyLine(String.format("UPDATE(\"%s\");", //$NON-NLS-1$
+        method.addBodyLine(String.format("UPDATE(\"%s\");",
                 escapeStringForJava(introspectedTable.getFullyQualifiedTableNameAtRuntime())));
-        method.addBodyLine(""); //$NON-NLS-1$
+        method.addBodyLine("");
         
         for (IntrospectedColumn introspectedColumn : introspectedTable.getNonPrimaryKeyColumns()) {
             if (!introspectedColumn.getFullyQualifiedJavaType().isPrimitive()) {
-                method.addBodyLine(String.format("if (record.%s() != null) {", //$NON-NLS-1$
+                method.addBodyLine(String.format("if (record.%s() != null) {",
                     getGetterMethodName(introspectedColumn.getJavaProperty(),
                             introspectedColumn.getFullyQualifiedJavaType())));
             }
 
-            method.addBodyLine(String.format("SET(\"%s = %s\");", //$NON-NLS-1$
+            method.addBodyLine(String.format("SET(\"%s = %s\");",
                     escapeStringForJava(getEscapedColumnName(introspectedColumn)),
                     getParameterClause(introspectedColumn)));
                 
             if (!introspectedColumn.getFullyQualifiedJavaType().isPrimitive()) {
-                method.addBodyLine("}"); //$NON-NLS-1$
+                method.addBodyLine("}");
             }
 
-            method.addBodyLine(""); //$NON-NLS-1$
+            method.addBodyLine("");
         }
 
         for (IntrospectedColumn introspectedColumn : introspectedTable.getPrimaryKeyColumns()) {
-            method.addBodyLine(String.format("WHERE(\"%s = %s\");", //$NON-NLS-1$
+            method.addBodyLine(String.format("WHERE(\"%s = %s\");",
                     escapeStringForJava(getEscapedColumnName(introspectedColumn)),
                     getParameterClause(introspectedColumn)));
         }
         
-        method.addBodyLine(""); //$NON-NLS-1$
-        method.addBodyLine("return SQL();"); //$NON-NLS-1$
+        method.addBodyLine("");
+        method.addBodyLine("return SQL();");
 
         if (context.getPlugins().providerUpdateByPrimaryKeySelectiveMethodGenerated(method, topLevelClass,
                 introspectedTable)) {

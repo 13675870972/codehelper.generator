@@ -55,9 +55,9 @@ public abstract class AbstractDAOElementGenerator extends AbstractGenerator {
             String type = context.getJavaClientGeneratorConfiguration()
                     .getProperty(PropertyRegistry.DAO_METHOD_NAME_CALCULATOR);
             if (stringHasValue(type)) {
-                if ("extended".equalsIgnoreCase(type)) { //$NON-NLS-1$
+                if ("extended".equalsIgnoreCase(type)) {
                     type = ExtendedDAOMethodNameCalculator.class.getName();
-                } else if ("default".equalsIgnoreCase(type)) { //$NON-NLS-1$
+                } else if ("default".equalsIgnoreCase(type)) {
                     type = DefaultDAOMethodNameCalculator.class.getName();
                 }
             } else {
@@ -70,7 +70,7 @@ public abstract class AbstractDAOElementGenerator extends AbstractGenerator {
             } catch (Exception e) {
                 dAOMethodNameCalculator = new DefaultDAOMethodNameCalculator();
                 warnings.add(getString(
-                        "Warning.17", type, e.getMessage())); //$NON-NLS-1$
+                        "Warning.17", type, e.getMessage()));
             }
         }
 
@@ -83,17 +83,17 @@ public abstract class AbstractDAOElementGenerator extends AbstractGenerator {
                     .getJavaClientGeneratorConfiguration()
                     .getProperty(PropertyRegistry.DAO_EXAMPLE_METHOD_VISIBILITY);
             if (stringHasValue(type)) {
-                if ("public".equalsIgnoreCase(type)) { //$NON-NLS-1$
+                if ("public".equalsIgnoreCase(type)) {
                     exampleMethodVisibility = JavaVisibility.PUBLIC;
-                } else if ("private".equalsIgnoreCase(type)) { //$NON-NLS-1$
+                } else if ("private".equalsIgnoreCase(type)) {
                     exampleMethodVisibility = JavaVisibility.PRIVATE;
-                } else if ("protected".equalsIgnoreCase(type)) { //$NON-NLS-1$
+                } else if ("protected".equalsIgnoreCase(type)) {
                     exampleMethodVisibility = JavaVisibility.PROTECTED;
-                } else if ("default".equalsIgnoreCase(type)) { //$NON-NLS-1$
+                } else if ("default".equalsIgnoreCase(type)) {
                     exampleMethodVisibility = JavaVisibility.DEFAULT;
                 } else {
                     exampleMethodVisibility = JavaVisibility.PUBLIC;
-                    warnings.add(getString("Warning.16", type)); //$NON-NLS-1$
+                    warnings.add(getString("Warning.16", type));
                 }
             } else {
                 exampleMethodVisibility = JavaVisibility.PUBLIC;

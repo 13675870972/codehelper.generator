@@ -51,31 +51,31 @@ public class DeleteByPrimaryKeyMethodGenerator extends
 
             sb.setLength(0);
             sb.append(keyType.getShortName());
-            sb.append(" _key = new "); //$NON-NLS-1$
+            sb.append(" _key = new ");
             sb.append(keyType.getShortName());
-            sb.append("();"); //$NON-NLS-1$
+            sb.append("();");
             method.addBodyLine(sb.toString());
 
             for (IntrospectedColumn introspectedColumn : introspectedTable
                     .getPrimaryKeyColumns()) {
                 sb.setLength(0);
-                sb.append("_key."); //$NON-NLS-1$
+                sb.append("_key.");
                 sb.append(getSetterMethodName(introspectedColumn
                         .getJavaProperty()));
                 sb.append('(');
                 sb.append(introspectedColumn.getJavaProperty());
-                sb.append(");"); //$NON-NLS-1$
+                sb.append(");");
                 method.addBodyLine(sb.toString());
             }
         }
 
         sb.setLength(0);
-        sb.append("int rows = "); //$NON-NLS-1$
+        sb.append("int rows = ");
         sb.append(daoTemplate.getDeleteMethod(introspectedTable
                 .getIbatis2SqlMapNamespace(), introspectedTable
-                .getDeleteByPrimaryKeyStatementId(), "_key")); //$NON-NLS-1$
+                .getDeleteByPrimaryKeyStatementId(), "_key"));
         method.addBodyLine(sb.toString());
-        method.addBodyLine("return rows;"); //$NON-NLS-1$
+        method.addBodyLine("return rows;");
 
         if (context.getPlugins().clientDeleteByPrimaryKeyMethodGenerated(
                 method, topLevelClass, introspectedTable)) {
@@ -107,7 +107,7 @@ public class DeleteByPrimaryKeyMethodGenerator extends
             FullyQualifiedJavaType type = new FullyQualifiedJavaType(
                     introspectedTable.getPrimaryKeyType());
             importedTypes.add(type);
-            method.addParameter(new Parameter(type, "_key")); //$NON-NLS-1$
+            method.addParameter(new Parameter(type, "_key"));
         } else {
             for (IntrospectedColumn introspectedColumn : introspectedTable
                     .getPrimaryKeyColumns()) {

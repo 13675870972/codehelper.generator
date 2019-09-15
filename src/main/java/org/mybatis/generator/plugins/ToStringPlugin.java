@@ -52,30 +52,30 @@ public class ToStringPlugin extends PluginAdapter {
         Method method = new Method();
         method.setVisibility(JavaVisibility.PUBLIC);
         method.setReturnType(FullyQualifiedJavaType.getStringInstance());
-        method.setName("toString"); //$NON-NLS-1$
+        method.setName("toString");
         if (introspectedTable.isJava5Targeted()) {
-            method.addAnnotation("@Override"); //$NON-NLS-1$
+            method.addAnnotation("@Override");
         }
 
         context.getCommentGenerator().addGeneralMethodComment(method,
                 introspectedTable);
 
-        method.addBodyLine("StringBuilder sb = new StringBuilder();"); //$NON-NLS-1$
-        method.addBodyLine("sb.append(getClass().getSimpleName());"); //$NON-NLS-1$
-        method.addBodyLine("sb.append(\" [\");"); //$NON-NLS-1$
-        method.addBodyLine("sb.append(\"Hash = \").append(hashCode());"); //$NON-NLS-1$
+        method.addBodyLine("StringBuilder sb = new StringBuilder();");
+        method.addBodyLine("sb.append(getClass().getSimpleName());");
+        method.addBodyLine("sb.append(\" [\");");
+        method.addBodyLine("sb.append(\"Hash = \").append(hashCode());");
         StringBuilder sb = new StringBuilder();
         for (Field field : topLevelClass.getFields()) {
             String property = field.getName();
             sb.setLength(0);
-            sb.append("sb.append(\"").append(", ").append(property) //$NON-NLS-1$ //$NON-NLS-2$
-                    .append("=\")").append(".append(").append(property) //$NON-NLS-1$ //$NON-NLS-2$
-                    .append(");"); //$NON-NLS-1$
+            sb.append("sb.append(\"").append(", ").append(property)
+                    .append("=\")").append(".append(").append(property)
+                    .append(");");
             method.addBodyLine(sb.toString());
         }
 
-        method.addBodyLine("sb.append(\"]\");"); //$NON-NLS-1$
-        method.addBodyLine("return sb.toString();"); //$NON-NLS-1$
+        method.addBodyLine("sb.append(\"]\");");
+        method.addBodyLine("return sb.toString();");
 
         topLevelClass.addMethod(method);
     }

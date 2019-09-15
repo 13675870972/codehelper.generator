@@ -56,11 +56,11 @@ public class ConnectionFactory {
         Properties props = new Properties();
 
         if (stringHasValue(config.getUserId())) {
-            props.setProperty("user", config.getUserId()); //$NON-NLS-1$
+            props.setProperty("user", config.getUserId());
         }
 
         if (stringHasValue(config.getPassword())) {
-            props.setProperty("password", config.getPassword()); //$NON-NLS-1$
+            props.setProperty("password", config.getPassword());
         }
 
         props.putAll(config.getProperties());
@@ -68,7 +68,7 @@ public class ConnectionFactory {
         Connection conn = driver.connect(config.getConnectionURL(), props);
 
         if (conn == null) {
-            throw new SQLException(getString("RuntimeError.7")); //$NON-NLS-1$
+            throw new SQLException(getString("RuntimeError.7"));
         }
 
         return conn;
@@ -82,7 +82,7 @@ public class ConnectionFactory {
             Class<?> clazz = ObjectFactory.externalClassForName(driverClass);
             driver = (Driver) clazz.newInstance();
         } catch (Exception e) {
-            throw new RuntimeException(getString("RuntimeError.8"), e); //$NON-NLS-1$
+            throw new RuntimeException(getString("RuntimeError.8"), e);
         }
 
         return driver;

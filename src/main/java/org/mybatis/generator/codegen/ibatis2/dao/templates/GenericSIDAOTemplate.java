@@ -23,7 +23,7 @@ import org.mybatis.generator.api.dom.java.*;
 public class GenericSIDAOTemplate extends AbstractDAOTemplate {
 
     private FullyQualifiedJavaType sqlMapClientType = new FullyQualifiedJavaType(
-            "com.ibatis.sqlmap.client.SqlMapClient"); //$NON-NLS-1$
+            "com.ibatis.sqlmap.client.SqlMapClient");
 
     /**
      *  
@@ -34,7 +34,7 @@ public class GenericSIDAOTemplate extends AbstractDAOTemplate {
 
     @Override
     protected void configureCheckedExceptions() {
-        addCheckedException(new FullyQualifiedJavaType("java.sql.SQLException")); //$NON-NLS-1$
+        addCheckedException(new FullyQualifiedJavaType("java.sql.SQLException"));
     }
 
     @Override
@@ -42,13 +42,13 @@ public class GenericSIDAOTemplate extends AbstractDAOTemplate {
         Method method = new Method();
         method.setConstructor(true);
         method.setVisibility(JavaVisibility.PUBLIC);
-        method.addBodyLine("super();"); //$NON-NLS-1$
+        method.addBodyLine("super();");
         setConstructorTemplate(method);
     }
 
     @Override
     protected void configureDeleteMethodTemplate() {
-        setDeleteMethodTemplate("sqlMapClient.delete(\"{0}.{1}\", {2});"); //$NON-NLS-1$
+        setDeleteMethodTemplate("sqlMapClient.delete(\"{0}.{1}\", {2});");
     }
 
     @Override
@@ -56,7 +56,7 @@ public class GenericSIDAOTemplate extends AbstractDAOTemplate {
         Field field = new Field();
         field.setVisibility(JavaVisibility.PRIVATE);
         field.setType(sqlMapClientType);
-        field.setName("sqlMapClient"); //$NON-NLS-1$
+        field.setName("sqlMapClient");
         addField(field);
     }
 
@@ -67,38 +67,38 @@ public class GenericSIDAOTemplate extends AbstractDAOTemplate {
 
     @Override
     protected void configureInsertMethodTemplate() {
-        setInsertMethodTemplate("sqlMapClient.insert(\"{0}.{1}\", {2});"); //$NON-NLS-1$
+        setInsertMethodTemplate("sqlMapClient.insert(\"{0}.{1}\", {2});");
     }
 
     @Override
     protected void configureMethods() {
         Method method = new Method();
         method.setVisibility(JavaVisibility.PUBLIC);
-        method.setName("setSqlMapClient"); //$NON-NLS-1$
-        method.addParameter(new Parameter(sqlMapClientType, "sqlMapClient")); //$NON-NLS-1$
-        method.addBodyLine("this.sqlMapClient = sqlMapClient;"); //$NON-NLS-1$
+        method.setName("setSqlMapClient");
+        method.addParameter(new Parameter(sqlMapClientType, "sqlMapClient"));
+        method.addBodyLine("this.sqlMapClient = sqlMapClient;");
         addMethod(method);
 
         method = new Method();
         method.setVisibility(JavaVisibility.PUBLIC);
-        method.setName("getSqlMapClient"); //$NON-NLS-1$
+        method.setName("getSqlMapClient");
         method.setReturnType(sqlMapClientType);
-        method.addBodyLine("return sqlMapClient;"); //$NON-NLS-1$
+        method.addBodyLine("return sqlMapClient;");
         addMethod(method);
     }
 
     @Override
     protected void configureQueryForListMethodTemplate() {
-        setQueryForListMethodTemplate("sqlMapClient.queryForList(\"{0}.{1}\", {2});"); //$NON-NLS-1$
+        setQueryForListMethodTemplate("sqlMapClient.queryForList(\"{0}.{1}\", {2});");
     }
 
     @Override
     protected void configureQueryForObjectMethodTemplate() {
-        setQueryForObjectMethodTemplate("sqlMapClient.queryForObject(\"{0}.{1}\", {2});"); //$NON-NLS-1$
+        setQueryForObjectMethodTemplate("sqlMapClient.queryForObject(\"{0}.{1}\", {2});");
     }
 
     @Override
     protected void configureUpdateMethodTemplate() {
-        setUpdateMethodTemplate("sqlMapClient.update(\"{0}.{1}\", {2});"); //$NON-NLS-1$
+        setUpdateMethodTemplate("sqlMapClient.update(\"{0}.{1}\", {2});");
     }
 }

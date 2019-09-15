@@ -37,15 +37,15 @@ public class SelectByPrimaryKeyElementGenerator extends
 
     @Override
     public void addElements(XmlElement parentElement) {
-        XmlElement answer = new XmlElement("select"); //$NON-NLS-1$
+        XmlElement answer = new XmlElement("select");
 
         answer.addAttribute(new Attribute(
-                "id", introspectedTable.getSelectByPrimaryKeyStatementId())); //$NON-NLS-1$
+                "id", introspectedTable.getSelectByPrimaryKeyStatementId()));
         if (introspectedTable.getRules().generateResultMapWithBLOBs()) {
-            answer.addAttribute(new Attribute("resultMap", //$NON-NLS-1$
+            answer.addAttribute(new Attribute("resultMap",
                     introspectedTable.getResultMapWithBLOBsId()));
         } else {
-            answer.addAttribute(new Attribute("resultMap", //$NON-NLS-1$
+            answer.addAttribute(new Attribute("resultMap",
                     introspectedTable.getBaseResultMapId()));
         }
 
@@ -58,29 +58,29 @@ public class SelectByPrimaryKeyElementGenerator extends
             parameterType = introspectedTable.getBaseRecordType();
         }
 
-        answer.addAttribute(new Attribute("parameterClass", //$NON-NLS-1$
+        answer.addAttribute(new Attribute("parameterClass",
                 parameterType));
 
         context.getCommentGenerator().addComment(answer);
 
         StringBuilder sb = new StringBuilder();
-        sb.append("select "); //$NON-NLS-1$
+        sb.append("select ");
 
         if (stringHasValue(introspectedTable
                 .getSelectByPrimaryKeyQueryId())) {
             sb.append('\'');
             sb.append(introspectedTable.getSelectByPrimaryKeyQueryId());
-            sb.append("' as QUERYID,"); //$NON-NLS-1$
+            sb.append("' as QUERYID,");
         }
         answer.addElement(new TextElement(sb.toString()));
         answer.addElement(getBaseColumnListElement());
         if (introspectedTable.hasBLOBColumns()) {
-            answer.addElement(new TextElement(",")); //$NON-NLS-1$
+            answer.addElement(new TextElement(","));
             answer.addElement(getBlobColumnListElement());
         }
 
         sb.setLength(0);
-        sb.append("from "); //$NON-NLS-1$
+        sb.append("from ");
         sb.append(introspectedTable
                 .getAliasedFullyQualifiedTableNameAtRuntime());
         answer.addElement(new TextElement(sb.toString()));
@@ -90,15 +90,15 @@ public class SelectByPrimaryKeyElementGenerator extends
                 .getPrimaryKeyColumns()) {
             sb.setLength(0);
             if (and) {
-                sb.append("  and "); //$NON-NLS-1$
+                sb.append("  and ");
             } else {
-                sb.append("where "); //$NON-NLS-1$
+                sb.append("where ");
                 and = true;
             }
 
             sb.append(Ibatis2FormattingUtilities
                     .getAliasedEscapedColumnName(introspectedColumn));
-            sb.append(" = "); //$NON-NLS-1$
+            sb.append(" = ");
             sb.append(Ibatis2FormattingUtilities
                     .getParameterClause(introspectedColumn));
             answer.addElement(new TextElement(sb.toString()));

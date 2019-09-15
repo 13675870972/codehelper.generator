@@ -35,51 +35,51 @@ public class UpdateByExampleSelectiveElementGenerator extends
 
     @Override
     public void addElements(XmlElement parentElement) {
-        XmlElement answer = new XmlElement("update"); //$NON-NLS-1$
+        XmlElement answer = new XmlElement("update");
 
         answer
                 .addAttribute(new Attribute(
-                        "id", introspectedTable.getUpdateByExampleSelectiveStatementId())); //$NON-NLS-1$
+                        "id", introspectedTable.getUpdateByExampleSelectiveStatementId()));
 
         context.getCommentGenerator().addComment(answer);
 
         StringBuilder sb = new StringBuilder();
 
-        sb.append("update "); //$NON-NLS-1$
+        sb.append("update ");
         sb.append(introspectedTable
                 .getAliasedFullyQualifiedTableNameAtRuntime());
         answer.addElement(new TextElement(sb.toString()));
 
-        XmlElement dynamicElement = new XmlElement("dynamic"); //$NON-NLS-1$
-        dynamicElement.addAttribute(new Attribute("prepend", "set")); //$NON-NLS-1$ //$NON-NLS-2$
+        XmlElement dynamicElement = new XmlElement("dynamic");
+        dynamicElement.addAttribute(new Attribute("prepend", "set"));
         answer.addElement(dynamicElement);
 
         for (IntrospectedColumn introspectedColumn : introspectedTable
                 .getAllColumns()) {
-            XmlElement isNotNullElement = new XmlElement("isNotNull"); //$NON-NLS-1$
-            isNotNullElement.addAttribute(new Attribute("prepend", ",")); //$NON-NLS-1$ //$NON-NLS-2$
+            XmlElement isNotNullElement = new XmlElement("isNotNull");
+            isNotNullElement.addAttribute(new Attribute("prepend", ","));
             isNotNullElement.addAttribute(new Attribute(
-                    "property", introspectedColumn.getJavaProperty("record."))); //$NON-NLS-1$ //$NON-NLS-2$
+                    "property", introspectedColumn.getJavaProperty("record.")));
             dynamicElement.addElement(isNotNullElement);
 
             sb.setLength(0);
             sb.append(Ibatis2FormattingUtilities
                     .getAliasedEscapedColumnName(introspectedColumn));
-            sb.append(" = "); //$NON-NLS-1$
+            sb.append(" = ");
             sb.append(Ibatis2FormattingUtilities.getParameterClause(
-                    introspectedColumn, "record.")); //$NON-NLS-1$
+                    introspectedColumn, "record."));
 
             isNotNullElement.addElement(new TextElement(sb.toString()));
         }
 
         XmlElement isParameterPresentElement = new XmlElement(
-                "isParameterPresent"); //$NON-NLS-1$
+                "isParameterPresent");
         answer.addElement(isParameterPresentElement);
 
-        XmlElement includeElement = new XmlElement("include"); //$NON-NLS-1$
-        includeElement.addAttribute(new Attribute("refid", //$NON-NLS-1$
+        XmlElement includeElement = new XmlElement("include");
+        includeElement.addAttribute(new Attribute("refid",
                 introspectedTable.getIbatis2SqlMapNamespace()
-                        + "." + introspectedTable.getExampleWhereClauseId())); //$NON-NLS-1$
+                        + "." + introspectedTable.getExampleWhereClauseId()));
         isParameterPresentElement.addElement(includeElement);
 
         if (context.getPlugins()

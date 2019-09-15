@@ -80,16 +80,16 @@ public class IntrospectedTableIbatis2Java2Impl extends IntrospectedTable {
                 .getConfigurationType();
 
         AbstractJavaGenerator javaGenerator;
-        if ("IBATIS".equalsIgnoreCase(type)) { //$NON-NLS-1$
+        if ("IBATIS".equalsIgnoreCase(type)) {
             javaGenerator = new DAOGenerator(new IbatisDAOTemplate(),
                     isJava5Targeted());
-        } else if ("SPRING".equalsIgnoreCase(type)) { //$NON-NLS-1$
+        } else if ("SPRING".equalsIgnoreCase(type)) {
             javaGenerator = new DAOGenerator(new SpringDAOTemplate(),
                     isJava5Targeted());
-        } else if ("GENERIC-CI".equalsIgnoreCase(type)) { //$NON-NLS-1$
+        } else if ("GENERIC-CI".equalsIgnoreCase(type)) {
             javaGenerator = new DAOGenerator(new GenericCIDAOTemplate(),
                     isJava5Targeted());
-        } else if ("GENERIC-SI".equalsIgnoreCase(type)) { //$NON-NLS-1$
+        } else if ("GENERIC-SI".equalsIgnoreCase(type)) {
             javaGenerator = new DAOGenerator(new GenericSIDAOTemplate(),
                     isJava5Targeted());
         } else {
