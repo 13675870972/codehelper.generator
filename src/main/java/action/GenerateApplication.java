@@ -1,5 +1,6 @@
 package action;
 
+import action.auth.Auth;
 import action.dialog.Dialog;
 import action.enums.Information;
 import action.util.Tools;
@@ -37,16 +38,14 @@ public class GenerateApplication extends AnAction {
     /**
      * 截止时间
      */
-    public static final String DEAD_LINE = "2020-12-30";
     /**
      * 项目使用权
      */
-    private static final List<String> AUTH_PACKAGE = Arrays.asList("com.souche", "com.yongda","com.cyc");
 
     @Override
     public void actionPerformed(AnActionEvent event) {
 
-        if (!Tools.checkValidity(DEAD_LINE)) {
+        if (!Tools.checkValidity(Auth.DEAD_LINE)) {
             Messages.showErrorDialog(Information.TIME_ERROR.getCode(), Information.TIME_ERROR.getMessage());
             return;
         }
@@ -71,7 +70,7 @@ public class GenerateApplication extends AnAction {
             JDBCConnectionConfiguration jdbcConnectionConfiguration = context.getJdbcConnectionConfiguration();
 
             //校验是否授权
-            if (!Tools.checkPackage(context, AUTH_PACKAGE)) {
+            if (!Tools.checkPackage(context, Auth.AUTH_PACKAGE)) {
                 Messages.showErrorDialog(Information.PACKAGE_ERROR.getCode(), Information.PACKAGE_ERROR.getMessage());
                 return;
             }

@@ -15,6 +15,9 @@
  */
 package org.mybatis.generator.config;
 
+import java.util.Arrays;
+import java.util.List;
+
 /**
  * This class holds constants useful in the XML and Java merging operations.
  * 
@@ -29,6 +32,7 @@ public class MergeConstants {
      */
     private MergeConstants() {
     }
+
 
     public static final String[] OLD_XML_ELEMENT_PREFIXES = {"ibatorgenerated_", "abatorgenerated_" };
 

@@ -1,5 +1,6 @@
 package action.util;
 
+import action.auth.Auth;
 import org.mybatis.generator.config.*;
 import org.mybatis.generator.internal.util.StringUtility;
 
@@ -19,7 +20,6 @@ import java.util.List;
  * @Description:
  */
 public class Tools {
-    public static final String[] DOMIAN_TAGS = {"com.souche","com.yongda","com.cyc"};
 
     /**
      * 因IDE问题需要转换路径
@@ -96,7 +96,7 @@ public class Tools {
             sqlConfig.setTargetProject(sqlPath);
 
             boolean flag = true;
-            for (String d : DOMIAN_TAGS) {
+            for (String d : Auth.DOMIAN_TAGS) {
                 if (clientConfig.getTargetPackage().startsWith(d)) {
                     flag = false;
                 }
