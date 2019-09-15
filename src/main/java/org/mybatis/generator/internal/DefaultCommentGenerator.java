@@ -70,7 +70,7 @@ public class DefaultCommentGenerator implements CommentGenerator {
         xmlElement.addElement(new TextElement("<!--")); //$NON-NLS-1$
 
         StringBuilder sb = new StringBuilder();
-        sb.append("  WARNING - "); //$NON-NLS-1$
+//        sb.append("  WARNING - "); //$NON-NLS-1$
         sb.append(MergeConstants.NEW_ELEMENT_TAG);
         xmlElement.addElement(new TextElement(sb.toString()));
 //        xmlElement
