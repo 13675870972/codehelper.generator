@@ -45,14 +45,11 @@ public class UpdateByPrimaryKeyWithoutBLOBsMethodGenerator extends
         method.setName(introspectedTable.getUpdateByPrimaryKeyStatementId());
         method.addParameter(new Parameter(parameterType, "record")); //$NON-NLS-1$
 
-        context.getCommentGenerator().addGeneralMethodComment(method,
-                introspectedTable);
+        context.getCommentGenerator().addGeneralMethodComment(method, introspectedTable);
 
         addMapperAnnotations(interfaze, method);
         
-        if (context.getPlugins()
-                .clientUpdateByPrimaryKeyWithoutBLOBsMethodGenerated(method,
-                        interfaze, introspectedTable)) {
+        if (context.getPlugins().clientUpdateByPrimaryKeyWithoutBLOBsMethodGenerated(method, interfaze, introspectedTable)) {
             interfaze.addImportedTypes(importedTypes);
             interfaze.addMethod(method);
         }

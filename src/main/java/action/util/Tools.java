@@ -98,6 +98,17 @@ public class Tools {
         }
     }
 
+    /**
+     * 设置数据库所有待生成表格的配置
+     * @param context
+     * @param tableName
+     */
+    public static void setTables(Context context, String tableName) {
+        TableConfiguration tc = new TableConfiguration(context);
+        context.addTableConfiguration(tc);
+        tc.setTableName(tableName);
+    }
+
     public static void main(String[] args) throws Exception {
     }
 

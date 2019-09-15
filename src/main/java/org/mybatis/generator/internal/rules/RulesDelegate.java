@@ -172,4 +172,14 @@ public class RulesDelegate implements Rules {
     public boolean generateJavaClient() {
         return rules.generateJavaClient();
     }
+
+    @Override
+    public boolean generateCountByWhere() {
+        return false;
+    }
+
+    @Override
+    public boolean generateSelectByWhere() {
+        return false;
+    }
 }

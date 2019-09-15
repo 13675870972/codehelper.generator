@@ -434,4 +434,24 @@ public abstract class BaseRules implements Rules {
     public boolean generateJavaClient() {
         return !isModelOnly;
     }
+
+    public boolean generateCountByWhere() {
+        if (isModelOnly) {
+            return false;
+        }
+
+        boolean rc = tableConfiguration.isCountByWhereStatementEnabled();
+
+        return rc;
+    }
+
+    public boolean generateSelectByWhere() {
+        if (isModelOnly) {
+            return false;
+        }
+
+        boolean rc = tableConfiguration.isSelectByWhereStatementEnabled();
+
+        return rc;
+    }
 }

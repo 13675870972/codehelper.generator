@@ -86,9 +86,7 @@ public class GenerateApplication extends AnAction {
 
             //设置数据库所有待生成表格的配置
             tables.forEach(e->{
-                TableConfiguration tc = new TableConfiguration(context);
-                context.addTableConfiguration(tc);
-                tc.setTableName(e);
+                Tools.setTables(context, e);
             });
 
             //纠正targetProject

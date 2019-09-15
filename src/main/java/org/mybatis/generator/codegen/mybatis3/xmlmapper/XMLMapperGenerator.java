@@ -27,8 +27,8 @@ import static org.mybatis.generator.internal.util.messages.Messages.getString;
 
 /**
  * Mybatis里面具有的方法
+ *
  * @author Jeff Butler
- * 
  */
 public class XMLMapperGenerator extends AbstractXmlGenerator {
 
@@ -66,7 +66,10 @@ public class XMLMapperGenerator extends AbstractXmlGenerator {
         addUpdateByExampleWithoutBLOBsElement(answer);
         addUpdateByPrimaryKeySelectiveElement(answer);
         addUpdateByPrimaryKeyWithBLOBsElement(answer);
-//        addUpdateByPrimaryKeyWithoutBLOBsElement(answer);
+        addUpdateByPrimaryKeyWithoutBLOBsElement(answer);
+        addCountByWhereElementGenerator(answer);
+        addSelectByWhereElementGenerator(answer);
+        addWhereSqlElementGenerator(answer);
 
         return answer;
     }
@@ -212,11 +215,33 @@ public class XMLMapperGenerator extends AbstractXmlGenerator {
         }
     }
 
-    protected void addUpdateByPrimaryKeyWithoutBLOBsElement(
-            XmlElement parentElement) {
+    protected void addUpdateByPrimaryKeyWithoutBLOBsElement(XmlElement parentElement) {
         if (introspectedTable.getRules()
                 .generateUpdateByPrimaryKeyWithoutBLOBs()) {
             AbstractXmlElementGenerator elementGenerator = new UpdateByPrimaryKeyWithoutBLOBsElementGenerator(false);
+            initializeAndExecuteGenerator(elementGenerator, parentElement);
+        }
+    }
+
+    protected void addCountByWhereElementGenerator(XmlElement parentElement) {
+        if (introspectedTable.getRules().generateCountByWhere()) {
+            AbstractXmlElementGenerator elementGenerator = new CountByWhereElementGenerator();
+            initializeAndExecuteGenerator(elementGenerator, parentElement);
+        }
+    }
+
+
+    protected void addSelectByWhereElementGenerator(XmlElement parentElement) {
+        if (introspectedTable.getRules().generateSelectByWhere()) {
+            AbstractXmlElementGenerator elementGenerator = new SelectByWhereElementGenerator();
+            initializeAndExecuteGenerator(elementGenerator, parentElement);
+        }
+    }
+
+    protected void addWhereSqlElementGenerator(XmlElement parentElement) {
+        if (introspectedTable.getRules().generateCountByWhere()
+                || introspectedTable.getRules().generateSelectByWhere()) {
+            AbstractXmlElementGenerator elementGenerator = new WhereSqlElementGenerator();
             initializeAndExecuteGenerator(elementGenerator, parentElement);
         }
     }

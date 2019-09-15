@@ -246,5 +246,9 @@ public interface Rules {
      */
     boolean generateJavaClient();
 
+    boolean generateCountByWhere() ;
+
+    boolean generateSelectByWhere();
+
     IntrospectedTable getIntrospectedTable();
 }

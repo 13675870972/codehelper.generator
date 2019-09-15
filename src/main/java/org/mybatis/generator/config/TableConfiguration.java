@@ -50,6 +50,10 @@ public class TableConfiguration extends PropertyHolder {
 
     private boolean updateByExampleStatementEnabled;
 
+    private boolean countByWhereStatementEnabled;
+
+    private boolean selectByWhereStatementEnabled;
+
     private List<ColumnOverride> columnOverrides;
 
     private Map<IgnoredColumn, Boolean> ignoredColumns;
@@ -84,9 +88,11 @@ public class TableConfiguration extends PropertyHolder {
         insertStatementEnabled = true;
         updateByPrimaryKeyStatementEnabled = true;
         selectByPrimaryKeyStatementEnabled = true;
+        deleteByPrimaryKeyStatementEnabled = true;
+        countByWhereStatementEnabled = true;
+        selectByWhereStatementEnabled = true;
 
         selectByExampleStatementEnabled = false;
-        deleteByPrimaryKeyStatementEnabled = false;
         deleteByExampleStatementEnabled = false;
         countByExampleStatementEnabled = false;
         updateByExampleStatementEnabled = false;
@@ -94,6 +100,22 @@ public class TableConfiguration extends PropertyHolder {
 
     public boolean isDeleteByPrimaryKeyStatementEnabled() {
         return deleteByPrimaryKeyStatementEnabled;
+    }
+
+    public boolean isCountByWhereStatementEnabled() {
+        return countByWhereStatementEnabled;
+    }
+
+    public void setCountByWhereStatementEnabled(boolean countByWhereStatementEnabled) {
+        this.countByWhereStatementEnabled = countByWhereStatementEnabled;
+    }
+
+    public boolean isSelectByWhereStatementEnabled() {
+        return selectByWhereStatementEnabled;
+    }
+
+    public void setSelectByWhereStatementEnabled(boolean selectByWhereStatementEnabled) {
+        selectByWhereStatementEnabled = selectByWhereStatementEnabled;
     }
 
     public void setDeleteByPrimaryKeyStatementEnabled(
@@ -249,6 +271,8 @@ public class TableConfiguration extends PropertyHolder {
                 || deleteByExampleStatementEnabled
                 || deleteByPrimaryKeyStatementEnabled
                 || countByExampleStatementEnabled
+                || selectByWhereStatementEnabled
+                || countByWhereStatementEnabled
                 || updateByExampleStatementEnabled;
     }
 
@@ -359,6 +383,13 @@ public class TableConfiguration extends PropertyHolder {
                     "domainObjectName", domainObjectName)); //$NON-NLS-1$
         }
 
+        if (!countByWhereStatementEnabled) {
+            xmlElement.addAttribute(new Attribute("enableCountByWhere", "false")); //$NON-NLS-1$ //$NON-NLS-2$
+        }
+
+        if (!selectByWhereStatementEnabled) {
+            xmlElement.addAttribute(new Attribute("enableSelectByWhere", "false")); //$NON-NLS-1$ //$NON-NLS-2$
+        }
         if (!insertStatementEnabled) {
             xmlElement.addAttribute(new Attribute("enableInsert", "false")); //$NON-NLS-1$ //$NON-NLS-2$
         }
