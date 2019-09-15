@@ -17,7 +17,7 @@ public class SelectByWhereMethodGenerator extends AbstractJavaMapperMethodGenera
         Set<FullyQualifiedJavaType> importedTypes = new TreeSet<FullyQualifiedJavaType>();
         importedTypes.add(FullyQualifiedJavaType.getNewListInstance());
         importedTypes.add(FullyQualifiedJavaType.getNewHashMapInstance());
-        importedTypes.add(new FullyQualifiedJavaType("org.apache.ibatis.session.RowBounds"));
+//        importedTypes.add(new FullyQualifiedJavaType("org.apache.ibatis.session.RowBounds"));
 
         Method method = new Method();
         method.setVisibility(JavaVisibility.PUBLIC);

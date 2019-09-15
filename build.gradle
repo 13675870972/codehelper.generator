@@ -49,8 +49,8 @@ dependencies{
     testCompile "org.assertj:assertj-core:2.2.0"
 }
 
-group 'org.plugin'
-version '2019.09.09' // Plugin version
+group 'cyc'
+version '1.0' // Plugin version
 
 
 
