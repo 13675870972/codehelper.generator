@@ -1,8 +1,8 @@
 <idea-plugin version="2">
     <id>com.ccnode.codegenerator.mybatis.generator</id>
-    <name>caoyc.mybatis.generatorHelper</name>
-    <version>2019.09.09</version>
-    <vendor email="zhengjunbase@gmail.com" url="http://www.codehelper.me/generator">CodeHelper</vendor>
+    <name>cyc™generatorHelper</name>
+    <version>1.0</version>
+    <vendor email="414582939@qq.com" url="http://www.modengdasheng.com">CodeHelper</vendor>
 
     <description><![CDATA[
       <div>
