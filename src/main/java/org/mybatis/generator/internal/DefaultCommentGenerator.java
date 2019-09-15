@@ -221,7 +221,9 @@ public class DefaultCommentGenerator implements CommentGenerator {
 //        field.addJavaDocLine(" */"); //$NON-NLS-1$
 
         field.addJavaDocLine("/**");
-        field.addJavaDocLine(" * " + MergeConstants.NEW_ELEMENT_TAG + " " + introspectedColumn.getRemarks());
+        field.addJavaDocLine(" * " + introspectedColumn.getRemarks());
+        field.addJavaDocLine(" * ");
+        field.addJavaDocLine(" * " + MergeConstants.NEW_ELEMENT_TAG);
         field.addJavaDocLine(" */");
     }
 
