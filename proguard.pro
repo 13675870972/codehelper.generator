@@ -3,7 +3,8 @@
 #-dontwarn com.facebook.stetho.**
 #### AUTO-GENERATED PROGUARD RULE FOR stetho END   ####
 
-
+-dontnote
+-dontwarn
 #### AUTO-GENERATED PROGUARD RULE FOR gson START ####
 ## GSON 2.2.4 specific rules ##
 
@@ -28,7 +29,10 @@
 #-keepattributes Signature
 #-keepattributes Exceptions
 
--keepclasseswithmembers class *
+#-keepclasseswithmembers class *
+#-keepclassmembers class *
+-keep public class * extends com.intellij.openapi.actionSystem.AnAction
+
 
 ## Platform calls Class.forName on types which do not exist on Android to determine platform.
 #-dontnote retrofit2.Platform
@@ -94,6 +98,13 @@
 #-keep class dialog.**
 
 #-ignorewarnings
--obfuscationdictionary dictionary.txt
--packageobfuscationdictionary dictionary.txt
--classobfuscationdictionary dictionary.txt
+#-obfuscationdictionary method-dictionary.txt
+#-packageobfuscationdictionary package-dictionary.txt
+#-classobfuscationdictionary class-dictionary.txt
+#
+#-optimizationpasses 5
+#-dontusemixedcaseclassnames
+#-dontpreverify
+#-verbose
+#-repackageclasses ''
+#-allowaccessmodification
