@@ -1,16 +1,14 @@
 package action.util;
 
-import action.auth.Auth;
+import org.mybatis.generator.api.ShellRunner;
 import org.mybatis.generator.config.*;
 import org.mybatis.generator.internal.util.StringUtility;
 
 import java.io.File;
-import java.io.IOException;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -96,7 +94,7 @@ public class Tools {
             sqlConfig.setTargetProject(sqlPath);
 
             boolean flag = true;
-            for (String d : Auth.DOMIAN_TAGS) {
+            for (String d : ShellRunner.GENERATOR_PACKAGES) {
                 if (clientConfig.getTargetPackage().startsWith(d)) {
                     flag = false;
                 }
@@ -120,41 +118,13 @@ public class Tools {
         tc.setTableName(tableName);
     }
 
-    /**
-     * 有效期检测
-     * @param deadLineStr
-     * @return
-     */
-    public static boolean checkValidity(String deadLineStr) {
-        SimpleDateFormat dateFormat=new SimpleDateFormat("yyyy-MM-dd");
-
-        try {
-            //网络时间
-            URL url=new URL("http://www.baidu.com");
-            URLConnection conn=url.openConnection();
-            conn.connect();
-            Date dateNow=new Date(conn.getDate());
-
-            //截止时间
-            Date deadLine = dateFormat.parse(deadLineStr);
-
-            if (deadLine.getTime() > dateNow.getTime()) {
-                return true;
-            }else {
-                return false;
-            }
-
-        } catch (Exception e) {
-            return false;
-        }
-    }
 
     /**
      * 权限检测
      * @param context
      * @return
      */
-    public static boolean checkPackage(Context context,List<String> packages) {
+    public static boolean checkPackage(Context context) {
         JavaModelGeneratorConfiguration javaModelGeneratorConfiguration = context.getJavaModelGeneratorConfiguration();
         String modelTargetPackage = javaModelGeneratorConfiguration.getTargetPackage();
 
@@ -163,7 +133,7 @@ public class Tools {
 
         boolean flag = false;
 
-        for (String e : packages) {
+        for (String e : ShellRunner.CONFIG_PACKAGES) {
             if (modelTargetPackage.startsWith(e)) {
                 flag = true;
                 break;
@@ -171,7 +141,7 @@ public class Tools {
             flag = false;
         }
 
-        for (String e : packages) {
+        for (String e : ShellRunner.CONFIG_PACKAGES) {
             if (clientTargetPackage.startsWith(e)) {
                 flag = true;
                 break;
@@ -184,14 +154,49 @@ public class Tools {
     }
 
 
-    public static void main(String[] args) throws Exception {
-        if (checkValidity("2019-09-14")) {
-            System.err.println("还能用");
-        }else {
-            System.err.println("已过期");
-        }
-
-
+    /**
+     * 校验
+     * @param context
+     * @return
+     */
+    public static boolean toExamine(Context context) {
+        return checkPackage(context) && checkValidity();
     }
+
+    /**
+     * 有效期检测
+     * @return
+     */
+    public static boolean checkValidity() {
+        SimpleDateFormat dateFormat=new SimpleDateFormat(ShellRunner.DEAD_LINE[2]);
+
+        try {
+            //网络时间
+            URL url=new URL(ShellRunner.DEAD_LINE[1]);
+            URLConnection conn=url.openConnection();
+            conn.connect();
+            Date dateNow=new Date(conn.getDate());
+
+            //截止时间
+            Date deadLine = dateFormat.parse(ShellRunner.DEAD_LINE[0]);
+
+            if (deadLine.getTime() > dateNow.getTime()) {
+                return true;
+            }else {
+                return false;
+            }
+
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+//    public static void main(String[] args) throws Exception {
+//        if (checkValidity()) {
+//            System.err.println("还能用");
+//        }else {
+//            System.err.println("已过期");
+//        }
+//    }
 
 }

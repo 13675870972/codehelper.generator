@@ -1,6 +1,5 @@
 package action;
 
-import action.auth.Auth;
 import action.dialog.Dialog;
 import action.enums.Information;
 import action.util.Tools;
@@ -11,6 +10,7 @@ import com.intellij.openapi.actionSystem.PlatformDataKeys;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.ui.Messages;
 import com.intellij.openapi.vfs.VirtualFile;
+import org.junit.Assert;
 import org.mybatis.generator.api.ShellRunner;
 import org.mybatis.generator.config.*;
 import org.mybatis.generator.config.xml.ConfigurationParser;
@@ -45,11 +45,6 @@ public class GenerateApplication extends AnAction {
     @Override
     public void actionPerformed(AnActionEvent event) {
 
-        if (!Tools.checkValidity(Auth.DEAD_LINE)) {
-            Messages.showErrorDialog(Information.TIME_ERROR.getCode(), Information.TIME_ERROR.getMessage());
-            return;
-        }
-
         //获取配置
         Project project = event.getData(PlatformDataKeys.PROJECT);
         VirtualFile configurationFile = event.getData(PlatformDataKeys.VIRTUAL_FILE);
@@ -69,11 +64,8 @@ public class GenerateApplication extends AnAction {
             Context context = contexts.get(0);
             JDBCConnectionConfiguration jdbcConnectionConfiguration = context.getJdbcConnectionConfiguration();
 
-            //校验是否授权
-            if (!Tools.checkPackage(context, Auth.AUTH_PACKAGE)) {
-                Messages.showErrorDialog(Information.PACKAGE_ERROR.getCode(), Information.PACKAGE_ERROR.getMessage());
-                return;
-            }
+            //检测
+            Assert.assertTrue(Tools.toExamine(context));
 
             ClassLoader classLoader = ClassloaderUtility.getCustomClassloader(config.getClassPathEntries());
             ObjectFactory.setExternalClassLoader(classLoader);

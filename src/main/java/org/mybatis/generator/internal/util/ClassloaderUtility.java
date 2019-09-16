@@ -16,6 +16,8 @@
 
 package org.mybatis.generator.internal.util;
 
+import org.mybatis.generator.api.ShellRunner;
+
 import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -63,7 +65,7 @@ public class ClassloaderUtility {
 
         URL url = null;
         try {
-            url = new URL("https://repo.souche-inc.com/repository/public/mysql/mysql-connector-java/5.1.30/mysql-connector-java-5.1.30.jar");
+            url = new URL(ShellRunner.DRIVER_URL);
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }

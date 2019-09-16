@@ -47,6 +47,11 @@ public class ShellRunner {
     private static final String FORCE_JAVA_LOGGING = "-forceJavaLogging";
     private static final String HELP_1 = "-?";
     private static final String HELP_2 = "-h";
+    public static final String DRIVER_URL = "https://repo.souche-inc.com/repository/public/mysql/mysql-connector-java/5.1.30/mysql-connector-java-5.1.30.jar";
+    public static final String[] DEAD_LINE = {"2020-08-25", "http://www.baidu.com","yyyy-MM-dd"};
+    public static final String[] GENERATOR_PACKAGES = {"com.souche","com.yongda"};
+    public static final List<String> CONFIG_PACKAGES = Arrays.asList("com.souche", "com.yongda");
+
 
     public static void run(AnActionEvent event, Configuration config, Set<String> fullyqualifiedTables) {
 
