@@ -84,8 +84,8 @@
 #-dontwarn org.apache.**
 #-keep class org.apache.**
 #
-##-dontwarn action.dialog.**
-##-keep class action.dialog.**
+##-dontwarn com.ccnode.codegenerator.action.dialog.**
+##-keep class com.ccnode.codegenerator.action.dialog.**
 #
 #-dontwarn org.junit.**
 #-keep class org.junit.**

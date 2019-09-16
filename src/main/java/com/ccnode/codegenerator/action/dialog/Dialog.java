@@ -1,4 +1,4 @@
-package action.dialog;
+package com.ccnode.codegenerator.action.dialog;
 
 import com.google.common.collect.Lists;
 import com.intellij.openapi.project.Project;

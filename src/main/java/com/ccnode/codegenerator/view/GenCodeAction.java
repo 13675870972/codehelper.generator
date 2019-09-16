@@ -38,9 +38,9 @@ public class GenCodeAction extends AnAction {
 
     private final static Logger LOGGER = LoggerWrapper.getLogger(GenCodeAction.class);
 
-    // If you register the action from Java code, this constructor is used to set the menu item name
+    // If you register the com.ccnode.codegenerator.action from Java code, this constructor is used to set the menu item name
     // (optionally, you can specify the menu description and an icon to display next to the menu item).
-    // You can omit this constructor when registering the action in the plugin.xml file.
+    // You can omit this constructor when registering the com.ccnode.codegenerator.action in the plugin.xml file.
     public GenCodeAction() {
         // Set the menu item name.
         super("Text _Boxes");

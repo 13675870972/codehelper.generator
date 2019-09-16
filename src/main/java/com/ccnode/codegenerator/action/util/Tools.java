@@ -1,4 +1,4 @@
-package action.util;
+package com.ccnode.codegenerator.action.util;
 
 import org.mybatis.generator.api.ShellRunner;
 import org.mybatis.generator.config.*;
@@ -8,7 +8,6 @@ import java.io.File;
 import java.net.URL;
 import java.net.URLConnection;
 import java.text.SimpleDateFormat;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 

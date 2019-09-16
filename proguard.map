@@ -1,26 +1,26 @@
-action.GenerateApplication -> action.GenerateApplication:
+com.ccnode.codegenerator.action.GenerateApplication -> com.ccnode.codegenerator.action.GenerateApplication:
     void <init>() -> <init>
     void actionPerformed(com.intellij.openapi.actionSystem.AnActionEvent) -> actionPerformed
     void lambda$actionPerformed$0(org.mybatis.generator.config.Context,java.lang.String) -> a
     void <clinit>() -> <clinit>
-action.dialog.Dialog -> action.dialog.Dialog:
+com.ccnode.codegenerator.action.dialog.Dialog -> com.ccnode.codegenerator.action.dialog.Dialog:
     com.intellij.openapi.project.Project myProject -> a
-    action.dialog.MutiTable propTable -> a
+    com.ccnode.codegenerator.action.dialog.MutiTable propTable -> a
     javax.swing.JScrollPane jScrollPane -> a
     java.util.List tables -> a
     void <init>(com.intellij.openapi.project.Project,java.util.List) -> <init>
     void doOKAction() -> doOKAction
     javax.swing.JComponent createCenterPanel() -> createCenterPanel
-action.dialog.HeaderCheckBoxRenderer -> action.dialog.HeaderCheckBoxRenderer:
+com.ccnode.codegenerator.action.dialog.HeaderCheckBoxRenderer -> com.ccnode.codegenerator.action.dialog.HeaderCheckBoxRenderer:
     void <init>() -> <init>
     java.awt.Component getTableCellRendererComponent(javax.swing.JTable,java.lang.Object,boolean,boolean,int,int) -> getTableCellRendererComponent
-action.dialog.MutiTable -> action.dialog.MutiTable:
+com.ccnode.codegenerator.action.dialog.MutiTable -> com.ccnode.codegenerator.action.dialog.MutiTable:
     int DEFAULT_CHECKHEADERCOLUMN -> b
     int DEFAULT_PREFERREDWIDTH -> c
     int DEFAULT_MAXWIDTH -> d
     int DEFAULT_MINWIDTH -> e
     int checkHeaderColumn -> a
-    action.dialog.HeaderCheckBoxRenderer checkHeader -> a
+    com.ccnode.codegenerator.action.dialog.HeaderCheckBoxRenderer checkHeader -> a
     javax.swing.table.TableCellRenderer oldCheckHeader -> a
     boolean oldEnable -> a
     void <init>() -> <init>
@@ -32,7 +32,7 @@ action.dialog.MutiTable -> action.dialog.MutiTable:
     void checkColumnHeader() -> a
     boolean isCheckHeader() -> a
     boolean hasCheckedRow() -> b
-action.dialog.MutiTableModel -> action.dialog.MutiTableModel:
+com.ccnode.codegenerator.action.dialog.MutiTableModel -> com.ccnode.codegenerator.action.dialog.MutiTableModel:
     int checkColumn -> a
     java.util.List columnNames -> a
     java.util.List contents -> b
@@ -45,22 +45,22 @@ action.dialog.MutiTableModel -> action.dialog.MutiTableModel:
     int getRowCount() -> getRowCount
     java.lang.Object getValueAt(int,int) -> getValueAt
     java.lang.String getColumnName(int) -> getColumnName
-action.dialog.MysqlTableModel -> action.dialog.MysqlTableModel:
+com.ccnode.codegenerator.action.dialog.MysqlTableModel -> com.ccnode.codegenerator.action.dialog.MysqlTableModel:
     java.lang.String[] HEAD_TITLE -> a
     void <init>() -> <init>
     void <init>(java.lang.Object[][]) -> <init>
     java.lang.Object[][] getDatas(java.util.List) -> a
     void <clinit>() -> <clinit>
-action.enums.Information -> action.enums.Information:
-    action.enums.Information SUCCESS -> a
-    action.enums.Information TIME_ERROR -> c
-    action.enums.Information PACKAGE_ERROR -> d
-    action.enums.Information CONFIG_ERROR -> b
+com.ccnode.codegenerator.action.enums.Information -> com.ccnode.codegenerator.action.enums.Information:
+    com.ccnode.codegenerator.action.enums.Information SUCCESS -> a
+    com.ccnode.codegenerator.action.enums.Information TIME_ERROR -> c
+    com.ccnode.codegenerator.action.enums.Information PACKAGE_ERROR -> d
+    com.ccnode.codegenerator.action.enums.Information CONFIG_ERROR -> b
     java.lang.String code -> a
     java.lang.String message -> b
     void <init>(java.lang.String,int,java.lang.String,java.lang.String) -> <init>
     void <clinit>() -> <clinit>
-action.util.Tools -> action.util.Tools:
+com.ccnode.codegenerator.action.util.Tools -> com.ccnode.codegenerator.action.util.Tools:
     void <init>() -> <init>
     java.lang.String formatRelativePath(java.lang.String,java.lang.String) -> a
     void formatTargetPath(org.mybatis.generator.config.Configuration,java.lang.String) -> a

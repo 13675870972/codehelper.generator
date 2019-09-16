@@ -1,8 +1,8 @@
-package action;
+package com.ccnode.codegenerator.action;
 
-import action.dialog.Dialog;
-import action.enums.Information;
-import action.util.Tools;
+import com.ccnode.codegenerator.action.dialog.Dialog;
+import com.ccnode.codegenerator.action.enums.Information;
+import com.ccnode.codegenerator.action.util.Tools;
 import com.ccnode.codegenerator.util.LoggerWrapper;
 import com.intellij.openapi.actionSystem.AnAction;
 import com.intellij.openapi.actionSystem.AnActionEvent;
@@ -23,7 +23,6 @@ import java.sql.Connection;
 import java.sql.DatabaseMetaData;
 import java.sql.ResultSet;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 

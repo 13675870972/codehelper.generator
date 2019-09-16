@@ -1,6 +1,5 @@
-package action.dialog;
+package com.ccnode.codegenerator.action.dialog;
 
-import action.util.Tools;
 import com.google.common.collect.Lists;
 
 import java.util.List;

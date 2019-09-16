@@ -34,18 +34,18 @@
                     description="GenMybatisCode"/>
             <action id="mybatis.LearnMore" class="com.ccnode.codegenerator.view.ShowLearnMoreAction" text="Learn More"
                     description="Learn_More"/>
-            <!--<action id="mybatis.enterLicense" class="com.ccnode.codegenerator.view.EnterLicenseAction" text="Register" description="License"/>-->
+            <!--<com.ccnode.codegenerator.action id="mybatis.enterLicense" class="com.ccnode.codegenerator.view.EnterLicenseAction" text="Register" description="License"/>-->
 
-            <!--<action id="mybatis.generator" class="com.ccnode.codegenerator.view.GenCodeAction" text="genCode" description="A test menu item"/>-->
+            <!--<com.ccnode.codegenerator.action id="mybatis.generator" class="com.ccnode.codegenerator.view.GenCodeAction" text="genCode" description="A test menu item"/>-->
         </group>
         <!--<group id="com.ccnode.codegenerator.mybatis.generator" text="Gen" description="CodeGenerator">-->
         <!--<add-to-group group-id="TestActionSubGroup" />-->
-        <!--<action id="mybatis.generator_1" class="com.ccnode.codegenerator.view.GenCodeAction" text="genCode1" description="A test menu item1"/>-->
-        <!--<action id="mybatis.generator_2" class="com.ccnode.codegenerator.view.GenCodeAction" text="genCode2" description="A test menu item2"/>-->
+        <!--<com.ccnode.codegenerator.action id="mybatis.generator_1" class="com.ccnode.codegenerator.view.GenCodeAction" text="genCode1" description="A test menu item1"/>-->
+        <!--<com.ccnode.codegenerator.action id="mybatis.generator_2" class="com.ccnode.codegenerator.view.GenCodeAction" text="genCode2" description="A test menu item2"/>-->
 
         <!--</group>-->
         <group popup="true" id="com.cyc.mybatis.generator" text="cyc工具箱" description="MyBatisTools">
-            <action id="GenerateMapperAction" class="action.GenerateApplication" text="Mybatis生成器"
+            <action id="GenerateMapperAction" class="com.ccnode.codegenerator.action.GenerateApplication" text="Mybatis生成器"
                     description="GenerateMapperAction"/>
             <add-to-group group-id="ProjectViewPopupMenu" anchor="last"/>
             <add-to-group group-id="EditorPopupMenu" anchor="last"/>

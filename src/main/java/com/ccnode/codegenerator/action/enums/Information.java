@@ -1,4 +1,4 @@
-package action.enums;
+package com.ccnode.codegenerator.action.enums;
 
 /**
  * @Author: caoyc

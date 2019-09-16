@@ -1,4 +1,4 @@
-package action.dialog;
+package com.ccnode.codegenerator.action.dialog;
 
 import javax.swing.*;
 import javax.swing.table.TableCellRenderer;
