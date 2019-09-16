@@ -56,7 +56,6 @@ dependencies{
 group 'cyc'
 version '1.0' // Plugin version
 
-
 task proguard(type: proguard.gradle.ProGuardTask) {
     injars jar
     outjars "$buildDir/libs/${project.name}-pg.jar"
@@ -75,12 +74,9 @@ task proguard(type: proguard.gradle.ProGuardTask) {
     libraryjars "/Users/cyc/.m2/repository/caches/modules-2/files-2.1/com.jetbrains.intellij.idea/ideaIC/2019.1.3/6a2d76b455a8e07743bd5bdc891a410a7ddb2fb3/ideaIC-2019.1.3/lib/httpclient-4.5.6.jar"
     libraryjars "/Users/cyc/.m2/repository/caches/modules-2/files-2.1/com.jetbrains.intellij.idea/ideaIC/2019.1.3/6a2d76b455a8e07743bd5bdc891a410a7ddb2fb3/ideaIC-2019.1.3/lib/httpcore-4.4.10.jar"
     libraryjars "/Users/cyc/.m2/repository/caches/modules-2/files-2.1/com.jetbrains.intellij.idea/ideaIC/2019.1.3/6a2d76b455a8e07743bd5bdc891a410a7ddb2fb3/ideaIC-2019.1.3/lib/commons-codec-1.10.jar"
-
     libraryjars files(configurations.runtime.collect())
-//    libraryjars files(configurations.compile.findAll {}.collect())
 
     useuniqueclassmembernames
-
     dontshrink
     dontoptimize
     dontnote
