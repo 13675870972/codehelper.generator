@@ -76,12 +76,29 @@ task proguard(type: proguard.gradle.ProGuardTask) {
     libraryjars "/Users/cyc/.m2/repository/caches/modules-2/files-2.1/com.jetbrains.intellij.idea/ideaIC/2019.1.3/6a2d76b455a8e07743bd5bdc891a410a7ddb2fb3/ideaIC-2019.1.3/lib/commons-codec-1.10.jar"
     libraryjars files(configurations.runtime.collect())
 
-    useuniqueclassmembernames
-    dontshrink
-    dontoptimize
+//    dontusemixedcaseclassnames
+//    useuniqueclassmembernames
+//    dontshrink
+//    dontoptimize
     dontnote
     dontwarn
 
     //keepnames 'class ** { *; }'
     configuration 'proguard.pro'
+}
+
+task whenTaskAdded { currentTask ->
+    //Android Gradle plugin may change this task name in the future
+    def prefix = 'transformClassesAndResourcesWithProguardFor'
+    if (currentTask.name.startsWith(prefix)) {
+        def taskName = currentTask.name.replace(prefix, 'createProguardDictionariesFor')
+        task "$taskName" {
+            doLast {
+                createRandomizedDictonaries()
+            }
+        }
+
+        //append scramble task to proguard task
+        currentTask.dependsOn "$taskName"
+    }
 }
