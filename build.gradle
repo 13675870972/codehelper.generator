@@ -77,8 +77,6 @@ task proguard(type: proguard.gradle.ProGuardTask) {
 
 //    dontusemixedcaseclassnames
 //    useuniqueclassmembernames
-//    dontshrink
-//    dontoptimize
 
 
     //keepnames 'class ** { *; }'

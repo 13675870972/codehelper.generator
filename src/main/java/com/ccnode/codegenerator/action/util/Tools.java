@@ -190,12 +190,24 @@ public class Tools {
         }
     }
 
-//    public static void main(String[] args) throws Exception {
-//        if (checkValidity()) {
-//            System.err.println("还能用");
-//        }else {
-//            System.err.println("已过期");
-//        }
-//    }
+    public static void main(String[] args) throws Exception {
+        for (int i = 0; i < 100; i++) {
+            System.err.println(generator());
+        }
+    }
+
+    public static String generator(){
+        //用字符数组的方式随机
+        String randomCode = "";
+        String model = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+        char[] m = model.toCharArray();
+
+        for (int j=0;j<6 ;j++ )
+        {
+            char c = m[(int)(Math.random()*52)];
+            randomCode = randomCode + c;
+        }
+        return randomCode;
+    }
 
 }
