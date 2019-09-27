@@ -44,7 +44,7 @@ public class GenerateApplication extends AnAction {
 
     @Override
     public void actionPerformed(AnActionEvent event) {
-
+        VirtualFileManager.getInstance().refreshWithoutFileWatcher(false);
         //获取配置
         Project project = event.getData(PlatformDataKeys.PROJECT);
         VirtualFile configurationFile = event.getData(PlatformDataKeys.VIRTUAL_FILE);
