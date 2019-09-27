@@ -11,6 +11,8 @@ public enum Information {
     TIME_ERROR("无法使用.", "失败"),
     PACKAGE_ERROR("禁止使用.", "失败"),
     CONFIG_ERROR("配置有误.", "失败"),
+    EXIST_ERROR("配置文件已存在.", "失败"),
+    GEN_ERROR("未知错误.", "失败"),
     ;
 
     private String code;
