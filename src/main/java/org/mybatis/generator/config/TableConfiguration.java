@@ -82,6 +82,8 @@ public class TableConfiguration extends PropertyHolder {
 
         this.modelType = context.getDefaultModelType();
 
+        this.generatedKey = new GeneratedKey("id","MySql",true,"post");
+
         columnOverrides = new ArrayList<ColumnOverride>();
         ignoredColumns = new HashMap<IgnoredColumn, Boolean>();
 
