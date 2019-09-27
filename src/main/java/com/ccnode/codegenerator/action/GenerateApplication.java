@@ -10,6 +10,7 @@ import com.intellij.openapi.actionSystem.PlatformDataKeys;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.ui.Messages;
 import com.intellij.openapi.vfs.VirtualFile;
+import com.intellij.openapi.vfs.VirtualFileManager;
 import org.junit.Assert;
 import org.mybatis.generator.api.ShellRunner;
 import org.mybatis.generator.config.*;
@@ -91,6 +92,7 @@ public class GenerateApplication extends AnAction {
             if (dialog.showAndGet()) {
                 //根据选择的表格生成文件
                 ShellRunner.run(event, config, new HashSet<>(dialog.getTables()));
+                VirtualFileManager.getInstance().refreshWithoutFileWatcher(false);
                 Messages.showErrorDialog(Information.SUCCESS.getCode(), Information.SUCCESS.getMessage());
             }
         } catch (Exception e) {

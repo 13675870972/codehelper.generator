@@ -10,6 +10,8 @@ import com.intellij.openapi.actionSystem.PlatformDataKeys;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.ui.Messages;
 import com.intellij.openapi.vfs.VirtualFile;
+import com.intellij.openapi.vfs.VirtualFileManager;
+import com.intellij.psi.PsiManager;
 import org.apache.commons.io.FileUtils;
 import org.jetbrains.annotations.SystemIndependent;
 import org.jf.dexlib2.analysis.ClassPathResolver;
@@ -46,7 +48,6 @@ public class GenerateXMLApplication extends AnAction {
 
     @Override
     public void actionPerformed(AnActionEvent event) {
-
         //获取配置
         Project project = event.getData(PlatformDataKeys.PROJECT);
         VirtualFile configurationFile = event.getData(PlatformDataKeys.VIRTUAL_FILE);
@@ -125,9 +126,8 @@ public class GenerateXMLApplication extends AnAction {
             long end = System.currentTimeMillis();
             long hs = end - start;
             System.err.println("结束写文件，耗时 == "+ hs);
-
-//            FileUtils.writeLines(targetFile, lines, false);
-//            FileUtils.writeStringToFile(targetFile,configXML,"UTF-8");
+            VirtualFileManager.getInstance().refreshWithoutFileWatcher(false);
+            Messages.showErrorDialog(Information.SUCCESS2.getCode(), Information.SUCCESS2.getMessage());
         } catch (Exception e) {
             e.printStackTrace();
             Messages.showErrorDialog(Information.GEN_ERROR.getCode(), Information.GEN_ERROR.getMessage());
