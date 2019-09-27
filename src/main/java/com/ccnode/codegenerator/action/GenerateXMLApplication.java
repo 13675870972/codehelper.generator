@@ -29,7 +29,7 @@ public class GenerateXMLApplication extends AnAction {
         VirtualFile configurationFile = event.getData(PlatformDataKeys.VIRTUAL_FILE);
         String path = configurationFile.getPath();
         if (!new File(path).isDirectory()) {
-            Messages.showErrorDialog(Information.GEN_ERROR.getCode(), Information.GEN_ERROR.getMessage());
+            Messages.showErrorDialog(Information.POINT_ERROR.getCode(), Information.POINT_ERROR.getMessage());
             return;
         }
 
