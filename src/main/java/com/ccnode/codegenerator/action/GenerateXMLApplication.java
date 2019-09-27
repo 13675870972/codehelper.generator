@@ -24,7 +24,9 @@ import org.mybatis.generator.internal.db.ConnectionFactory;
 import org.mybatis.generator.internal.util.ClassloaderUtility;
 import org.slf4j.Logger;
 
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
@@ -115,14 +117,38 @@ public class GenerateXMLApplication extends AnAction {
             Messages.showErrorDialog(Information.EXIST_ERROR.getCode(), Information.EXIST_ERROR.getMessage());
         }
         try {
-            FileUtils.writeLines(targetFile, lines, false);
+            long start = System.currentTimeMillis();
+            System.err.println("开始写文件");
+
+            writeFile(targetFile, configXML);
+
+            long end = System.currentTimeMillis();
+            long hs = end - start;
+            System.err.println("结束写文件，耗时 == "+ hs);
+
+//            FileUtils.writeLines(targetFile, lines, false);
 //            FileUtils.writeStringToFile(targetFile,configXML,"UTF-8");
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
             Messages.showErrorDialog(Information.GEN_ERROR.getCode(), Information.GEN_ERROR.getMessage());
         }
 
     }
 
-
+    /**
+     * 写入文件
+     */
+    public static void writeFile(File targetFile,String lines) {
+        try {
+            targetFile.createNewFile();
+            try (FileWriter writer = new FileWriter(targetFile);
+                 BufferedWriter out = new BufferedWriter(writer)
+            ) {
+                out.write(lines);
+                out.flush();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }
