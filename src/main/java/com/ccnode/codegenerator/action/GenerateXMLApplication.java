@@ -49,18 +49,14 @@ public class GenerateXMLApplication extends AnAction {
     @Override
     public void actionPerformed(AnActionEvent event) {
         //获取配置
-        Project project = event.getData(PlatformDataKeys.PROJECT);
         VirtualFile configurationFile = event.getData(PlatformDataKeys.VIRTUAL_FILE);
         String path = configurationFile.getPath();
-        System.out.println("path = " + path);
+        if (!new File(path).isDirectory()) {
+            Messages.showErrorDialog(Information.GEN_ERROR.getCode(), Information.GEN_ERROR.getMessage());
+            return;
+        }
 
-        String basePath = project.getBasePath();
-        System.out.println("basePath = " + basePath);
-
-        @SystemIndependent String projectFilePath = project.getProjectFilePath();
-        System.out.println("projectFilePath = " + projectFilePath);
-
-        String configXML = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
+        String configContent = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
                 "<!DOCTYPE generatorConfiguration\n" +
                 "        PUBLIC \"-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN\"\n" +
                 "        \"dtd/mybatis-generator-config_1_0.dtd\">\n" +
@@ -85,47 +81,15 @@ public class GenerateXMLApplication extends AnAction {
                 "    </context>\n" +
                 "</generatorConfiguration>";
 
-
-        List<String> lines = new ArrayList<>();
-        lines.add("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n");
-        lines.add("<!DOCTYPE generatorConfiguration\n");
-        lines.add("        PUBLIC \"-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN\"\n");
-        lines.add("        \"dtd/mybatis-generator-config_1_0.dtd\">\n");
-        lines.add("<generatorConfiguration>\n");
-        lines.add("    <context id=\"DB2Tables\"  targetRuntime=\"MyBatis3\">\n");
-        lines.add("        <jdbcConnection\n");
-        lines.add("                driverClass=\"com.mysql.jdbc.Driver\"\n");
-        lines.add("                connectionURL=\"jdbc:mysql://dev.database003.scsite.net:3306/finance_counter_new\"\n");
-        lines.add("                userId=\"root\"\n");
-        lines.add("                password=\"\">\n");
-        lines.add("        </jdbcConnection>\n");
-        lines.add("\n");
-        lines.add("        <javaModelGenerator targetPackage=\"com.souche.\" targetProject=\"src/main/java\">\n");
-        lines.add("            <property name=\"enableSubPackages\" value=\"true\"/>\n");
-        lines.add("        </javaModelGenerator>\n");
-        lines.add("        <sqlMapGenerator targetPackage=\"mapper\" targetProject=\"src/main/resources\">\n");
-        lines.add("            <property name=\"enableSubPackages\" value=\"true\"/>\n");
-        lines.add("        </sqlMapGenerator>\n");
-        lines.add("        <javaClientGenerator type=\"XMLMAPPER\" targetPackage=\"com.souche.\" targetProject=\"src/main/java\">\n");
-        lines.add("            <property name=\"enableSubPackages\" value=\"true\"/>\n");
-        lines.add("        </javaClientGenerator>\n");
-        lines.add("    </context>\n");
-        lines.add("</generatorConfiguration>");
-
         File targetFile = new File(path + "/mybatis-generate.xml");
 
         if (targetFile.exists()) {
             Messages.showErrorDialog(Information.EXIST_ERROR.getCode(), Information.EXIST_ERROR.getMessage());
+            return;
         }
+
         try {
-            long start = System.currentTimeMillis();
-            System.err.println("开始写文件");
-
-            writeFile(targetFile, configXML);
-
-            long end = System.currentTimeMillis();
-            long hs = end - start;
-            System.err.println("结束写文件，耗时 == "+ hs);
+            writeFile(targetFile, configContent);
             VirtualFileManager.getInstance().refreshWithoutFileWatcher(false);
             Messages.showErrorDialog(Information.SUCCESS2.getCode(), Information.SUCCESS2.getMessage());
         } catch (Exception e) {

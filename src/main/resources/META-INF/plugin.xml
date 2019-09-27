@@ -47,7 +47,7 @@
         <group popup="true" id="com.cyc.mybatis.generator" text="cyc工具箱" description="MyBatisTools">
             <action id="GenerateMapperAction" class="com.ccnode.codegenerator.action.GenerateApplication" text="Mybatis生成器"
                     description="GenerateMapperAction"/>
-            <action id="GenerateXMLApplication" class="com.ccnode.codegenerator.action.GenerateXMLApplication" text="《配置文件》生成器"
+            <action id="GenerateXMLApplication" class="com.ccnode.codegenerator.action.GenerateXMLApplication" text="Config生成器"
                     description="GenerateMapperAction"/>
             <add-to-group group-id="ProjectViewPopupMenu" anchor="last"/>
             <add-to-group group-id="EditorPopupMenu" anchor="last"/>
