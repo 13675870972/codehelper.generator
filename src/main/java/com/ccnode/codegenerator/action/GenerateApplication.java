@@ -7,6 +7,7 @@ import com.ccnode.codegenerator.util.LoggerWrapper;
 import com.intellij.openapi.actionSystem.AnAction;
 import com.intellij.openapi.actionSystem.AnActionEvent;
 import com.intellij.openapi.actionSystem.PlatformDataKeys;
+import com.intellij.openapi.fileEditor.FileDocumentManager;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.ui.Messages;
 import com.intellij.openapi.vfs.VirtualFile;
@@ -44,12 +45,13 @@ public class GenerateApplication extends AnAction {
 
     @Override
     public void actionPerformed(AnActionEvent event) {
+        FileDocumentManager.getInstance().saveAllDocuments();
+
         VirtualFileManager.getInstance().refreshWithoutFileWatcher(false);
         //获取配置
         Project project = event.getData(PlatformDataKeys.PROJECT);
         VirtualFile configurationFile = event.getData(PlatformDataKeys.VIRTUAL_FILE);
         String path = configurationFile.getPath().substring(0, configurationFile.getPath().lastIndexOf("/src"));
-
         String basePath = project.getBasePath();
 
         //解析配置

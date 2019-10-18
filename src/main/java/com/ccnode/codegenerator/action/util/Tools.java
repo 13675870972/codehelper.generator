@@ -136,8 +136,9 @@ public class Tools {
             if (modelTargetPackage.startsWith(e)) {
                 flag = true;
                 break;
+            }else {
+                return flag;
             }
-            flag = false;
         }
 
         for (String e : ShellRunner.CONFIG_PACKAGES) {
