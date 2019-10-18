@@ -45,8 +45,8 @@ public class GenerateApplication extends AnAction {
 
     @Override
     public void actionPerformed(AnActionEvent event) {
-        FileDocumentManager.getInstance().saveAllDocuments();
-        VirtualFileManager.getInstance().refreshWithoutFileWatcher(false);
+        //刷新文件
+        Tools.refresh();
         //获取配置
         Project project = event.getData(PlatformDataKeys.PROJECT);
         VirtualFile configurationFile = event.getData(PlatformDataKeys.VIRTUAL_FILE);

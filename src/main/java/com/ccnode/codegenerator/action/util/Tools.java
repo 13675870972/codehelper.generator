@@ -1,5 +1,7 @@
 package com.ccnode.codegenerator.action.util;
 
+import com.intellij.openapi.fileEditor.FileDocumentManager;
+import com.intellij.openapi.vfs.VirtualFileManager;
 import org.mybatis.generator.api.ShellRunner;
 import org.mybatis.generator.config.*;
 import org.mybatis.generator.internal.util.StringUtility;
@@ -195,6 +197,11 @@ public class Tools {
         for (int i = 0; i < 100; i++) {
             System.err.println(generator());
         }
+    }
+
+    public static void refresh() {
+        FileDocumentManager.getInstance().saveAllDocuments();
+        VirtualFileManager.getInstance().refreshWithoutFileWatcher(false);
     }
 
     public static String generator(){
