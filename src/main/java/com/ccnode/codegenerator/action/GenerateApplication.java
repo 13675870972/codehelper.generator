@@ -46,7 +46,6 @@ public class GenerateApplication extends AnAction {
     @Override
     public void actionPerformed(AnActionEvent event) {
         FileDocumentManager.getInstance().saveAllDocuments();
-
         VirtualFileManager.getInstance().refreshWithoutFileWatcher(false);
         //获取配置
         Project project = event.getData(PlatformDataKeys.PROJECT);
