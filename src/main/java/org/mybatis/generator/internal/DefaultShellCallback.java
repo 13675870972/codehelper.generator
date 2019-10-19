@@ -294,7 +294,8 @@ public class DefaultShellCallback implements ShellCallback {
 
         for (int i = 0; i < tags.length; i++) {
             PsiDocTag e = tags[i];
-            if (e.getName() != null && MergeConstants.NEW_ELEMENT_TAG.contains(e.getName())) {
+            if (e.getName() != null && MergeConstants.NEW_ELEMENT_TAG.equals(new StringBuilder("@").append(e.getName()).toString())) {
+
                 return true;
             }
         }
