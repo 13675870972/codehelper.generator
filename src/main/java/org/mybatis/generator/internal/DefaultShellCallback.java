@@ -32,6 +32,7 @@ import com.intellij.psi.util.PsiUtilBase;
 import org.mybatis.generator.api.GeneratedJavaFile;
 import org.mybatis.generator.api.ShellCallback;
 import org.mybatis.generator.api.dom.java.*;
+import org.mybatis.generator.config.MergeConstants;
 import org.mybatis.generator.exception.ShellException;
 import org.slf4j.Logger;
 
@@ -177,7 +178,11 @@ public class DefaultShellCallback implements ShellCallback {
                     Arrays.asList(tags).forEach(e -> {
                     });
 
-                    if (is.getDocComment() != null && is.getDocComment().getTags() != null && is.getDocComment().getTags().length > 0) {
+                    if (is.getDocComment() != null
+                            && is.getDocComment().getTags() != null
+                            && is.getDocComment().getTags().length > 0
+                            && isMyTag(is.getDocComment().getTags())
+                    ) {
                         return false;
                     }
 
@@ -206,7 +211,11 @@ public class DefaultShellCallback implements ShellCallback {
                 //如果是接口，则整合老文件中多出的方法
                 try {
                     Arrays.stream(psiClass.getMethods()).filter(pm -> {
-                        if (pm.getDocComment() != null && pm.getDocComment().getTags() != null && pm.getDocComment().getTags().length > 0) {
+                        if (pm.getDocComment() != null
+                                && pm.getDocComment().getTags() != null
+                                && pm.getDocComment().getTags().length > 0
+                                && isMyTag(pm.getDocComment().getTags())
+                        ) {
                             return false;
                         }
                         return true;
@@ -224,7 +233,7 @@ public class DefaultShellCallback implements ShellCallback {
                             PsiElement[] children = e.getChildren();
 
                             Parameter parameter = new Parameter(new FullyQualifiedJavaType(e.getType().getCanonicalText()), e.getName());
-                            Arrays.asList(e.getAnnotations()).forEach(annotation->{
+                            Arrays.asList(e.getAnnotations()).forEach(annotation -> {
                                 parameter.addAnnotation(annotation.getText());
 
                             });
@@ -232,7 +241,7 @@ public class DefaultShellCallback implements ShellCallback {
                         });
 
 
-                        Arrays.stream(pm.getThrowsList().getReferencedTypes()).forEach(e->{
+                        Arrays.stream(pm.getThrowsList().getReferencedTypes()).forEach(e -> {
                             String className = e.getClassName();
                             FullyQualifiedJavaType fullyQualifiedJavaType = new FullyQualifiedJavaType(e.getClassName());
                             method.addException(fullyQualifiedJavaType);
@@ -270,5 +279,25 @@ public class DefaultShellCallback implements ShellCallback {
 
         return source;
 
+    }
+
+    /**
+     * 判断注解
+     *
+     * @param tags
+     * @return
+     */
+    private boolean isMyTag(PsiDocTag[] tags) {
+        if (tags == null || tags.length == 0) {
+            return false;
+        }
+
+        for (int i = 0; i < tags.length; i++) {
+            PsiDocTag e = tags[i];
+            if (e.getName() != null && MergeConstants.NEW_ELEMENT_TAG.contains(e.getName())) {
+                return true;
+            }
+        }
+        return false;
     }
 }
