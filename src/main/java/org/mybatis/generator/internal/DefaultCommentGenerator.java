@@ -57,6 +57,14 @@ public class DefaultCommentGenerator implements CommentGenerator {
 //        compilationUnit.addFileCommentLine(" * @version 1.0");
 //        compilationUnit.addFileCommentLine(" * @Date " + new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
 //        compilationUnit.addFileCommentLine(" */");
+
+        StringBuilder sb = new StringBuilder();
+        compilationUnit.addFileCommentLine("/**");
+        compilationUnit.addFileCommentLine(" * ");
+        compilationUnit.addFileCommentLine(" * @author MybatisGenerator ");
+        sb.append(" * ").append("@Description: ");
+        compilationUnit.addFileCommentLine(sb.toString());
+        compilationUnit.addFileCommentLine(" */");
     }
 
     /**

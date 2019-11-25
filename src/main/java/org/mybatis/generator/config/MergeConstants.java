@@ -36,8 +36,8 @@ public class MergeConstants {
 
     public static final String[] OLD_XML_ELEMENT_PREFIXES = {"ibatorgenerated_", "abatorgenerated_" };
 
-    public static final String NEW_ELEMENT_TAG = "@cyc®generated";
+    public static final String NEW_ELEMENT_TAG = "@MybatisGenerator";
 
-    public static final String[] OLD_ELEMENT_TAGS = {"@ibatorgenerated", "@abatorgenerated", "@cyc®generated" };
+    public static final String[] OLD_ELEMENT_TAGS = {"@ibatorgenerated", "@abatorgenerated", "@MybatisGenerator" };
 
 }
