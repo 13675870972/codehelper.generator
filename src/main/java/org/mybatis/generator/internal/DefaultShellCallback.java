@@ -159,6 +159,7 @@ public class DefaultShellCallback implements ShellCallback {
                             finalCompilationUnit.addImportedType(new FullyQualifiedJavaType(is.getQualifiedName())));
 
             //获取新文件中的注释
+            newFile.getCompilationUnit().addFileCommentLine(psiClass.getDocComment().getText());
             newFile.getCompilationUnit().getFileCommentLines().forEach(s -> finalCompilationUnit.addFileCommentLine(s));
 
             if (finalCompilationUnit instanceof TopLevelClass) {
