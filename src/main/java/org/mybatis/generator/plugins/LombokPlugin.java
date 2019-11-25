@@ -37,7 +37,8 @@ public class LombokPlugin extends PluginAdapter {
 
         //添加domain的注释
         topLevelClass.addJavaDocLine("/**");
-        topLevelClass.addJavaDocLine("* Created by Generator");
+        topLevelClass.addJavaDocLine("*  @author MybatisGenerator");
+        topLevelClass.addJavaDocLine("*  @Description: ");
         topLevelClass.addJavaDocLine("*/");
 
         return true;
@@ -47,7 +48,8 @@ public class LombokPlugin extends PluginAdapter {
     public boolean clientGenerated(Interface interfaze, TopLevelClass topLevelClass, IntrospectedTable introspectedTable) {
         //Mapper文件的注释
         interfaze.addJavaDocLine("/**");
-        interfaze.addJavaDocLine("* Created by Generator");
+        interfaze.addJavaDocLine("*  @author MybatisGenerator");
+        interfaze.addJavaDocLine("*  @Description: ");
         interfaze.addJavaDocLine("*/");
         return true;
     }
