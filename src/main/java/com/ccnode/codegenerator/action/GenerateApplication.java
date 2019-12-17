@@ -73,12 +73,13 @@ public class GenerateApplication extends AnAction {
 
             //获取全部表的表名列表并展示对话框
             String prefix = context.getJavaModelGeneratorConfiguration().getPrefix();
+            String suffix = context.getJavaModelGeneratorConfiguration().getSuffix();
             List<String> tables = new ArrayList<>();
             Connection connection = ConnectionFactory.getInstance().getConnection(jdbcConnectionConfiguration);
             DatabaseMetaData metaData = connection.getMetaData();
             ResultSet rs = metaData.getTables(null, null, null, new String[]{"TABLE"});
             while (rs.next()) {
-                tables.add(rs.getString(3).replace(prefix,""));
+                tables.add(new StringBuilder(rs.getString(3).replace(prefix, "")).append(suffix == null ? "" : suffix).toString());
             }
 
             //设置数据库所有待生成表格的配置

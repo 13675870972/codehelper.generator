@@ -483,7 +483,7 @@ public class DatabaseIntrospector {
                     localTableName, '.');
             logger.debug(getString("Tracing.1", fullTableName));
         }
-
+        localTableName = localTableName.replace("do", "");
         String prefix = context.getJavaModelGeneratorConfiguration().getPrefix();
         ResultSet rs = databaseMetaData.getColumns(localCatalog, localSchema,
                 prefix + localTableName, null);

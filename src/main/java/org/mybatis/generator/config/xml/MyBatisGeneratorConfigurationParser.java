@@ -485,10 +485,12 @@ public class MyBatisGeneratorConfigurationParser {
         String targetPackage = attributes.getProperty("targetPackage");
         String targetProject = attributes.getProperty("targetProject");
         String prefix = attributes.getProperty("prefix");
+        String suffix = attributes.getProperty("suffix");
 
         javaModelGeneratorConfiguration.setTargetPackage(targetPackage);
         javaModelGeneratorConfiguration.setTargetProject(targetProject);
         javaModelGeneratorConfiguration.setPrefix(prefix);
+        javaModelGeneratorConfiguration.setSuffix(suffix);
 
         NodeList nodeList = node.getChildNodes();
         for (int i = 0; i < nodeList.getLength(); i++) {
