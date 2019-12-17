@@ -78,7 +78,7 @@ public class GenerateApplication extends AnAction {
             DatabaseMetaData metaData = connection.getMetaData();
             ResultSet rs = metaData.getTables(null, null, null, new String[]{"TABLE"});
             while (rs.next()) {
-                tables.add(rs.getString(3).replace(prefix,""));
+                tables.add(rs.getString(3).replaceFirst(prefix,""));
             }
 
             //设置数据库所有待生成表格的配置
