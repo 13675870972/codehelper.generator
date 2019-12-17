@@ -77,10 +77,14 @@ public class TableConfiguration extends PropertyHolder {
     private ColumnRenamingRule columnRenamingRule;
     private boolean isAllColumnDelimitingEnabled;
 
+    private String prefix;
+
     public TableConfiguration(Context context) {
         super();
 
         this.modelType = context.getDefaultModelType();
+        JavaModelGeneratorConfiguration javaModelGeneratorConfiguration = context.getJavaModelGeneratorConfiguration();
+        prefix = javaModelGeneratorConfiguration.getPrefix();
 
         this.generatedKey = new GeneratedKey("id","MySql",true,"post");
 

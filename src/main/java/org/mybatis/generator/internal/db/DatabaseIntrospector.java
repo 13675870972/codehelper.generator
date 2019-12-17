@@ -484,8 +484,9 @@ public class DatabaseIntrospector {
             logger.debug(getString("Tracing.1", fullTableName));
         }
 
+        String prefix = context.getJavaModelGeneratorConfiguration().getPrefix();
         ResultSet rs = databaseMetaData.getColumns(localCatalog, localSchema,
-                localTableName, null);
+                prefix + localTableName, null);
 
         while (rs.next()) {
             IntrospectedColumn introspectedColumn = ObjectFactory.createIntrospectedColumn(context);
@@ -570,12 +571,13 @@ public class DatabaseIntrospector {
             // table
             // configuration, then some sort of DB default is being returned
             // and we don't want that in our SQL
+            String prefix = context.getJavaModelGeneratorConfiguration().getPrefix();
             FullyQualifiedTable table = new FullyQualifiedTable(
                     stringHasValue(tc.getCatalog()) ? atn
                             .getCatalog() : null,
                     stringHasValue(tc.getSchema()) ? atn
                             .getSchema() : null,
-                    atn.getTableName(),
+                    atn.getTableName().replace(prefix,""),
                     tc.getDomainObjectName(),
                     tc.getAlias(),
                     isTrue(tc.getProperty(PropertyRegistry.TABLE_IGNORE_QUALIFIERS_AT_RUNTIME)),

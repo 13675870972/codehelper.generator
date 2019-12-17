@@ -32,6 +32,10 @@ public class JavaModelGeneratorConfiguration extends PropertyHolder {
 
     private String targetProject;
 
+    private String prefix;
+
+    private String suffix;
+
     /**
      * 
      */
@@ -49,6 +53,14 @@ public class JavaModelGeneratorConfiguration extends PropertyHolder {
 
     public String getTargetPackage() {
         return targetPackage;
+    }
+
+    public String getPrefix() {
+        return prefix;
+    }
+
+    public void setPrefix(String prefix) {
+        this.prefix = prefix;
     }
 
     public void setTargetPackage(String targetPackage) {

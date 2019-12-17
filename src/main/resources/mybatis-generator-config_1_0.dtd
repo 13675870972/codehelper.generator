@@ -99,6 +99,7 @@
 -->
 <!ELEMENT javaModelGenerator (property*)>
 <!ATTLIST javaModelGenerator
+  prefix CDATA #REQUIRED
   targetPackage CDATA #REQUIRED
   targetProject CDATA #REQUIRED>
 
