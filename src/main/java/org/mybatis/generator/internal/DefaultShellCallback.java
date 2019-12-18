@@ -176,10 +176,10 @@ public class DefaultShellCallback implements ShellCallback {
                 PsiField[] fields = psiClass.getFields();
                 Arrays.stream(fields).filter(is -> {
                     PsiDocComment docComment = is.getDocComment();
-                    String text = docComment.getText();
-                    PsiDocTag[] tags = docComment.getTags();
-                    Arrays.asList(tags).forEach(e -> {
-                    });
+//                    String text = docComment.getText();
+//                    PsiDocTag[] tags = docComment.getTags();
+//                    Arrays.asList(tags).forEach(e -> {
+//                    });
 
                     if (is.getDocComment() != null
                             && is.getDocComment().getTags() != null
