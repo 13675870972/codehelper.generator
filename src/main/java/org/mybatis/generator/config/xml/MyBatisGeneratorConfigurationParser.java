@@ -16,6 +16,7 @@ package org.mybatis.generator.config.xml;
 import org.mybatis.generator.config.*;
 import org.mybatis.generator.exception.XMLParserException;
 import org.mybatis.generator.internal.ObjectFactory;
+import org.mybatis.generator.plugins.SerializablePlugin;
 import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
@@ -169,11 +170,15 @@ public class MyBatisGeneratorConfigurationParser {
 
         //插件
         PluginConfiguration lombokPlugin = new PluginConfiguration();
-
-        context.addPluginConfiguration(lombokPlugin);
-
         lombokPlugin.setConfigurationType("org.mybatis.generator.plugins.LombokPlugin");
         lombokPlugin.addProperty("hasLombok", "true");
+        context.addPluginConfiguration(lombokPlugin);
+
+        //序列化插件
+        PluginConfiguration serializablePlugin = new PluginConfiguration();
+        serializablePlugin.setConfigurationType("org.mybatis.generator.plugins.SerializablePlugin");
+        context.addPluginConfiguration(serializablePlugin);
+
     }
 
     private void parseSqlMapGenerator(Context context, Node node) {
