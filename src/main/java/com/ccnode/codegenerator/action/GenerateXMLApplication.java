@@ -46,7 +46,7 @@ public class GenerateXMLApplication extends AnAction {
                 "                password=\"123456\">\n" +
                 "        </jdbcConnection>\n" +
                 "\n" +
-                "        <javaModelGenerator prefix=\"\" targetPackage=\"com.\" targetProject=\"src/main/java\">\n" +
+                "        <javaModelGenerator prefix=\"\" suffix=\"_d_o\" targetPackage=\"com.\" targetProject=\"src/main/java\">\n" +
                 "            <property name=\"enableSubPackages\" value=\"true\"/>\n" +
                 "        </javaModelGenerator>\n" +
                 "        <sqlMapGenerator targetPackage=\"mapper\" targetProject=\"src/main/resources\">\n" +

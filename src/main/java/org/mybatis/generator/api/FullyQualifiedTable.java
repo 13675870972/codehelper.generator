@@ -34,6 +34,8 @@ public class FullyQualifiedTable {
     private String introspectedSchema;
 
     private String introspectedTableName;
+    //原表明
+    private String origTableName;
 
     private String runtimeCatalog;
 
@@ -117,7 +119,7 @@ public class FullyQualifiedTable {
             String domainObjectName, String alias,
             boolean ignoreQualifiersAtRuntime, String runtimeCatalog,
             String runtimeSchema, String runtimeTableName,
-            boolean delimitIdentifiers, Context context) {
+            boolean delimitIdentifiers, Context context,String origTableName) {
         super();
         this.introspectedCatalog = introspectedCatalog;
         this.introspectedSchema = introspectedSchema;
@@ -126,7 +128,8 @@ public class FullyQualifiedTable {
         this.runtimeCatalog = runtimeCatalog;
         this.runtimeSchema = runtimeSchema;
         this.runtimeTableName = runtimeTableName;
-        
+        this.origTableName = origTableName;
+
         if (stringHasValue(domainObjectName)) {
             int index = domainObjectName.lastIndexOf('.');
             if (index == -1) {
@@ -246,6 +249,10 @@ public class FullyQualifiedTable {
         } else {
             return getCamelCaseString(introspectedTableName, true);
         }
+    }
+
+    public String getOrigTableName() {
+        return getCamelCaseString(origTableName,true);
     }
 
     @Override

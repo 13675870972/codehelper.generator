@@ -64,13 +64,15 @@ public class DatabaseIntrospector {
     private void calculatePrimaryKey(FullyQualifiedTable table,
                                      IntrospectedTable introspectedTable) {
         ResultSet rs = null;
-
+        String prefix = context.getJavaModelGeneratorConfiguration().getPrefix();
+        String suffix = context.getJavaModelGeneratorConfiguration().getSuffix();
         try {
             rs = databaseMetaData.getPrimaryKeys(
                     table.getIntrospectedCatalog(), table
-                            .getIntrospectedSchema(), table
-                            .getIntrospectedTableName());
+                            .getIntrospectedSchema(), prefix + table
+                            .getIntrospectedTableName().replaceAll(suffix,""));
         } catch (SQLException e) {
+            e.printStackTrace();
             closeResultSet(rs);
             warnings.add(getString("Warning.15"));
             return;
@@ -483,8 +485,9 @@ public class DatabaseIntrospector {
                     localTableName, '.');
             logger.debug(getString("Tracing.1", fullTableName));
         }
-        localTableName = localTableName.replace("do", "");
         String prefix = context.getJavaModelGeneratorConfiguration().getPrefix();
+        String suffix = context.getJavaModelGeneratorConfiguration().getSuffix();
+        localTableName = localTableName.replace(suffix.toLowerCase(), "");
         ResultSet rs = databaseMetaData.getColumns(localCatalog, localSchema,
                 prefix + localTableName, null);
 
@@ -572,19 +575,20 @@ public class DatabaseIntrospector {
             // configuration, then some sort of DB default is being returned
             // and we don't want that in our SQL
             String prefix = context.getJavaModelGeneratorConfiguration().getPrefix();
+            String suffix = context.getJavaModelGeneratorConfiguration().getSuffix();
             FullyQualifiedTable table = new FullyQualifiedTable(
                     stringHasValue(tc.getCatalog()) ? atn
                             .getCatalog() : null,
                     stringHasValue(tc.getSchema()) ? atn
                             .getSchema() : null,
-                    atn.getTableName().replace(prefix,""),
+                    atn.getTableName().replaceFirst(prefix, "") + suffix,
                     tc.getDomainObjectName(),
                     tc.getAlias(),
                     isTrue(tc.getProperty(PropertyRegistry.TABLE_IGNORE_QUALIFIERS_AT_RUNTIME)),
                     tc.getProperty(PropertyRegistry.TABLE_RUNTIME_CATALOG),
                     tc.getProperty(PropertyRegistry.TABLE_RUNTIME_SCHEMA),
                     tc.getProperty(PropertyRegistry.TABLE_RUNTIME_TABLE_NAME),
-                    delimitIdentifiers, context);
+                    delimitIdentifiers, context, atn.getTableName().replaceFirst(prefix, ""));
 
             IntrospectedTable introspectedTable = ObjectFactory.createIntrospectedTable(tc, table, context);
 
