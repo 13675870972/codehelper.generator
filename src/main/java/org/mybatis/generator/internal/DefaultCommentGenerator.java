@@ -50,6 +50,7 @@ public class DefaultCommentGenerator implements CommentGenerator {
     /**
      * add File Doc
      */
+    @Override
     public void addJavaFileComment(CompilationUnit compilationUnit) {
 //        compilationUnit.addFileCommentLine("/*");
 //        compilationUnit.addFileCommentLine(" * @ClassName " + compilationUnit.getType().getShortName());
@@ -57,14 +58,27 @@ public class DefaultCommentGenerator implements CommentGenerator {
 //        compilationUnit.addFileCommentLine(" * @version 1.0");
 //        compilationUnit.addFileCommentLine(" * @Date " + new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
 //        compilationUnit.addFileCommentLine(" */");
-//
-//        StringBuilder sb = new StringBuilder();
-//        compilationUnit.addFileCommentLine("/**");
-//        compilationUnit.addFileCommentLine(" * ");
-//        compilationUnit.addFileCommentLine(" * @author MybatisGenerator ");
-//        sb.append(" * ").append("@Description: ");
-//        compilationUnit.addFileCommentLine(sb.toString());
-//        compilationUnit.addFileCommentLine(" */");
+
+        StringBuilder sb = new StringBuilder();
+        compilationUnit.addFileCommentLine("/**");
+        compilationUnit.addFileCommentLine(" * ");
+        compilationUnit.addFileCommentLine(" * @author MybatisGenerator ");
+        sb.append(" * ").append("@Description: ");
+        compilationUnit.addFileCommentLine(sb.toString());
+        compilationUnit.addFileCommentLine(" */");
+    }
+
+    /**
+     * add File Doc
+     */
+    public void addJavaFileCommentWithComment(CompilationUnit compilationUnit,String comment) {
+        StringBuilder sb = new StringBuilder();
+        compilationUnit.addFileCommentLine("/**");
+        compilationUnit.addFileCommentLine(" * ");
+        compilationUnit.addFileCommentLine(" * @author MybatisGenerator ");
+        sb.append(" * ").append("@Description: " + comment);
+        compilationUnit.addFileCommentLine(sb.toString());
+        compilationUnit.addFileCommentLine(" */");
     }
 
     /**

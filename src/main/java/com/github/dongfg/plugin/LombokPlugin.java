@@ -35,22 +35,16 @@ public class LombokPlugin extends PluginAdapter {
         topLevelClass.addAnnotation("@NoArgsConstructor");
         topLevelClass.addAnnotation("@AllArgsConstructor");
 
-        //添加domain的注释
-        topLevelClass.addJavaDocLine("/**");
-        topLevelClass.addJavaDocLine("*  @author MybatisGenerator");
-        topLevelClass.addJavaDocLine("*  @Description: ");
-        topLevelClass.addJavaDocLine("*/");
-
         return true;
     }
 
     @Override
     public boolean clientGenerated(Interface interfaze, TopLevelClass topLevelClass, IntrospectedTable introspectedTable) {
-        //Mapper文件的注释
-        interfaze.addJavaDocLine("/**");
-        interfaze.addJavaDocLine("*  @author MybatisGenerator");
-        interfaze.addJavaDocLine("*  @Description: ");
-        interfaze.addJavaDocLine("*/");
+//        //Mapper文件的注释
+//        interfaze.addJavaDocLine("/**");
+//        interfaze.addJavaDocLine("*  @author MybatisGenerator");
+//        interfaze.addJavaDocLine("*  @Description: "+ introspectedTable.getFullyQualifiedTable().getComment());
+//        interfaze.addJavaDocLine("*/");
         return true;
     }
 

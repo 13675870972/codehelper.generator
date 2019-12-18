@@ -92,6 +92,7 @@ public interface CommentGenerator {
      * @param compilationUnit
      */
     public void addJavaFileComment(CompilationUnit compilationUnit);
+    public void addJavaFileCommentWithComment(CompilationUnit compilationUnit,String comment);
 
     /**
      * This method should add a suitable comment as a child element of the

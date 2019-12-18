@@ -15,6 +15,7 @@
  */
 package org.mybatis.generator.internal.db;
 
+import com.intellij.openapi.ui.Messages;
 import org.mybatis.generator.api.FullyQualifiedTable;
 import org.mybatis.generator.api.IntrospectedColumn;
 import org.mybatis.generator.api.IntrospectedTable;
@@ -28,6 +29,7 @@ import org.mybatis.generator.logging.LogFactory;
 import java.sql.DatabaseMetaData;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -553,6 +555,39 @@ public class DatabaseIntrospector {
         return answer;
     }
 
+    private String getTableComment(String tableName) {
+        Statement st = null;
+        ResultSet rs = null;
+        String result = "";
+        try {
+             st = this.databaseMetaData.getConnection().createStatement();
+             rs = st.executeQuery("SELECT TABLE_COMMENT FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME='" + tableName + "'");
+            if (rs.next()) {
+                result = rs.getString(1);
+            }
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+//            Messages.showErrorDialog("Error Sql:SELECT TABLE_COMMENT FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME='" + tableName + "'");
+        } finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                rs = null;
+                if (st != null) {
+                    st.close();
+                }
+                st = null;
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return result;
+    }
+
+
+
     private List<IntrospectedTable> calculateIntrospectedTables(
             TableConfiguration tc,
             Map<ActualTableName, List<IntrospectedColumn>> columns) {
@@ -588,7 +623,7 @@ public class DatabaseIntrospector {
                     tc.getProperty(PropertyRegistry.TABLE_RUNTIME_CATALOG),
                     tc.getProperty(PropertyRegistry.TABLE_RUNTIME_SCHEMA),
                     tc.getProperty(PropertyRegistry.TABLE_RUNTIME_TABLE_NAME),
-                    delimitIdentifiers, context, atn.getTableName().replaceFirst(prefix, ""), atn.getTableName());
+                    delimitIdentifiers, context, atn.getTableName().replaceFirst(prefix, ""), atn.getTableName(), getTableComment(atn.getTableName()));
 
             IntrospectedTable introspectedTable = ObjectFactory.createIntrospectedTable(tc, table, context);
 
