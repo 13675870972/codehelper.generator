@@ -34,7 +34,11 @@ public class FullyQualifiedTable {
     private String introspectedSchema;
 
     private String introspectedTableName;
-    //原表明
+
+    //原内存表名（去掉前缀的）
+    private String origIntrospectedTableName;
+
+    //原数据库表名（保持和数据库一样的）
     private String origTableName;
 
     private String runtimeCatalog;
@@ -119,7 +123,7 @@ public class FullyQualifiedTable {
             String domainObjectName, String alias,
             boolean ignoreQualifiersAtRuntime, String runtimeCatalog,
             String runtimeSchema, String runtimeTableName,
-            boolean delimitIdentifiers, Context context,String origTableName) {
+            boolean delimitIdentifiers, Context context,String origIntrospectedTableName,String origTableName) {
         super();
         this.introspectedCatalog = introspectedCatalog;
         this.introspectedSchema = introspectedSchema;
@@ -128,6 +132,7 @@ public class FullyQualifiedTable {
         this.runtimeCatalog = runtimeCatalog;
         this.runtimeSchema = runtimeSchema;
         this.runtimeTableName = runtimeTableName;
+        this.origIntrospectedTableName = origIntrospectedTableName;
         this.origTableName = origTableName;
 
         if (stringHasValue(domainObjectName)) {
@@ -196,7 +201,7 @@ public class FullyQualifiedTable {
         if (stringHasValue(runtimeTableName)) {
             localTableName.append(runtimeTableName);
         } else {
-            localTableName.append(introspectedTableName);
+            localTableName.append(origTableName);
         }
         addDelimiters(localTableName);
 
@@ -251,8 +256,8 @@ public class FullyQualifiedTable {
         }
     }
 
-    public String getOrigTableName() {
-        return getCamelCaseString(origTableName,true);
+    public String getOrigIntrospectedTableName() {
+        return getCamelCaseString(origIntrospectedTableName,true);
     }
 
     @Override

@@ -70,6 +70,7 @@ public class InsertSelectiveElementGenerator extends
 
         sb.append("insert into ");
         sb.append(introspectedTable.getFullyQualifiedTableNameAtRuntime());
+
         answer.addElement(new TextElement(sb.toString()));
 
         XmlElement insertTrimElement = new XmlElement("trim");

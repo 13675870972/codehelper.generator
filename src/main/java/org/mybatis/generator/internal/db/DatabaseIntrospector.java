@@ -588,7 +588,7 @@ public class DatabaseIntrospector {
                     tc.getProperty(PropertyRegistry.TABLE_RUNTIME_CATALOG),
                     tc.getProperty(PropertyRegistry.TABLE_RUNTIME_SCHEMA),
                     tc.getProperty(PropertyRegistry.TABLE_RUNTIME_TABLE_NAME),
-                    delimitIdentifiers, context, atn.getTableName().replaceFirst(prefix, ""));
+                    delimitIdentifiers, context, atn.getTableName().replaceFirst(prefix, ""), atn.getTableName());
 
             IntrospectedTable introspectedTable = ObjectFactory.createIntrospectedTable(tc, table, context);
 

@@ -789,21 +789,21 @@ public abstract class IntrospectedTable {
         StringBuilder sb = new StringBuilder();
         sb.append(calculateJavaClientImplementationPackage());
         sb.append('.');
-        sb.append(fullyQualifiedTable.getOrigTableName());
+        sb.append(fullyQualifiedTable.getOrigIntrospectedTableName());
         sb.append("DAOImpl");
         setDAOImplementationType(sb.toString());
 
         sb.setLength(0);
         sb.append(calculateJavaClientInterfacePackage());
         sb.append('.');
-        sb.append(fullyQualifiedTable.getOrigTableName());
+        sb.append(fullyQualifiedTable.getOrigIntrospectedTableName());
         sb.append("Mapper");
         setDAOInterfaceType(sb.toString());
 
         sb.setLength(0);
         sb.append(calculateJavaClientInterfacePackage());
         sb.append('.');
-        sb.append(fullyQualifiedTable.getOrigTableName());
+        sb.append(fullyQualifiedTable.getOrigIntrospectedTableName());
         sb.append("Mapper");
 //        sb.append("Dao");
         setMyBatis3JavaMapperType(sb.toString());
@@ -811,7 +811,7 @@ public abstract class IntrospectedTable {
         sb.setLength(0);
         sb.append(calculateJavaClientInterfacePackage());
         sb.append('.');
-        sb.append(fullyQualifiedTable.getOrigTableName());
+        sb.append(fullyQualifiedTable.getOrigIntrospectedTableName());
         sb.append("SqlProvider");
         setMyBatis3SqlProviderType(sb.toString());
     }
@@ -885,7 +885,7 @@ public abstract class IntrospectedTable {
      */
     protected String calculateMyBatis3XmlMapperFileName() {
         StringBuilder sb = new StringBuilder();
-        sb.append(fullyQualifiedTable.getOrigTableName());
+        sb.append(fullyQualifiedTable.getOrigIntrospectedTableName());
         sb.append("Mapper.xml");
         return sb.toString();
     }
@@ -902,7 +902,7 @@ public abstract class IntrospectedTable {
         StringBuilder sb = new StringBuilder();
         sb.append(calculateSqlMapPackage());
         sb.append('.');
-        sb.append(fullyQualifiedTable.getOrigTableName());
+        sb.append(fullyQualifiedTable.getOrigIntrospectedTableName());
         sb.append("Mapper");
         return sb.toString();
     }
