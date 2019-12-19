@@ -50,8 +50,22 @@ public class BaseRecordGenerator extends AbstractJavaGenerator {
         FullyQualifiedJavaType type = new FullyQualifiedJavaType(
                 introspectedTable.getBaseRecordType());
         TopLevelClass topLevelClass = new TopLevelClass(type);
+
+        Field serialVersionUID = new Field("serialVersionUID", new FullyQualifiedJavaType("long"));
+        serialVersionUID.setStatic(true);
+        serialVersionUID.setFinal(true);
+        serialVersionUID.setTransient(true);
+        serialVersionUID.setVisibility(JavaVisibility.PRIVATE);
+        serialVersionUID.setInitializationString("-1L");
+        commentGenerator.addFieldComment(serialVersionUID, null);
+        topLevelClass.addField(serialVersionUID);
+
         topLevelClass.setVisibility(JavaVisibility.PUBLIC);
         commentGenerator.addJavaFileCommentWithComment(topLevelClass, introspectedTable.getFullyQualifiedTable().getComment());
+
+        FullyQualifiedJavaType serializable = new FullyQualifiedJavaType("java.io.Serializable");
+        topLevelClass.addImportedType(serializable);
+        topLevelClass.addSuperInterface(serializable);
 
         FullyQualifiedJavaType superClass = getSuperClass();
         if (superClass != null) {

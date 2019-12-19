@@ -158,10 +158,12 @@ public class DefaultShellCallback implements ShellCallback {
                     .forEach(is ->
                             finalCompilationUnit.addImportedType(new FullyQualifiedJavaType(is.getQualifiedName())));
 
+            //获取老文件中的注释
+//            String text = psiClass.getDocComment().getText();
+//            if (psiClass.getDocComment() != null) {
+//                newFile.getCompilationUnit().addFileCommentLine(psiClass.getDocComment().getText());
+//            }
             //获取新文件中的注释
-            if (psiClass.getDocComment() != null) {
-                newFile.getCompilationUnit().addFileCommentLine(psiClass.getDocComment().getText());
-            }
             newFile.getCompilationUnit().getFileCommentLines().forEach(s -> finalCompilationUnit.addFileCommentLine(s));
 
             if (finalCompilationUnit instanceof TopLevelClass) {
@@ -169,6 +171,9 @@ public class DefaultShellCallback implements ShellCallback {
                 //如果是实体类
                 TopLevelClass topLevelClass = (TopLevelClass) finalCompilationUnit;
                 TopLevelClass newFileClass = (TopLevelClass) newFile.getCompilationUnit();
+                FullyQualifiedJavaType serializable = new FullyQualifiedJavaType("java.io.Serializable");
+                topLevelClass.addImportedType(serializable);
+                topLevelClass.addSuperInterface(serializable);
                 topLevelClass.setVisibility(JavaVisibility.PUBLIC);
                 topLevelClass.setSuperClass(newFileClass.getSuperClass());
                 newFileClass.getAnnotations().stream().forEach(s -> topLevelClass.addAnnotation(s));
@@ -180,7 +185,10 @@ public class DefaultShellCallback implements ShellCallback {
 //                    PsiDocTag[] tags = docComment.getTags();
 //                    Arrays.asList(tags).forEach(e -> {
 //                    });
-
+                    String name = is.getName();
+                    if ("serialVersionUID".equals(name)) {
+                        return false;
+                    }
                     if (is.getDocComment() != null
                             && is.getDocComment().getTags() != null
                             && is.getDocComment().getTags().length > 0

@@ -175,9 +175,9 @@ public class MyBatisGeneratorConfigurationParser {
         context.addPluginConfiguration(lombokPlugin);
 
         //序列化插件
-        PluginConfiguration serializablePlugin = new PluginConfiguration();
-        serializablePlugin.setConfigurationType("org.mybatis.generator.plugins.SerializablePlugin");
-        context.addPluginConfiguration(serializablePlugin);
+//        PluginConfiguration serializablePlugin = new PluginConfiguration();
+//        serializablePlugin.setConfigurationType("org.mybatis.generator.plugins.SerializablePlugin");
+//        context.addPluginConfiguration(serializablePlugin);
 
     }
 

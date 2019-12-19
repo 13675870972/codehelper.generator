@@ -67,10 +67,6 @@ public class Interface extends JavaElement implements CompilationUnit {
     public String getFormattedContent() {
         StringBuilder sb = new StringBuilder();
 
-        for (String commentLine : fileCommentLines) {
-            sb.append(commentLine);
-            newLine(sb);
-        }
 
         if (stringHasValue(getType().getPackageName())) {
             sb.append("package ");
@@ -98,6 +94,10 @@ public class Interface extends JavaElement implements CompilationUnit {
         }
 
         if (importStrings.size() > 0) {
+            newLine(sb);
+        }
+        for (String commentLine : fileCommentLines) {
+            sb.append(commentLine);
             newLine(sb);
         }
 
