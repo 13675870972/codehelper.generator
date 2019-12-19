@@ -68,11 +68,6 @@ public class TopLevelClass extends InnerClass implements CompilationUnit {
     public String getFormattedContent() {
         StringBuilder sb = new StringBuilder();
 
-        for (String fileCommentLine : fileCommentLines) {
-            sb.append(fileCommentLine);
-            newLine(sb);
-        }
-
         if (stringHasValue(getType().getPackageName())) {
             sb.append("package ");
             sb.append(getType().getPackageName());
@@ -101,7 +96,10 @@ public class TopLevelClass extends InnerClass implements CompilationUnit {
         if (importStrings.size() > 0) {
             newLine(sb);
         }
-
+        for (String fileCommentLine : fileCommentLines) {
+            sb.append(fileCommentLine);
+            newLine(sb);
+        }
         sb.append(super.getFormattedContent(0));
 
         return sb.toString();
