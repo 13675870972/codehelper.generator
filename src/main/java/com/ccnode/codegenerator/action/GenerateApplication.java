@@ -24,9 +24,7 @@ import org.slf4j.Logger;
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
 import java.sql.ResultSet;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
+import java.util.*;
 
 /**
  * @Author: caoyc
@@ -74,16 +72,24 @@ public class GenerateApplication extends AnAction {
             //获取全部表的表名列表并展示对话框
             String prefix = context.getJavaModelGeneratorConfiguration().getPrefix();
             String suffix = context.getJavaModelGeneratorConfiguration().getSuffix();
+            //新-老对照表
+            Map<String, String> tablesMap = new HashMap<>();
+            //新表名
+            List<String> tablesProList = new ArrayList<>();
+            //老表名
             List<String> tables = new ArrayList<>();
             Connection connection = ConnectionFactory.getInstance().getConnection(jdbcConnectionConfiguration);
             DatabaseMetaData metaData = connection.getMetaData();
             ResultSet rs = metaData.getTables(null, null, null, new String[]{"TABLE"});
             while (rs.next()) {
-                tables.add(new StringBuilder(rs.getString(3).replaceFirst(prefix, "")).append(suffix).toString());
+                String tablePro = new StringBuilder(rs.getString(3).replaceFirst(prefix, "")).append(suffix).toString();
+                tablesProList.add(tablePro);
+                tables.add(rs.getString(3));
+                tablesMap.put(rs.getString(3), tablePro);
             }
 
             //设置数据库所有待生成表格的配置
-            tables.forEach(e -> {
+            tablesProList.forEach(e -> {
                 Tools.setTables(context, e);
             });
 
@@ -93,8 +99,13 @@ public class GenerateApplication extends AnAction {
             Dialog dialog = new Dialog(project, tables);
 
             if (dialog.showAndGet()) {
+                List<String> tableChooses = dialog.getTables();
+                List<String> tableProChoosesList = new ArrayList<>();
+                tableChooses.forEach(e->{
+                    tableProChoosesList.add(tablesMap.get(e));
+                });
                 //根据选择的表格生成文件
-                ShellRunner.run(event, config, new HashSet<>(dialog.getTables()));
+                ShellRunner.run(event, config, new HashSet<>(tableProChoosesList));
                 VirtualFileManager.getInstance().refreshWithoutFileWatcher(false);
                 Messages.showErrorDialog(Information.SUCCESS.getCode(), Information.SUCCESS.getMessage());
             }
