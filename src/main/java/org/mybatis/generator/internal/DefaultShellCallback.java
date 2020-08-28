@@ -218,7 +218,9 @@ public class DefaultShellCallback implements ShellCallback {
                 newFileClass.getMethods().stream().forEach(s -> finalInterface.addMethod(s));
                 finalInterface.setVisibility(JavaVisibility.PUBLIC);
             }
-            if (newFile.getFileName().endsWith("Dao.java") || newFile.getFileName().endsWith("Service.java")) {
+            if (newFile.getFileName().endsWith("Dao.java")
+                    || newFile.getFileName().endsWith("Service.java")
+                    || newFile.getFileName().endsWith("Mapper.java")) {
                 //如果是接口，则整合老文件中多出的方法
                 try {
                     Arrays.stream(psiClass.getMethods()).filter(pm -> {
