@@ -57,7 +57,7 @@ public class InsertBatchElementGenerator extends AbstractXmlElementGenerator {
         insertClause.append(introspectedTable
                 .getFullyQualifiedTableNameAtRuntime());
         insertClause.append(" (");
-        valuesClause.append("values (");
+        valuesClause.append(" (");
 
         List<String> valuesClauses = new ArrayList<String>();
         Iterator<IntrospectedColumn> iter = introspectedTable.getAllColumns()
@@ -89,10 +89,10 @@ public class InsertBatchElementGenerator extends AbstractXmlElementGenerator {
             }
         }
 
-        insertClause.append(')');
+        insertClause.append(") values");
         answer.addElement(new TextElement(insertClause.toString()));
 
-        valuesClause.append(')');
+        valuesClause.append(")");
         valuesClauses.add(valuesClause.toString());
 
         XmlElement foreach = new XmlElement("foreach");
