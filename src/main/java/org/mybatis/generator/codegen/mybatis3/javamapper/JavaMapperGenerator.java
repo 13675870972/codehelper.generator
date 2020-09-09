@@ -89,6 +89,7 @@ public class JavaMapperGenerator extends AbstractJavaClientGenerator {
         addUpdateByPrimaryKeyWithoutBLOBsMethod(interfaze);
         addCountByWhereMethod(interfaze);
         addSelectByWhereMethod(interfaze);
+        addInsertBatchMethod(interfaze);
 
         List<CompilationUnit> answer = new ArrayList<CompilationUnit>();
         if (context.getPlugins().clientGenerated(interfaze, null,
@@ -131,7 +132,6 @@ public class JavaMapperGenerator extends AbstractJavaClientGenerator {
             initializeAndExecuteGenerator(methodGenerator, interfaze);
         }
     }
-
     protected void addInsertSelectiveMethod(Interface interfaze) {
         if (introspectedTable.getRules().generateInsertSelective()) {
             AbstractJavaMapperMethodGenerator methodGenerator = new InsertSelectiveMethodGenerator();
@@ -212,6 +212,13 @@ public class JavaMapperGenerator extends AbstractJavaClientGenerator {
     protected void addSelectByWhereMethod(Interface interfaze) {
         if (introspectedTable.getRules().generateSelectByWhere()) {
             AbstractJavaMapperMethodGenerator methodGenerator = new SelectByWhereMethodGenerator();
+            initializeAndExecuteGenerator(methodGenerator, interfaze);
+        }
+    }
+
+    protected void addInsertBatchMethod(Interface interfaze) {
+        if (introspectedTable.getRules().generateInsertBatch()) {
+            AbstractJavaMapperMethodGenerator methodGenerator = new InsertbatchMethodGenerator();
             initializeAndExecuteGenerator(methodGenerator, interfaze);
         }
     }

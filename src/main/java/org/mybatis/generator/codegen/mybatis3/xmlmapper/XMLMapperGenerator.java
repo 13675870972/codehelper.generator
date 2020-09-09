@@ -70,6 +70,7 @@ public class XMLMapperGenerator extends AbstractXmlGenerator {
         addCountByWhereElementGenerator(answer);
         addSelectByWhereElementGenerator(answer);
         addWhereSqlElementGenerator(answer);
+        addInsertBatchElementGenerator(answer);
 
         return answer;
     }
@@ -234,6 +235,13 @@ public class XMLMapperGenerator extends AbstractXmlGenerator {
     protected void addSelectByWhereElementGenerator(XmlElement parentElement) {
         if (introspectedTable.getRules().generateSelectByWhere()) {
             AbstractXmlElementGenerator elementGenerator = new SelectByWhereElementGenerator();
+            initializeAndExecuteGenerator(elementGenerator, parentElement);
+        }
+    }
+
+    protected void addInsertBatchElementGenerator(XmlElement parentElement) {
+        if (introspectedTable.getRules().generateInsertBatch()) {
+            AbstractXmlElementGenerator elementGenerator = new InsertBatchElementGenerator();
             initializeAndExecuteGenerator(elementGenerator, parentElement);
         }
     }

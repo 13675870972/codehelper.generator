@@ -38,6 +38,30 @@ public class MyBatis3FormattingUtilities {
         return getParameterClause(introspectedColumn, null);
     }
 
+    public static String getForEachParameterClause(
+            IntrospectedColumn introspectedColumn) {
+        return getForEachParameterClause(introspectedColumn, null);
+    }
+
+    public static String getForEachParameterClause(
+            IntrospectedColumn introspectedColumn, String prefix) {
+        StringBuilder sb = new StringBuilder();
+
+        sb.append("#{item.");
+        sb.append(introspectedColumn.getJavaProperty(prefix));
+        sb.append(",jdbcType=");
+        sb.append(introspectedColumn.getJdbcTypeName());
+
+        if (stringHasValue(introspectedColumn.getTypeHandler())) {
+            sb.append(",typeHandler=");
+            sb.append(introspectedColumn.getTypeHandler());
+        }
+
+        sb.append('}');
+
+        return sb.toString();
+    }
+
     public static String getParameterClause(
             IntrospectedColumn introspectedColumn, String prefix) {
         StringBuilder sb = new StringBuilder();

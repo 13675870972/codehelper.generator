@@ -54,6 +54,8 @@ public class TableConfiguration extends PropertyHolder {
 
     private boolean selectByWhereStatementEnabled;
 
+    private boolean insertBatchStatementEnabled;
+
     private List<ColumnOverride> columnOverrides;
 
     private Map<IgnoredColumn, Boolean> ignoredColumns;
@@ -97,6 +99,7 @@ public class TableConfiguration extends PropertyHolder {
         deleteByPrimaryKeyStatementEnabled = true;
         countByWhereStatementEnabled = true;
         selectByWhereStatementEnabled = true;
+        insertBatchStatementEnabled = true;
 
         selectByExampleStatementEnabled = false;
         deleteByExampleStatementEnabled = false;
@@ -118,6 +121,10 @@ public class TableConfiguration extends PropertyHolder {
 
     public boolean isSelectByWhereStatementEnabled() {
         return selectByWhereStatementEnabled;
+    }
+
+    public boolean isInsertBatchStatementEnabled() {
+        return insertBatchStatementEnabled;
     }
 
     public void setSelectByWhereStatementEnabled(boolean selectByWhereStatementEnabled) {

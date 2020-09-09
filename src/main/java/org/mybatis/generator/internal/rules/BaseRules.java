@@ -454,4 +454,14 @@ public abstract class BaseRules implements Rules {
 
         return rc;
     }
+
+    public boolean generateInsertBatch() {
+        if (isModelOnly) {
+            return false;
+        }
+
+        boolean rc = tableConfiguration.isInsertBatchStatementEnabled();
+
+        return rc;
+    }
 }

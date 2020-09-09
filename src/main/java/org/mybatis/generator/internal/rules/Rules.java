@@ -250,5 +250,7 @@ public interface Rules {
 
     boolean generateSelectByWhere();
 
+    boolean generateInsertBatch();
+
     IntrospectedTable getIntrospectedTable();
 }

@@ -182,4 +182,9 @@ public class RulesDelegate implements Rules {
     public boolean generateSelectByWhere() {
         return false;
     }
+
+    @Override
+    public boolean generateInsertBatch() {
+        return false;
+    }
 }
