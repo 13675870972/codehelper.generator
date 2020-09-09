@@ -46,19 +46,22 @@ public class MyBatis3FormattingUtilities {
     public static String getForEachParameterClause(
             IntrospectedColumn introspectedColumn, String prefix) {
         StringBuilder sb = new StringBuilder();
+        if (introspectedColumn.getJavaProperty(prefix).equals("createTime")
+                || introspectedColumn.getJavaProperty(prefix).equals("modifyTime")) {
+            sb.append("sysdate()");
+        }else {
+            sb.append("#{item.");
+            sb.append(introspectedColumn.getJavaProperty(prefix));
+            sb.append(",jdbcType=");
+            sb.append(introspectedColumn.getJdbcTypeName());
 
-        sb.append("#{item.");
-        sb.append(introspectedColumn.getJavaProperty(prefix));
-        sb.append(",jdbcType=");
-        sb.append(introspectedColumn.getJdbcTypeName());
+            if (stringHasValue(introspectedColumn.getTypeHandler())) {
+                sb.append(",typeHandler=");
+                sb.append(introspectedColumn.getTypeHandler());
+            }
 
-        if (stringHasValue(introspectedColumn.getTypeHandler())) {
-            sb.append(",typeHandler=");
-            sb.append(introspectedColumn.getTypeHandler());
+            sb.append('}');
         }
-
-        sb.append('}');
-
         return sb.toString();
     }
 
