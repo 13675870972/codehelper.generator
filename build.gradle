@@ -1,5 +1,6 @@
 buildscript {
     repositories {
+        maven { url "https://maven.aliyun.com/repository/gradle-plugin"}
         mavenLocal()
         mavenCentral()
         maven { url 'http://dl.bintray.com/jetbrains/intellij-plugin-service'}
@@ -15,6 +16,7 @@ plugins {
 }
 
 repositories {
+    maven { url 'http://maven.aliyun.com/nexus/content/groups/public/' }
     mavenLocal()
     maven { url 'http://dl.bintray.com/jetbrains/intellij-plugin-service'}
     mavenCentral()
